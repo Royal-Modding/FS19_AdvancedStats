@@ -1,0 +1,218 @@
+<?xml version="1.0" encoding="utf-8" standalone="no" ?>
+<modDesc descVersion="${descVersion}">
+	<author>${author}</author>
+	<version>${version}</version>
+	<title>
+		<en>${title}</en>
+	</title>
+	<description>
+		<en>
+			<![CDATA[${en_desc}]]>
+		</en>
+	</description>
+	<multiplayer supported="${multiplayerSupported}" />
+	<iconFilename>icon.dds</iconFilename>
+
+	<extraSourceFiles>
+		<sourceFile filename="lib/utility/Main.lua" />
+		<sourceFile filename="lib/hud/Main.lua" />
+		<sourceFile filename="advancedStatsManager.lua" />
+		<sourceFile filename="advancedStats.lua" />
+		<sourceFile filename="vehicles/Vehicle.lua" />
+		<sourceFile filename="statsStyle.lua" />
+		<sourceFile filename="statsHud.lua" />
+	</extraSourceFiles>
+
+	<actions>
+		<action name="ADVANCEDSTATS_TOGGLE" axisType="HALF" />
+	</actions>
+
+	<inputBinding>
+		<actionBinding action="ADVANCEDSTATS_TOGGLE">
+			<binding device="KB_MOUSE_DEFAULT" input="KEY_lalt KEY_t" />
+		</actionBinding>
+	</inputBinding>
+
+	<l10n>
+		<text name="input_ADVANCEDSTATS_TOGGLE">
+			<en>Toggle advanced stats display</en>
+		</text>
+		<text name="ass_ADVANCEDSTATS_SHOW">
+			<en>Show advanced stats display</en>
+		</text>
+		<text name="ass_ADVANCEDSTATS_HIDE">
+			<en>Hide advanced stats display</en>
+		</text>
+		<text name="ass_Units_1">
+			<en>ha</en>
+		</text>
+		<text name="ass_Units_2">
+			<en>l</en>
+		</text>
+		<text name="ass_Units_3">
+			<en>km</en>
+		</text>
+		<text name="ass_CultivatorWorkedHectares">
+			<en>Cultivated</en>
+		</text>
+		<text name="ass_WeederWorkedHectares">
+			<en>Weeded</en>
+		</text>
+		<text name="ass_TreePlanterPlantedTrees">
+			<en>Planted</en>
+		</text>
+		<text name="ass_PlowWorkedHectares">
+			<en>Plowed</en>
+		</text>
+		<text name="ass_PlowCreatedHectares">
+			<en>Created</en>
+		</text>
+		<text name="ass_LevelerMovedLiters">
+			<en>Moved</en>
+		</text>
+		<text name="ass_WoodHarvesterCutTrees">
+			<en>Cutted trees</en>
+		</text>
+		<text name="ass_WoodHarvesterCutTrunks">
+			<en>Cutted trunks</en>
+		</text>
+		<text name="ass_MotorizedUsedFuel">
+			<en>Fuel used</en>
+		</text>
+		<text name="ass_MotorizedUsedDef">
+			<en>DEF used</en>
+		</text>
+		<text name="ass_MotorizedTraveledDistance">
+			<en>Traveled</en>
+		</text>
+		<text name="ass_ConveyorBeltMovedLiters">
+			<en>Moved</en>
+		</text>
+		<text name="ass_BaleWrapperWrappedBales">
+			<en>Wrapped</en>
+		</text>
+		<text name="ass_TrailerLoadedLiters">
+			<en>Loaded</en>
+		</text>
+		<text name="ass_CombineThreshedLiters">
+			<en>Threshed</en>
+		</text>
+		<text name="ass_CombineSwathLiters">
+			<en>Swath</en>
+		</text>
+		<text name="ass_CombineWorkedHectares">
+			<en>Harvested</en>
+		</text>
+		<text name="ass_BalerBaleCount">
+			<en>Bales</en>
+		</text>
+		<text name="ass_BalerLoadedLiters">
+			<en>Baled</en>
+		</text>
+		<text name="ass_MowerWorkedLitres">
+			<en>Mown</en>
+		</text>
+		<text name="ass_MowerWorkedHectares">
+			<en>Mown</en>
+		</text>
+		<text name="ass_StumpCutterStumpCutted">
+			<en>Stump cut</en>
+		</text>
+		<text name="ass_SowingMachineWorkedHectares">
+			<en>Sown</en>
+		</text>
+		<text name="ass_SowingMachineUsedSeeds">
+			<en>Seeds used</en>
+		</text>
+		<text name="ass_ShovelLoadedLiters">
+			<en>Loaded</en>
+		</text>
+		<text name="ass_CutterWorkedHectares">
+			<en>Harvested</en>
+		</text>
+		<text name="ass_WoodCrusherCrushedLitres">
+			<en>Crushed</en>
+		</text>
+		<text name="ass_WoodCrusherCrushedTrunks">
+			<en>Crushed trunks</en>
+		</text>
+		<text name="ass_AdvancedWoodCrusherCrushedLitres">
+			<en>Crushed</en>
+		</text>
+		<text name="ass_AdvancedWoodCrusherCrushedTrunks">
+			<en>Crushed trunks</en>
+		</text>
+		<text name="ass_WindrowerWorkedLitres">
+			<en>Windrowed</en>
+		</text>
+		<text name="ass_WindrowerWorkedHectares">
+			<en>Windrowed</en>
+		</text>
+		<text name="ass_TedderWorkedLitres">
+			<en>Tedded</en>
+		</text>
+		<text name="ass_TedderWorkedHectares">
+			<en>Tedded</en>
+		</text>
+		<text name="ass_RollerRolledHectares">
+			<en>Rolled</en>
+		</text>
+		<text name="ass_BaleGrabGrabbedBales">
+			<en>Grabbed</en>
+		</text>
+		<text name="ass_BaleLoaderLoadedBales">
+			<en>Loaded</en>
+		</text>
+		<text name="ass_LivestockTrailerLoadedAnimals">
+			<en>Loaded</en>
+		</text>
+		<text name="ass_SprayerWorkedHectares">
+			<en>Spreaded</en>
+		</text>
+		<text name="ass_SprayerUsedLitres">
+			<en>Spreaded</en>
+		</text>
+		<text name="ass_SprayerUsedFertilizer">
+			<en>Used fertilizer</en>
+		</text>
+		<text name="ass_SprayerFertilizerHectares">
+			<en>Fertilized</en>
+		</text>
+		<text name="ass_SprayerUsedLiquidFertilizer">
+			<en>Used fertilizer</en>
+		</text>
+		<text name="ass_SprayerLiquidFertilizerHectares">
+			<en>Fertilized</en>
+		</text>
+		<text name="ass_SprayerUsedLime">
+			<en>Used lime</en>
+		</text>
+		<text name="ass_SprayerLimeHectares">
+			<en>Limed</en>
+		</text>
+		<text name="ass_SprayerUsedManure">
+			<en>Used manure</en>
+		</text>
+		<text name="ass_SprayerManureHectares">
+			<en>Manured</en>
+		</text>
+		<text name="ass_SprayerUsedLiquidManure">
+			<en>Used manure</en>
+		</text>
+		<text name="ass_SprayerLiquidManureHectares">
+			<en>Manured</en>
+		</text>
+		<text name="ass_SprayerUsedDigestate">
+			<en>Used digestate</en>
+		</text>
+		<text name="ass_SprayerDigestateHectares">
+			<en>Digestated</en>
+		</text>
+		<text name="ass_SprayerUsedHerbicide">
+			<en>Used herbicide</en>
+		</text>
+		<text name="ass_SprayerHerbicideHectares">
+			<en>Weeded</en>
+		</text>
+	</l10n>
+</modDesc>

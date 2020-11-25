@@ -1,0 +1,143 @@
+--
+-- ${title}
+--
+-- @author ${author}
+-- @version ${version}
+-- @date 23/11/2020
+
+StatsHud = {}
+StatsHud.style = {}
+StatsHud.style.separatorColor = {1, 1, 1, 0.3}
+StatsHud.style.textHighlightColor = {0.991, 0.3865, 0.01, 1}
+StatsHud.style.textDefaultColor = {1, 1, 1, 1}
+StatsHud.style.width = 350
+StatsHud.style.rowHeight = 26
+StatsHud.style.topBottomPadding = 24
+StatsHud.style.leftRightPadding = 48
+StatsHud.style.titleSize = 20
+StatsHud.style.textSize = 16
+StatsHud.DUBUG_COLOR = {1, 0, 1, 1}
+StatsHud_mt = Class(StatsHud, RoyalHudControl)
+
+function StatsHud:new()
+    ---@type RoyalHudControl
+    local width, height = StatsHud.style.width, 200
+    local style = RoyalHudStyles.getStyle(StatsStyle, FS19Style)
+    local xOffset = g_safeFrameOffsetX
+    if g_guidanceSteering ~= nil then
+        xOffset = xOffset + (self:getNormalizedSize(54, 54)[1] * g_gameSettings:getValue("uiScale"))
+    end
+    local hud = RoyalHudControl:new("StatsHud", 1 - xOffset, 0 + g_safeFrameOffsetY, width, height, style, nil, StatsHud_mt)
+    hud:setAlignment(RoyalHud.ALIGNS_VERTICAL_BOTTOM, RoyalHud.ALIGNS_HORIZONTAL_RIGHT)
+    hud.panel = RoyalHudTitledPanel:new("StatsHudPanel", 0.5, 0.5, width, height, style, hud)
+    hud.panel:setForceUpperCase(true)
+    hud.panel:setTitle("Statistics")
+
+    hud.rowContainer = RoyalHud:new("rc", 0.5, 0.5, width - StatsHud.style.leftRightPadding, 200 - StatsHud.style.topBottomPadding, hud)
+
+    hud.rows = {}
+    hud.freeRows = {}
+    hud:createRow(hud.rowContainer)
+    hud:createRow(hud.rowContainer)
+    hud:createRow(hud.rowContainer)
+    hud:createRow(hud.rowContainer)
+    hud:createRow(hud.rowContainer)
+
+    hud.yOffsetVH = self:getNormalizedPosition(0, SpeedMeterDisplay.POSITION.DAMAGE_LEVEL_ICON[2])[2] + (self:getNormalizedPosition(0, SpeedMeterDisplay.SIZE.DAMAGE_LEVEL_ICON[2])[2] * 1.75)
+    return hud
+end
+
+function StatsHud:getRenderPosition()
+    local x, y = StatsHud:superClass().getRenderPosition(self)
+    -- hud offset to prevent overlap with vhicle hud
+    return x, y + (self.yOffsetVH * self.uiScale)
+end
+
+function StatsHud:setVehicleData(vehicles)
+    local displayData = {}
+    for _, vehicle in pairs(vehicles) do
+        if AdvancedStats:vehicleHasStatsToShow(vehicle) then
+            table.insert(displayData, {title = AdvancedStats:getFullVehicleName(vehicle):upper()})
+            for key, value in pairs(vehicle.advancedStats) do
+                if value > 0 then
+                    local name = key
+                    local stat = g_advancedStatsManager:getStatistic(key)
+                    if not stat.hide then
+                        if g_i18n:hasText(stat.l10n) then
+                            name = g_i18n:getText(stat.l10n)
+                        end
+                        table.insert(displayData, {title = name, text = AdvancedStats:formatValue(value, stat.unit)})
+                    end
+                end
+            end
+        end
+    end
+    if #displayData > 0 then
+        self:setIsVisible(true)
+        self:resetRows()
+        self:resizeY(#displayData)
+        local posY = 0
+        local h = StatsHud.style.rowHeight
+        for i = #displayData, 1, -1 do
+            local data = displayData[i]
+            local row = self:getFreeRow()
+            row.title:setText(data.title)
+            row.text:setText(data.text or "")
+            row:setPosition(nil, posY)
+            row:setIsVisible(true)
+            if data.text == nil then
+                row.title:setOffset(1)
+            else
+                row.title:setOffset(6)
+            end
+            if posY == 0 then
+                row.separator:setIsVisible(false)
+            end
+            posY = posY + h
+        end
+    else
+        self:setIsVisible(false)
+    end
+end
+
+function StatsHud:createRow(parent)
+    local row = RoyalHud:new("row", 0, 0, StatsHud.style.width - StatsHud.style.leftRightPadding, StatsHud.style.rowHeight, parent)
+    row:setAlignment(RoyalHud.ALIGNS_VERTICAL_BOTTOM, RoyalHud.ALIGNS_HORIZONTAL_LEFT)
+    row.separator = RoyalHudOverlay:new("row_separator", 0, 0, StatsHud.style.width - StatsHud.style.leftRightPadding, 1, row)
+    row.separator:setColor(StatsHud.style.separatorColor)
+    row.separator:setAlignment(RoyalHud.ALIGNS_VERTICAL_MIDDLE, RoyalHud.ALIGNS_HORIZONTAL_LEFT)
+    row.title = RoyalHudText:new("row_title", "Title", StatsHud.style.textSize, true, 0, 0, row)
+    row.title:setAlignment(RoyalHud.ALIGNS_VERTICAL_BOTTOM, RoyalHud.ALIGNS_HORIZONTAL_LEFT)
+    row.title:setColor(StatsHud.style.textDefaultColor)
+    row.text = RoyalHudText:new("row_text", "Text", StatsHud.style.textSize, false, 1, 0, row)
+    row.text:setAlignment(RoyalHud.ALIGNS_VERTICAL_BOTTOM, RoyalHud.ALIGNS_HORIZONTAL_RIGHT)
+    row.text:setColor(StatsHud.style.textDefaultColor)
+    row.text:setOffset(-1)
+    table.insert(self.rows, row)
+    table.insert(self.freeRows, row)
+    return row
+end
+
+function StatsHud:resetRows()
+    self.freeRows = {}
+    for _, row in ipairs(self.rows) do
+        row:setIsVisible(false)
+        table.insert(self.freeRows, row)
+    end
+end
+
+function StatsHud:getFreeRow()
+    if #self.freeRows < 1 then
+        self:createRow(self.rowContainer)
+    end
+    return table.remove(self.freeRows)
+end
+
+function StatsHud:resizeY(rowsNumber)
+    local neededY = (rowsNumber * StatsHud.style.rowHeight) + StatsHud.style.topBottomPadding
+    self:setSize(nil, neededY)
+    self.panel:setSize(nil, neededY)
+    self.panel:setPosition(0.5, 0.5)
+    self.rowContainer:setSize(nil, neededY - StatsHud.style.topBottomPadding)
+    self.rowContainer:setPosition(0.5, 0.5)
+end
