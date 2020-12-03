@@ -4,11 +4,45 @@
 	<version>${version}</version>
 	<title>
 		<en>${title}</en>
+		<de>Erweiterte Statistik</de>
 	</title>
 	<description>
 		<en>
-			<![CDATA[${en_desc}]]>
+			<![CDATA[
+This mod will collect a bunch of individual statistics for your vehicles and tools, you can show them by pressing ALT + T when you are on your seat.
+Some examples of collected statistics:
+- Travelled distance
+- Fuel and DEF used
+- Worked hectares
+- Harvested liters and hectares
+- Used fertilizers, herbicide and lime
+- Many more
+]]>
 		</en>
+		<de>
+			<![CDATA[
+Dieser Mod wird eine Reihe von individuellen Statistiken für Ihre Fahrzeuge und Werkzeuge sammeln, können Sie sie zeigen, indem Sie ALT + T drücken, wenn Sie auf Ihrem Sitz sind.
+Einige Beispiele für gesammelte Statistiken:
+- Zurückgelegte Strecke
+- Verwendeter Kraftstoff und DEF
+- Bearbeitete Hektar
+- Geerntete Liter und Hektar
+- Verwendete Düngemittel, Herbizide und Kalk
+- Viele mehr
+]]>
+		</de>
+		<fr>
+			<![CDATA[
+Ce mod recueillera un tas de statistiques individuelles pour vos véhicules et outils, vous pouvez les montrer en appuyant sur ALT + T lorsque vous êtes sur votre siège.
+Quelques exemples de statistiques recueillies :
+- Distance parcourue
+- Carburant et DEF utilisés
+- Hectares travaillés
+- Litres et hectares récoltés
+- Engrais usés, herbicide et chaux
+- Beaucoup plus
+]]>
+		</fr>
 	</description>
 	<multiplayer supported="${multiplayerSupported}" />
 	<iconFilename>icon.dds</iconFilename>
@@ -36,12 +70,16 @@
 	<l10n>
 		<text name="input_ADVANCEDSTATS_TOGGLE">
 			<en>Toggle advanced stats display</en>
+			<de>Umschalten der Anzeige Erweiterte Statistik</de>
+			<fr>Affichage de basculement des Advanced Stats</fr>
 		</text>
 		<text name="ass_ADVANCEDSTATS_SHOW">
 			<en>Show advanced stats display</en>
+			<de>Erweiterte Statistikanzeige anzeigen</de>
 		</text>
 		<text name="ass_ADVANCEDSTATS_HIDE">
 			<en>Hide advanced stats display</en>
+			<de>Erweiterte Statistikanzeige ausblenden</de>
 		</text>
 		<text name="ass_Units_1">
 			<en>ha</en>
@@ -54,54 +92,70 @@
 		</text>
 		<text name="ass_CultivatorWorkedHectares">
 			<en>Cultivated</en>
+			<de>Kultiviert</de>
 		</text>
 		<text name="ass_WeederWorkedHectares">
 			<en>Weeded</en>
+			<de>Herbizid</de>
 		</text>
 		<text name="ass_TreePlanterPlantedTrees">
 			<en>Planted</en>
+			<de>Gepflanzt</de>
 		</text>
 		<text name="ass_PlowWorkedHectares">
 			<en>Plowed</en>
+			<de>Gepflügt</de>
 		</text>
 		<text name="ass_PlowCreatedHectares">
 			<en>Created</en>
+			<de>Erstellt</de>
 		</text>
 		<text name="ass_LevelerMovedLiters">
 			<en>Moved</en>
+			<de>Verschoben</de>
 		</text>
 		<text name="ass_WoodHarvesterCutTrees">
 			<en>Cutted trees</en>
+			<de>Gestanzte Bäume</de>
 		</text>
 		<text name="ass_WoodHarvesterCutTrunks">
 			<en>Cutted trunks</en>
+			<de>Gestanzte Stämme</de>
 		</text>
 		<text name="ass_MotorizedUsedFuel">
 			<en>Fuel used</en>
+			<de>Verwendeter Kraftstoff</de>
 		</text>
 		<text name="ass_MotorizedUsedDef">
 			<en>DEF used</en>
+			<de>DEF verwendet</de>
 		</text>
 		<text name="ass_MotorizedTraveledDistance">
 			<en>Traveled</en>
+			<de>Gereist</de>
 		</text>
 		<text name="ass_ConveyorBeltMovedLiters">
 			<en>Moved</en>
+			<de>Verschoben</de>
 		</text>
 		<text name="ass_BaleWrapperWrappedBales">
 			<en>Wrapped</en>
+			<de>Umgebrochen</de>
 		</text>
 		<text name="ass_TrailerLoadedLiters">
 			<en>Loaded</en>
+			<de>Geladen</de>
 		</text>
 		<text name="ass_CombineThreshedLiters">
 			<en>Threshed</en>
+			<de>Dreifach</de>
 		</text>
 		<text name="ass_CombineSwathLiters">
 			<en>Swath</en>
 		</text>
 		<text name="ass_CombineWorkedHectares">
 			<en>Harvested</en>
+			<de>Geerntet</de>
 		</text>
 		<text name="ass_BalerBaleCount">
 			<en>Bales</en>
@@ -111,36 +165,47 @@
 		</text>
 		<text name="ass_MowerWorkedLitres">
 			<en>Mown</en>
+			<de>Gemäht</de>
 		</text>
 		<text name="ass_MowerWorkedHectares">
 			<en>Mown</en>
+			<de>Gemäht</de>
 		</text>
 		<text name="ass_StumpCutterStumpCutted">
 			<en>Stump cut</en>
+			<de>Stumpfschnitt</de>
 		</text>
 		<text name="ass_SowingMachineWorkedHectares">
 			<en>Sown</en>
+			<de>Gesät</de>
 		</text>
 		<text name="ass_SowingMachineUsedSeeds">
 			<en>Seeds used</en>
+			<de>Verwendete Samen</de>
 		</text>
 		<text name="ass_ShovelLoadedLiters">
 			<en>Loaded</en>
+			<de>Geladen</de>
 		</text>
 		<text name="ass_CutterWorkedHectares">
 			<en>Harvested</en>
+			<de>Geerntet</de>
 		</text>
 		<text name="ass_WoodCrusherCrushedLitres">
 			<en>Crushed</en>
+			<de>Zerkleinert</de>
 		</text>
 		<text name="ass_WoodCrusherCrushedTrunks">
 			<en>Crushed trunks</en>
+			<de>Zerquetschte Stämme</de>
 		</text>
 		<text name="ass_AdvancedWoodCrusherCrushedLitres">
 			<en>Crushed</en>
+			<de>Zerkleinert</de>
 		</text>
 		<text name="ass_AdvancedWoodCrusherCrushedTrunks">
 			<en>Crushed trunks</en>
+			<de>Zerquetschte Stämme</de>
 		</text>
 		<text name="ass_WindrowerWorkedLitres">
 			<en>Windrowed</en>
@@ -156,63 +221,82 @@
 		</text>
 		<text name="ass_RollerRolledHectares">
 			<en>Rolled</en>
+			<de>Gewalzt</de>
 		</text>
 		<text name="ass_BaleGrabGrabbedBales">
 			<en>Grabbed</en>
 		</text>
 		<text name="ass_BaleLoaderLoadedBales">
 			<en>Loaded</en>
+			<de>Geladen</de>
 		</text>
 		<text name="ass_LivestockTrailerLoadedAnimals">
 			<en>Loaded</en>
+			<de>Geladen</de>
 		</text>
 		<text name="ass_SprayerWorkedHectares">
 			<en>Spreaded</en>
+			<de>Kalkulation</de>
 		</text>
 		<text name="ass_SprayerUsedLitres">
 			<en>Spreaded</en>
+			<de>Kalkulation</de>
 		</text>
 		<text name="ass_SprayerUsedFertilizer">
 			<en>Used fertilizer</en>
+			<de>Gebrauchter Dünger</de>
 		</text>
 		<text name="ass_SprayerFertilizerHectares">
 			<en>Fertilized</en>
+			<de>Befruchtet</de>
 		</text>
 		<text name="ass_SprayerUsedLiquidFertilizer">
 			<en>Used fertilizer</en>
+			<de>Gebrauchter Dünger</de>
 		</text>
 		<text name="ass_SprayerLiquidFertilizerHectares">
 			<en>Fertilized</en>
+			<de>Befruchtet</de>
 		</text>
 		<text name="ass_SprayerUsedLime">
 			<en>Used lime</en>
+			<de>Verwendeter Kalk</de>
 		</text>
 		<text name="ass_SprayerLimeHectares">
 			<en>Limed</en>
+			<de>Kalk</de>
 		</text>
 		<text name="ass_SprayerUsedManure">
 			<en>Used manure</en>
+			<de>Gebrauchte Gülle</de>
 		</text>
 		<text name="ass_SprayerManureHectares">
 			<en>Manured</en>
+			<de>Manuel</de>
 		</text>
 		<text name="ass_SprayerUsedLiquidManure">
 			<en>Used manure</en>
+			<de>Gebrauchte Gülle</de>
 		</text>
 		<text name="ass_SprayerLiquidManureHectares">
 			<en>Manured</en>
+			<de>Manuel</de>
 		</text>
 		<text name="ass_SprayerUsedDigestate">
 			<en>Used digestate</en>
+			<de>Verwendeter Digestatus</de>
 		</text>
 		<text name="ass_SprayerDigestateHectares">
 			<en>Digestated</en>
+			<de>Gedigestert</de>
 		</text>
 		<text name="ass_SprayerUsedHerbicide">
 			<en>Used herbicide</en>
+			<de>Gebrautes Herbizid</de>
 		</text>
 		<text name="ass_SprayerHerbicideHectares">
 			<en>Weeded</en>
+			<de>Herbizid</de>
 		</text>
 	</l10n>
 </modDesc>

@@ -7,7 +7,7 @@
 
 WindrowerExtension = {}
 WindrowerExtension.advancedStatisticsPrefix = "Windrower"
-WindrowerExtension.advancedStatistics = {{"WorkedLitres", AdvancedStats.UNITS.LITRE}, {"WorkedHectares", AdvancedStats.UNITS.HECTARE}}
+WindrowerExtension.advancedStatistics = {{"WorkedLitres", AdvancedStats.UNITS.LITRE, true}, {"WorkedHectares", AdvancedStats.UNITS.HECTARE}}
 
 function WindrowerExtension:initSpecialization(superFunc)
     if superFunc ~= nil then

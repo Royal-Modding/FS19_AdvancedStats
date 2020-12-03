@@ -223,6 +223,10 @@ function VehicleExtension.enterableOnToggleDisplay(self, actionName, inputValue,
     end
 end
 
+function VehicleExtension:enterableEnterVehicle(isControlling, playerStyle, farmId)
+    self.advancedStatsShowTimer = self.advancedStatsShowTimeout
+end
+
 Vehicle.loadFinished = Utils.overwrittenFunction(Vehicle.loadFinished, VehicleExtension.loadFinished)
 Vehicle.saveToXMLFile = Utils.overwrittenFunction(Vehicle.saveToXMLFile, VehicleExtension.saveToXMLFile)
 Vehicle.update = Utils.overwrittenFunction(Vehicle.update, VehicleExtension.update)
@@ -236,3 +240,4 @@ Enterable.onLoad = Utils.overwrittenFunction(Enterable.onLoad, VehicleExtension.
 Enterable.onUpdate = Utils.overwrittenFunction(Enterable.onUpdate, VehicleExtension.enterableOnUpdate)
 Enterable.onDraw = Utils.overwrittenFunction(Enterable.onDraw, VehicleExtension.enterableOnDraw)
 Enterable.onRegisterActionEvents = Utils.overwrittenFunction(Enterable.onRegisterActionEvents, VehicleExtension.enterableOnRegisterActionEvents)
+Utility.appendedFunction(Enterable, "enterVehicle", VehicleExtension.enterableEnterVehicle)

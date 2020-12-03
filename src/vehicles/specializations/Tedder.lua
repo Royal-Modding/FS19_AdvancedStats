@@ -7,7 +7,7 @@
 
 TedderExtension = {}
 TedderExtension.advancedStatisticsPrefix = "Tedder"
-TedderExtension.advancedStatistics = {{"WorkedLitres", AdvancedStats.UNITS.LITRE}, {"WorkedHectares", AdvancedStats.UNITS.HECTARE}}
+TedderExtension.advancedStatistics = {{"WorkedLitres", AdvancedStats.UNITS.LITRE, true}, {"WorkedHectares", AdvancedStats.UNITS.HECTARE}}
 
 function TedderExtension:initSpecialization(superFunc)
     if superFunc ~= nil then
