@@ -10,6 +10,7 @@
 		<en>
 			<![CDATA[
 This mod will collect a bunch of individual statistics for your vehicles and tools, you can show them by pressing ALT + T when you are on your seat.
+
 Some examples of collected statistics:
 - Travelled distance
 - Fuel and DEF used
@@ -21,7 +22,8 @@ Some examples of collected statistics:
 		</en>
 		<de>
 			<![CDATA[
-Dieser Mod wird eine Reihe von individuellen Statistiken für Ihre Fahrzeuge und Werkzeuge sammeln, können Sie sie zeigen, indem Sie ALT + T drücken, wenn Sie auf Ihrem Sitz sind.
+Dieser Mod wird eine Reihe von individuellen Statistiken für Ihre Fahrzeuge und Werkzeuge sammeln, sie können sich diese anzeigen lassen, indem Sie ALT + T drücken, wenn Sie in Ihrem Fahrzeug sind.
+
 Einige Beispiele für gesammelte Statistiken:
 - Zurückgelegte Strecke
 - Verwendeter Kraftstoff und DEF
@@ -34,6 +36,7 @@ Einige Beispiele für gesammelte Statistiken:
 		<fr>
 			<![CDATA[
 Ce mod recueillera un tas de statistiques individuelles pour vos véhicules et outils, vous pouvez les montrer en appuyant sur ALT + T lorsque vous êtes sur votre siège.
+
 Quelques exemples de statistiques recueillies :
 - Distance parcourue
 - Carburant et DEF utilisés
@@ -44,7 +47,7 @@ Quelques exemples de statistiques recueillies :
 ]]>
 		</fr>
 	</description>
-	<multiplayer supported="${multiplayerSupported}" />
+	<multiplayer supported="true" />
 	<iconFilename>icon.dds</iconFilename>
 
 	<extraSourceFiles>
@@ -83,20 +86,23 @@ Quelques exemples de statistiques recueillies :
 		</text>
 		<text name="ass_Units_1">
 			<en>ha</en>
+			<de>Hektar</de>
 		</text>
 		<text name="ass_Units_2">
 			<en>l</en>
+			<de>Liter</de>
 		</text>
 		<text name="ass_Units_3">
 			<en>km</en>
+			<de>km</de>
 		</text>
 		<text name="ass_CultivatorWorkedHectares">
 			<en>Cultivated</en>
-			<de>Kultiviert</de>
+			<de>Gegrubbert</de>
 		</text>
 		<text name="ass_WeederWorkedHectares">
 			<en>Weeded</en>
-			<de>Herbizid</de>
+			<de>Gespritzt</de>
 		</text>
 		<text name="ass_TreePlanterPlantedTrees">
 			<en>Planted</en>
@@ -116,11 +122,11 @@ Quelques exemples de statistiques recueillies :
 		</text>
 		<text name="ass_WoodHarvesterCutTrees">
 			<en>Cutted trees</en>
-			<de>Gestanzte Bäume</de>
+			<de>Gepflanzte Bäume</de>
 		</text>
 		<text name="ass_WoodHarvesterCutTrunks">
 			<en>Cutted trunks</en>
-			<de>Gestanzte Stämme</de>
+			<de>Gefällte Bäume</de>
 		</text>
 		<text name="ass_MotorizedUsedFuel">
 			<en>Fuel used</en>
@@ -132,7 +138,7 @@ Quelques exemples de statistiques recueillies :
 		</text>
 		<text name="ass_MotorizedTraveledDistance">
 			<en>Traveled</en>
-			<de>Gereist</de>
+			<de>Zurückgelegt</de>
 		</text>
 		<text name="ass_ConveyorBeltMovedLiters">
 			<en>Moved</en>
@@ -140,7 +146,7 @@ Quelques exemples de statistiques recueillies :
 		</text>
 		<text name="ass_BaleWrapperWrappedBales">
 			<en>Wrapped</en>
-			<de>Umgebrochen</de>
+			<de>Gewickelt</de>
 		</text>
 		<text name="ass_TrailerLoadedLiters">
 			<en>Loaded</en>
@@ -148,10 +154,11 @@ Quelques exemples de statistiques recueillies :
 		</text>
 		<text name="ass_CombineThreshedLiters">
 			<en>Threshed</en>
-			<de>Dreifach</de>
+			<de>Gedroschen</de>
 		</text>
 		<text name="ass_CombineSwathLiters">
 			<en>Swath</en>
+			<de>Geschwadet</de>
 		</text>
 		<text name="ass_CombineWorkedHectares">
 			<en>Harvested</en>
@@ -159,9 +166,11 @@ Quelques exemples de statistiques recueillies :
 		</text>
 		<text name="ass_BalerBaleCount">
 			<en>Bales</en>
+			<de>Ballen</de>
 		</text>
 		<text name="ass_BalerLoadedLiters">
 			<en>Baled</en>
+			<de>Gepresst</de>
 		</text>
 		<text name="ass_MowerWorkedLitres">
 			<en>Mown</en>
@@ -193,31 +202,35 @@ Quelques exemples de statistiques recueillies :
 		</text>
 		<text name="ass_WoodCrusherCrushedLitres">
 			<en>Crushed</en>
-			<de>Zerkleinert</de>
+			<de>Gehäckselt</de>
 		</text>
 		<text name="ass_WoodCrusherCrushedTrunks">
 			<en>Crushed trunks</en>
-			<de>Zerquetschte Stämme</de>
+			<de>Gehäckselte Stämme</de>
 		</text>
 		<text name="ass_AdvancedWoodCrusherCrushedLitres">
 			<en>Crushed</en>
-			<de>Zerkleinert</de>
+			<de>Gehäckselt</de>
 		</text>
 		<text name="ass_AdvancedWoodCrusherCrushedTrunks">
 			<en>Crushed trunks</en>
-			<de>Zerquetschte Stämme</de>
+			<de>Gehäckselte Stämme</de>
 		</text>
 		<text name="ass_WindrowerWorkedLitres">
 			<en>Windrowed</en>
+			<de>Geschwadet</de>
 		</text>
 		<text name="ass_WindrowerWorkedHectares">
 			<en>Windrowed</en>
+			<de>Geschwadet</de>
 		</text>
 		<text name="ass_TedderWorkedLitres">
 			<en>Tedded</en>
+			<de>Gewendet</de>
 		</text>
 		<text name="ass_TedderWorkedHectares">
 			<en>Tedded</en>
+			<de>Gewendet</de>
 		</text>
 		<text name="ass_RollerRolledHectares">
 			<en>Rolled</en>
@@ -225,6 +238,7 @@ Quelques exemples de statistiques recueillies :
 		</text>
 		<text name="ass_BaleGrabGrabbedBales">
 			<en>Grabbed</en>
+			<de>Geladene Ballen</de>
 		</text>
 		<text name="ass_BaleLoaderLoadedBales">
 			<en>Loaded</en>
@@ -236,11 +250,11 @@ Quelques exemples de statistiques recueillies :
 		</text>
 		<text name="ass_SprayerWorkedHectares">
 			<en>Spreaded</en>
-			<de>Kalkulation</de>
+			<de>Gesprüht</de>
 		</text>
 		<text name="ass_SprayerUsedLitres">
 			<en>Spreaded</en>
-			<de>Kalkulation</de>
+			<de>Verbraucht</de>
 		</text>
 		<text name="ass_SprayerUsedFertilizer">
 			<en>Used fertilizer</en>
@@ -248,7 +262,7 @@ Quelques exemples de statistiques recueillies :
 		</text>
 		<text name="ass_SprayerFertilizerHectares">
 			<en>Fertilized</en>
-			<de>Befruchtet</de>
+			<de>Gesprüht</de>
 		</text>
 		<text name="ass_SprayerUsedLiquidFertilizer">
 			<en>Used fertilizer</en>
@@ -256,7 +270,7 @@ Quelques exemples de statistiques recueillies :
 		</text>
 		<text name="ass_SprayerLiquidFertilizerHectares">
 			<en>Fertilized</en>
-			<de>Befruchtet</de>
+			<de>Gesprüht</de>
 		</text>
 		<text name="ass_SprayerUsedLime">
 			<en>Used lime</en>
@@ -264,7 +278,7 @@ Quelques exemples de statistiques recueillies :
 		</text>
 		<text name="ass_SprayerLimeHectares">
 			<en>Limed</en>
-			<de>Kalk</de>
+			<de>Gekalkt</de>
 		</text>
 		<text name="ass_SprayerUsedManure">
 			<en>Used manure</en>
@@ -272,7 +286,7 @@ Quelques exemples de statistiques recueillies :
 		</text>
 		<text name="ass_SprayerManureHectares">
 			<en>Manured</en>
-			<de>Manuel</de>
+			<de>Gedüngt</de>
 		</text>
 		<text name="ass_SprayerUsedLiquidManure">
 			<en>Used manure</en>
@@ -280,23 +294,23 @@ Quelques exemples de statistiques recueillies :
 		</text>
 		<text name="ass_SprayerLiquidManureHectares">
 			<en>Manured</en>
-			<de>Manuel</de>
+			<de>Gedüngt</de>
 		</text>
 		<text name="ass_SprayerUsedDigestate">
 			<en>Used digestate</en>
-			<de>Verwendeter Digestatus</de>
+			<de>Verwendete Gärreste</de>
 		</text>
 		<text name="ass_SprayerDigestateHectares">
 			<en>Digestated</en>
-			<de>Gedigestert</de>
+			<de>Gedüngt</de>
 		</text>
 		<text name="ass_SprayerUsedHerbicide">
 			<en>Used herbicide</en>
-			<de>Gebrautes Herbizid</de>
+			<de>Verbrauchter Pflanzenschutz</de>
 		</text>
 		<text name="ass_SprayerHerbicideHectares">
 			<en>Weeded</en>
-			<de>Herbizid</de>
+			<de>Gespritzt</de>
 		</text>
 	</l10n>
 </modDesc>
