@@ -4,7 +4,6 @@
 	<version>${version}</version>
 	<title>
 		<en>${title}</en>
-		<de>Erweiterte Statistik</de>
 	</title>
 	<description>
 		<en>
@@ -50,12 +49,41 @@ Quelques exemples de statistiques recueillies :
 	<multiplayer supported="true" />
 	<iconFilename>icon.dds</iconFilename>
 
+	<specializations>
+		<specialization name="advancedStats" className="AdvancedStats" filename="specializations/AdvancedStats.lua" />
+		<specialization name="extendedBaleGrab" className="ExtendedBaleGrab" filename="extendedSpecializations/BaleGrab.lua" />
+		<specialization name="extendedBaleLoader" className="ExtendedBaleLoader" filename="extendedSpecializations/BaleLoader.lua" />
+		<specialization name="extendedBaler" className="ExtendedBaler" filename="extendedSpecializations/Baler.lua" />
+		<specialization name="extendedBaleWrapper" className="ExtendedBaleWrapper" filename="extendedSpecializations/BaleWrapper.lua" />
+		<specialization name="extendedCombine" className="ExtendedCombine" filename="extendedSpecializations/Combine.lua" />
+		<specialization name="extendedConveyorBelt" className="ExtendedConveyorBelt" filename="extendedSpecializations/ConveyorBelt.lua" />
+		<specialization name="extendedCultivator" className="ExtendedCultivator" filename="extendedSpecializations/Cultivator.lua" />
+		<specialization name="extendedCutter" className="ExtendedCutter" filename="extendedSpecializations/Cutter.lua" />
+		<specialization name="extendedLeveler" className="ExtendedLeveler" filename="extendedSpecializations/Leveler.lua" />
+		<specialization name="extendedLivestockTrailer" className="ExtendedLivestockTrailer" filename="extendedSpecializations/LivestockTrailer.lua" />
+		<specialization name="extendedMotorized" className="ExtendedMotorized" filename="extendedSpecializations/Motorized.lua" />
+		<specialization name="extendedMower" className="ExtendedMower" filename="extendedSpecializations/Mower.lua" />
+		<specialization name="extendedPlow" className="ExtendedPlow" filename="extendedSpecializations/Plow.lua" />
+		<specialization name="extendedRoller" className="ExtendedRoller" filename="extendedSpecializations/Roller.lua" />
+		<specialization name="extendedShovel" className="ExtendedShovel" filename="extendedSpecializations/Shovel.lua" />
+		<specialization name="extendedSowingMachine" className="ExtendedSowingMachine" filename="extendedSpecializations/SowingMachine.lua" />
+		<specialization name="extendedSprayer" className="ExtendedSprayer" filename="extendedSpecializations/Sprayer.lua" />
+		<specialization name="extendedStumpCutter" className="ExtendedStumpCutter" filename="extendedSpecializations/StumpCutter.lua" />
+		<specialization name="extendedTedder" className="ExtendedTedder" filename="extendedSpecializations/Tedder.lua" />
+		<specialization name="extendedTrailer" className="ExtendedTrailer" filename="extendedSpecializations/Trailer.lua" />
+		<specialization name="extendedTreePlanter" className="ExtendedTreePlanter" filename="extendedSpecializations/TreePlanter.lua" />
+		<specialization name="extendedWeeder" className="ExtendedWeeder" filename="extendedSpecializations/Weeder.lua" />
+		<specialization name="extendedWindrower" className="ExtendedWindrower" filename="extendedSpecializations/Windrower.lua" />
+		<specialization name="extendedWoodCrusher" className="ExtendedWoodCrusher" filename="extendedSpecializations/WoodCrusher.lua" />
+		<specialization name="extendedWoodHarvester" className="ExtendedWoodHarvester" filename="extendedSpecializations/WoodHarvester.lua" />
+	</specializations>
+
 	<extraSourceFiles>
 		<sourceFile filename="lib/utility/Main.lua" />
 		<sourceFile filename="lib/hud/Main.lua" />
-		<sourceFile filename="advancedStatsManager.lua" />
-		<sourceFile filename="advancedStats.lua" />
-		<sourceFile filename="vehicles/Vehicle.lua" />
+		<sourceFile filename="lib/rmod/Main.lua" />
+		<sourceFile filename="advancedStatsUtil.lua" />
+		<sourceFile filename="advancedStatsMain.lua" />
 		<sourceFile filename="statsStyle.lua" />
 		<sourceFile filename="statsHud.lua" />
 	</extraSourceFiles>

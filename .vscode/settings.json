@@ -1230,6 +1230,7 @@
         "g_courseplay",
         "InGameMenuContractsFrame",
         "g_advancedStatsManager",
-        "g_guidanceSteering"
+        "g_guidanceSteering",
+        "r_debug_r"
     ]
 }

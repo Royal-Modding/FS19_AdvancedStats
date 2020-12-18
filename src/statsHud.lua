@@ -53,21 +53,22 @@ function StatsHud:getRenderPosition()
     return x, y + (self.yOffsetVH * self.uiScale)
 end
 
-function StatsHud:setVehicleData(vehicles)
+function StatsHud:setVehicleData(vehicles, showPartial)
     local displayData = {}
     for _, vehicle in pairs(vehicles) do
-        if AdvancedStats:vehicleHasStatsToShow(vehicle) then
-            table.insert(displayData, {title = AdvancedStats:getFullVehicleName(vehicle):upper()})
-            for key, value in pairs(vehicle.advancedStats) do
-                if value > 0 then
-                    local name = key
-                    local stat = g_advancedStatsManager:getStatistic(key)
-                    if not stat.hide then
-                        if g_i18n:hasText(stat.l10n) then
-                            name = g_i18n:getText(stat.l10n)
-                        end
-                        table.insert(displayData, {title = name, text = AdvancedStats:formatValue(value, stat.unit)})
+        if AdvancedStatsUtil.getVehicleHasAdvancedStats(vehicle) and vehicle:getHasStatsToShow(showPartial) then
+            table.insert(displayData, {title = AdvancedStatsUtil.getFullVehicleName(vehicle):upper()})
+            for _, stat in pairs(vehicle:getStats()) do
+                local value = stat.total
+                if showPartial then
+                    value = stat.partial
+                end
+                if value > 0 and not stat.hide then
+                    local name = stat.key
+                    if g_i18n:hasText(stat.l10n) then
+                        name = g_i18n:getText(stat.l10n)
                     end
+                    table.insert(displayData, {title = name, text = AdvancedStatsUtil.formatStatValueText(value, stat.unit)})
                 end
             end
         end
