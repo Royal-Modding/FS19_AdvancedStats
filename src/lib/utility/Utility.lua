@@ -2,7 +2,7 @@
 -- Royal Utility
 --
 -- @author Royal Modding
--- @version 1.4.0.2
+-- @version 1.4.1.0
 -- @date 09/11/2020
 
 --- Utility class
@@ -201,7 +201,7 @@ function Utility.f_filter(t, func)
     local new = {}
     for _, v in pairs(t) do
         if func(v) then
-            Utility.insert(new, v)
+            table.insert(new, v)
         end
     end
     return new
@@ -214,7 +214,7 @@ end
 function Utility.removeValue(t, value)
     for k, v in pairs(t) do
         if v == value then
-            Utility.remove(t, k)
+            table.remove(t, k)
             return true
         end
     end
@@ -227,7 +227,7 @@ end
 function Utility.f_remove(t, func)
     for k, v in pairs(t) do
         if func(v) then
-            Utility.remove(t, k)
+            table.remove(t, k)
         end
     end
 end
@@ -268,7 +268,7 @@ end
 ---@param j integer
 ---@return string|nil
 function Utility.concatNil(t, sep, i, j)
-    local res = Utility.concat(t, sep, i, j)
+    local res = table.concat(t, sep, i, j)
     if res == "" then
         res = nil
     end

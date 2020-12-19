@@ -1229,8 +1229,8 @@
         "setCropsGrowthNextState",
         "g_courseplay",
         "InGameMenuContractsFrame",
-        "g_advancedStatsManager",
         "g_guidanceSteering",
-        "r_debug_r"
+        "r_debug_r",
+        "g_advancedStats"
     ]
 }
