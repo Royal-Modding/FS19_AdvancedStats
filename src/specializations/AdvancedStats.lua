@@ -35,6 +35,7 @@ function AdvancedStats.registerFunctions(vehicleType)
     SpecializationUtil.registerFunction(vehicleType, "getStat", AdvancedStats.getStat)
     SpecializationUtil.registerFunction(vehicleType, "getStats", AdvancedStats.getStats)
     SpecializationUtil.registerFunction(vehicleType, "getStatKeyById", AdvancedStats.getStatKeyById)
+    SpecializationUtil.registerFunction(vehicleType, "getStatById", AdvancedStats.getStatById)
 end
 
 function AdvancedStats.registerEventListeners(vehicleType)
@@ -58,7 +59,7 @@ function AdvancedStats:onPreLoad(savegame)
     spec.statisticsCount = 0
     spec.nextStatId = 1
     spec.syncTimer = 0
-    spec.syncTimeout = 1000 -- send every 1 seconds
+    spec.syncTimeout = 5000 -- send every 5 seconds
     spec.dirtyFlag = self:getNextDirtyFlag()
 
     spec.canShowStatsHud = self.spec_enterable ~= nil and self.getIsEntered ~= nil and g_dedicatedServerInfo == nil -- no need to show stats hud on dedicated servers
@@ -289,6 +290,11 @@ function AdvancedStats:getStats()
 end
 
 function AdvancedStats:getStatKeyById(id)
+    local spec = self.spec_advancedStats
+    return spec.statisticsKeyById[id]
+end
+
+function AdvancedStats:getStatById(id)
     local spec = self.spec_advancedStats
     return spec.statistics[spec.statisticsKeyById[id]]
 end

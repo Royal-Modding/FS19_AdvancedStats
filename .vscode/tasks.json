@@ -13,7 +13,8 @@
       "args": [
         "-b",
         "-c",
-        "-s"
+        "-s",
+        "-su"
       ],
       "options": {
         "cwd": "${workspaceRoot}/"
