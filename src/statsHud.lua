@@ -24,10 +24,9 @@ function StatsHud:new()
     local width, height = StatsHud.style.width, 200
     local style = RoyalHudStyles.getStyle(StatsStyle, FS19Style)
     local xOffset = g_safeFrameOffsetX
-    if g_guidanceSteering ~= nil then
-        xOffset = xOffset + (self:getNormalizedSize(54, 54)[1] * g_gameSettings:getValue("uiScale"))
-    end
+
     local hud = RoyalHudControl:new("StatsHud", 1 - xOffset, 0 + g_safeFrameOffsetY, width, height, style, nil, StatsHud_mt)
+    hud.guidanceSteeringXOffset = self:getNormalizedSize(54, 54)[1]
     hud:setAlignment(RoyalHud.ALIGNS_VERTICAL_BOTTOM, RoyalHud.ALIGNS_HORIZONTAL_RIGHT)
     hud.panel = RoyalHudTitledPanel:new("StatsHudPanel", 0.5, 0.5, width, height, style, hud)
     hud.panel:setForceUpperCase(true)
@@ -49,8 +48,12 @@ end
 
 function StatsHud:getRenderPosition()
     local x, y = StatsHud:superClass().getRenderPosition(self)
-    -- hud offset to prevent overlap with vhicle hud
-    return x, y + (self.yOffsetVH * self.uiScale)
+    -- hud offset to prevent overlap with vhicle hud and guidance steering
+    local xOffset = 0
+    if g_guidanceSteering ~= nil then
+        xOffset = xOffset - self.guidanceSteeringXOffset
+    end
+    return x + (xOffset * self.uiScale), y + (self.yOffsetVH * self.uiScale)
 end
 
 function StatsHud:setVehicleData(vehicles, showPartial)
