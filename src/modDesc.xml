@@ -8,7 +8,7 @@
 	<description>
 		<en>
 			<![CDATA[
-This mod will collect a bunch of individual statistics for your vehicles and tools, you can show them by pressing ALT + T when you are on your seat.
+This mod will collect a bunch of individual statistics for your vehicles and tools, you can show them by pressing LALT + T when you are on your seat, press it again to show the partial counter (it can be reset by pressing LCTRL + T).
 
 Some examples of collected statistics:
 - Travelled distance
@@ -18,18 +18,16 @@ Some examples of collected statistics:
 - Used fertilizers, herbicide and lime
 - Many more
 
-Changelog 2.0.0.0:
-- Completely rewritten codebase to prevent conflicts with other mods and future base game changes
-- Improved performances
-- Improved MP sync
-- Fixed some stats that showed wrong values
-- Fixed some stats that showed wrong descriptions
-- Removed some redundant stats
+Changelog 2.1.0.0:
+- Added partial statistics (they are resettable)
+- Added asExportAllStats and asExportOwnStats commands
+- Fixed hud overlap with AutoDrive
+- Fixed some minor bugs
 ]]>
 		</en>
 		<de>
 			<![CDATA[
-Dieser Mod wird eine Reihe von individuellen Statistiken für Ihre Fahrzeuge und Werkzeuge sammeln, sie können sich diese anzeigen lassen, indem Sie ALT + T drücken, wenn Sie in Ihrem Fahrzeug sind.
+Dieser Mod wird eine Reihe von individuellen Statistiken für Ihre Fahrzeuge und Werkzeuge sammeln, sie können sich diese anzeigen lassen, indem Sie LALT + T drücken, wenn Sie in Ihrem Fahrzeug sind, drücken Sie sie erneut, um den Teilzähler anzuzeigen (er kann durch Drücken von LCTRL + T zurückgesetzt werden).
 
 Einige Beispiele für gesammelte Statistiken:
 - Zurückgelegte Strecke
@@ -39,18 +37,16 @@ Einige Beispiele für gesammelte Statistiken:
 - Verwendete Düngemittel, Herbizide und Kalk
 - Viele mehr
 
-Changelog 2.0.0.0:
-- Vollständig umgeschriebene Codebase, um Konflikte mit anderen Mods und zukünftigen Änderungen des Basisspiels zu vermeiden
-- Verbesserte Leistungen
-- Verbesserte MP-Synchronisation
-- Einige Statistiken behoben, die falsche Werte zeigten
-- Einige Statistiken, die falsche Beschreibungen zeigten, behoben
-- Einige redundante Statistiken entfernt
+Changelog 2.1.0.0:
+- Teilstatistiken hinzugefügt (sie sind rücksetzbar)
+- Befehle asExportAllStats und asExportOwnStats hinzugefügt
+- Hud-Überlappung mit AutoDrive behoben
+- Einige kleinere Bugs behoben
 ]]>
 		</de>
 		<fr>
 			<![CDATA[
-Ce mod recueillera un tas de statistiques individuelles pour vos véhicules et outils, vous pouvez les montrer en appuyant sur ALT + T lorsque vous êtes sur votre siège.
+Ce mod recueillera un tas de statistiques individuelles pour vos véhicules et outils, vous pouvez les montrer en appuyant sur LALT + T lorsque vous êtes sur votre siège, appuyez à nouveau pour afficher le compteur partiel (il peut être remis à zéro en appuyant sur LCTRL + T).
 
 Quelques exemples de statistiques recueillies :
 - Distance parcourue
@@ -60,13 +56,11 @@ Quelques exemples de statistiques recueillies :
 - Engrais usés, herbicide et chaux
 - Beaucoup plus
 
-Changelog 2.0.0.0:
-- Base de code entièrement réécrite pour éviter les conflits avec d’autres mods et les changements futurs de jeu de base
-- Amélioration des performances
-- Amélioration de la synchronisation mp
-- Correction de certaines statistiques qui montraient de mauvaises valeurs
-- Correction de certaines statistiques qui montraient de mauvaises descriptions
-- Suppression de quelques statistiques redondantes
+Changelog 2.1.0.0:
+- Ajout de statistiques partielles (elles sont réinitialisables)
+- Ajout des commandes asExportAllStats et asExportOwnStats
+- Chevauchement fixe du hud avec AutoDrive
+- Correction de quelques bogues mineurs
 ]]>
 		</fr>
 	</description>
@@ -147,6 +141,14 @@ Changelog 2.0.0.0:
 		<text name="ass_ADVANCEDSTATS_HIDE">
 			<en>Hide advanced stats display</en>
 			<de>Erweiterte Statistikanzeige ausblenden</de>
+		</text>
+		<text name="ass_PANEL_TITLE_1">
+			<en>Statistics</en>
+			<de>Statistik</de>
+		</text>
+		<text name="ass_PANEL_TITLE_2">
+			<en>Partial statistics</en>
+			<de>Teilweise Statistik</de>
 		</text>
 		<text name="ass_Units_1">
 			<en>ha</en>

@@ -5,6 +5,8 @@
 -- @version ${version}
 -- @date 23/11/2020
 
+---@class StatsHud : RoyalHudControl
+---@field superClass function
 StatsHud = {}
 StatsHud.style = {}
 StatsHud.style.separatorColor = {1, 1, 1, 0.3}
@@ -20,17 +22,18 @@ StatsHud.DUBUG_COLOR = {1, 0, 1, 1}
 StatsHud_mt = Class(StatsHud, RoyalHudControl)
 
 function StatsHud:new()
-    ---@type RoyalHudControl
     local width, height = StatsHud.style.width, 200
     local style = RoyalHudStyles.getStyle(StatsStyle, FS19Style)
     local xOffset = g_safeFrameOffsetX
 
+    ---@type StatsHud
     local hud = RoyalHudControl:new("StatsHud", 1 - xOffset, 0 + g_safeFrameOffsetY, width, height, style, nil, StatsHud_mt)
     hud.guidanceSteeringXOffset = self:getNormalizedSize(54, 54)[1]
     hud:setAlignment(RoyalHud.ALIGNS_VERTICAL_BOTTOM, RoyalHud.ALIGNS_HORIZONTAL_RIGHT)
     hud.panel = RoyalHudTitledPanel:new("StatsHudPanel", 0.5, 0.5, width, height, style, hud)
     hud.panel:setForceUpperCase(true)
-    hud.panel:setTitle("Statistics")
+    hud.partialStatsPanelTitle = g_i18n:getText("ass_PANEL_TITLE_2")
+    hud.statsPanelTitle = g_i18n:getText("ass_PANEL_TITLE_1")
 
     hud.rowContainer = RoyalHud:new("rc", 0.5, 0.5, width - StatsHud.style.leftRightPadding, 200 - StatsHud.style.topBottomPadding, hud)
 
@@ -79,6 +82,11 @@ function StatsHud:setVehicleData(vehicles, showPartial)
     if #displayData > 0 then
         self:setIsVisible(true)
         self:resetRows()
+        if showPartial then
+            self.panel:setTitle(self.partialStatsPanelTitle)
+        else
+            self.panel:setTitle(self.statsPanelTitle)
+        end
         self:resizeY(#displayData)
         local posY = 0
         local h = StatsHud.style.rowHeight

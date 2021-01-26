@@ -17,6 +17,7 @@ source(Utils.getFilename("specializations/events/ResetPartialStatsEvent.lua", g_
 ---@field raiseDirtyFlags function
 ---@field getName function
 ---@field spec_enterable table
+---@field spec_autodrive table
 AdvancedStats = {}
 AdvancedStats.MOD_NAME = g_currentModName
 AdvancedStats.UNITS = {}
@@ -201,7 +202,7 @@ end
 
 function AdvancedStats:onDraw()
     local spec = self.spec_advancedStats
-    if spec.canShowStatsHud and spec.showStatsHud and self:getIsEntered() then
+    if spec.canShowStatsHud and spec.showStatsHud and self:getIsEntered() and (self.spec_autodrive == nil or self.spec_autodrive.pullDownListExpanded == 0) then
         AdvancedStats.hud:render()
     end
 end
