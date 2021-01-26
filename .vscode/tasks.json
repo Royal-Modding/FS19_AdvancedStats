@@ -22,12 +22,23 @@
       "problemMatcher": []
     },
     {
-      "label": "Sync",
+      "label": "Test",
       "command": "fsmt",
       "group": {
         "kind": "test",
         "isDefault": true
       },
+      "args": [
+        "-t"
+      ],
+      "options": {
+        "cwd": "${workspaceRoot}/"
+      },
+      "problemMatcher": []
+    },
+    {
+      "label": "Sync",
+      "command": "fsmt",
       "args": [
         "-sync",
         "-c",
@@ -55,7 +66,7 @@
       "label": "Translate",
       "command": "fsmt",
       "args": [
-        "-t"
+        "-tr"
       ],
       "options": {
         "cwd": "${workspaceRoot}/"
