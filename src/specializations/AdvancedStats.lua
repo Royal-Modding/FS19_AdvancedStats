@@ -5,6 +5,8 @@
 -- @version ${version}
 -- @date 16/12/2020
 
+source(Utils.getFilename("specializations/events/ResetPartialStatsEvent.lua", g_currentModDirectory))
+
 AdvancedStats = {}
 AdvancedStats.MOD_NAME = g_currentModName
 AdvancedStats.UNITS = {}
@@ -36,6 +38,8 @@ function AdvancedStats.registerFunctions(vehicleType)
     SpecializationUtil.registerFunction(vehicleType, "getStats", AdvancedStats.getStats)
     SpecializationUtil.registerFunction(vehicleType, "getStatKeyById", AdvancedStats.getStatKeyById)
     SpecializationUtil.registerFunction(vehicleType, "getStatById", AdvancedStats.getStatById)
+    SpecializationUtil.registerFunction(vehicleType, "forceStatsRefresh", AdvancedStats.forceStatsRefresh)
+    SpecializationUtil.registerFunction(vehicleType, "resetPartialStats", AdvancedStats.resetPartialStats)
 end
 
 function AdvancedStats.registerEventListeners(vehicleType)
@@ -61,15 +65,20 @@ function AdvancedStats:onPreLoad(savegame)
     spec.statisticsKeyById = {}
     spec.statisticsCount = 0
     spec.nextStatId = 1
-    spec.syncTimer = 0
-    spec.syncTimeout = 2000 -- send every 2 seconds
-    spec.dirtyFlag = self:getNextDirtyFlag()
+  
+    if self.isServer then
+        spec.syncTimer = 0
+        spec.syncTimeout = 2000 -- send every 2 seconds
+        spec.dirtyFlag = self:getNextDirtyFlag()
+    end
 
-    spec.canShowStatsHud = self.spec_enterable ~= nil and self.getIsEntered ~= nil and g_dedicatedServerInfo == nil -- no need to show stats hud on dedicated servers
+    -- no need to show stats hud on dedicated servers
+    spec.canShowStatsHud = self.spec_enterable ~= nil and self.getIsEntered ~= nil and g_dedicatedServerInfo == nil
     if spec.canShowStatsHud then
         spec.refreshStatsHudTimeout = 1000
         spec.refreshStatsHudTimer = spec.refreshStatsHudTimeout
         spec.showStatsHud = false
+        spec.showPartialStats = false
     end
 
     SpecializationUtil.raiseEvent(self, "onLoadStats")
@@ -113,10 +122,18 @@ function AdvancedStats:onRegisterActionEvents(isActiveForInput, isActiveForInput
             g_inputBinding:setActionEventTextVisibility(actionEventId, true)
             g_inputBinding:setActionEventTextPriority(actionEventId, GS_PRIO_NORMAL)
             if spec.showStatsHud then
-                g_inputBinding:setActionEventText(actionEventId, g_i18n:getText("ass_ADVANCEDSTATS_HIDE"))
+                if spec.showPartialStats then
+                    g_inputBinding:setActionEventText(actionEventId, g_i18n:getText("ass_ADVANCEDSTATS_HIDE"))
+                else
+                    g_inputBinding:setActionEventText(actionEventId, g_i18n:getText("ass_ADVANCEDSTATS_SHOW_PARTIAL"))
+                end
             else
                 g_inputBinding:setActionEventText(actionEventId, g_i18n:getText("ass_ADVANCEDSTATS_SHOW"))
             end
+            _, actionEventId = self:addActionEvent(spec.actionEvents, InputAction.ADVANCEDSTATS_RESET, self, AdvancedStats.onResetStats, false, true, false, true, nil, nil, true)
+            g_inputBinding:setActionEventTextVisibility(actionEventId, spec.showStatsHud and spec.showPartialStats)
+            g_inputBinding:setActionEventTextPriority(actionEventId, GS_PRIO_HIGH)
+            g_inputBinding:setActionEventText(actionEventId, g_i18n:getText("input_ADVANCEDSTATS_RESET"))
         end
     end
 end
@@ -145,7 +162,7 @@ function AdvancedStats:onUpdate(dt, isActiveForInput, isActiveForInputIgnoreSele
         spec.refreshStatsHudTimer = spec.refreshStatsHudTimer + dt
         if spec.showStatsHud and spec.refreshStatsHudTimer >= spec.refreshStatsHudTimeout and self:getIsEntered() then
             spec.refreshStatsHudTimer = 0
-            AdvancedStats.hud:setVehicleData(AdvancedStatsUtil.getVehicleAndAttachments(self), false)
+            AdvancedStats.hud:setVehicleData(AdvancedStatsUtil.getVehicleAndAttachments(self), spec.showPartialStats)
         end
     end
 end
@@ -190,19 +207,43 @@ end
 
 function AdvancedStats:onEnterVehicle()
     local spec = self.spec_advancedStats
-    spec.refreshStatsHudTimer = spec.refreshStatsHudTimeout
+    self:forceStatsRefresh()
 end
 
 function AdvancedStats.onToggleStatsHud(self, actionName, inputValue, callbackState, isAnalog, isMouse)
     local spec = self.spec_advancedStats
-    spec.showStatsHud = not spec.showStatsHud
+    if spec.showStatsHud then
+        if spec.showPartialStats then
+            spec.showStatsHud = false
+            spec.showPartialStats = false
+        else
+            spec.showPartialStats = true
+        end
+    else
+        spec.showStatsHud = true
+    end
     local actionEvent = spec.actionEvents[InputAction.ADVANCEDSTATS_TOGGLE]
     if actionEvent ~= nil then
         if spec.showStatsHud then
-            g_inputBinding:setActionEventText(actionEvent.actionEventId, g_i18n:getText("ass_ADVANCEDSTATS_HIDE"))
-            spec.refreshStatsHudTimer = spec.refreshStatsHudTimeout
+            self:forceStatsRefresh()
+            if spec.showPartialStats then
+                g_inputBinding:setActionEventText(actionEvent.actionEventId, g_i18n:getText("ass_ADVANCEDSTATS_HIDE"))
+            else
+                g_inputBinding:setActionEventText(actionEvent.actionEventId, g_i18n:getText("ass_ADVANCEDSTATS_SHOW_PARTIAL"))
+            end
         else
             g_inputBinding:setActionEventText(actionEvent.actionEventId, g_i18n:getText("ass_ADVANCEDSTATS_SHOW"))
+        end
+        g_inputBinding:setActionEventTextVisibility(spec.actionEvents[InputAction.ADVANCEDSTATS_RESET].actionEventId, spec.showStatsHud and spec.showPartialStats)
+    end
+end
+
+function AdvancedStats.onResetStats(self, actionName, inputValue, callbackState, isAnalog, isMouse)
+    local spec = self.spec_advancedStats
+    if spec.showStatsHud and spec.showPartialStats then
+        ResetPartialStatsEvent.sendToServer(self)
+        if not self.isServer then
+            self:resetPartialStats()
         end
     end
 end
@@ -300,6 +341,27 @@ end
 function AdvancedStats:getStatById(id)
     local spec = self.spec_advancedStats
     return spec.statistics[spec.statisticsKeyById[id]]
+end
+
+function AdvancedStats:resetPartialStats(doNotforceStatsRefresh)
+    local spec = self.spec_advancedStats
+    for _, stat in pairs(spec.statistics) do
+        stat.partial = 0
+    end
+    if not doNotforceStatsRefresh then
+        self:forceStatsRefresh()
+    end
+end
+
+function AdvancedStats:forceStatsRefresh()
+    local spec = self.spec_advancedStats
+    if self.isServer then
+        spec.syncTimer = 0
+        self:raiseDirtyFlags(spec.dirtyFlag)
+    end
+    if spec.canShowStatsHud then
+        spec.refreshStatsHudTimer = spec.refreshStatsHudTimeout
+    end
 end
 
 function AdvancedStats:writeStatsToStream(streamId)

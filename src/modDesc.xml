@@ -114,11 +114,15 @@ Changelog 2.0.0.0:
 
 	<actions>
 		<action name="ADVANCEDSTATS_TOGGLE" axisType="HALF" />
+		<action name="ADVANCEDSTATS_RESET" axisType="HALF" />
 	</actions>
 
 	<inputBinding>
 		<actionBinding action="ADVANCEDSTATS_TOGGLE">
 			<binding device="KB_MOUSE_DEFAULT" input="KEY_lalt KEY_t" />
+		</actionBinding>
+		<actionBinding action="ADVANCEDSTATS_RESET">
+			<binding device="KB_MOUSE_DEFAULT" input="KEY_lctrl KEY_t" />
 		</actionBinding>
 	</inputBinding>
 
@@ -128,9 +132,17 @@ Changelog 2.0.0.0:
 			<de>Umschalten der Anzeige Erweiterte Statistik</de>
 			<fr>Affichage de basculement des Advanced Stats</fr>
 		</text>
+		<text name="input_ADVANCEDSTATS_RESET">
+			<en>Reset partial stats</en>
+			<de>Teilweise Statistiken zurücksetzen</de>
+		</text>
 		<text name="ass_ADVANCEDSTATS_SHOW">
 			<en>Show advanced stats display</en>
 			<de>Erweiterte Statistikanzeige anzeigen</de>
+		</text>
+		<text name="ass_ADVANCEDSTATS_SHOW_PARTIAL">
+			<en>Show partial stats</en>
+			<de>Teilstatistiken anzeigen</de>
 		</text>
 		<text name="ass_ADVANCEDSTATS_HIDE">
 			<en>Hide advanced stats display</en>
