@@ -65,6 +65,7 @@ function AdvancedStats:onPreLoad(savegame)
     spec.statisticsKeyById = {}
     spec.statisticsCount = 0
     spec.nextStatId = 1
+  
     if self.isServer then
         spec.syncTimer = 0
         spec.syncTimeout = 2000 -- send every 2 seconds

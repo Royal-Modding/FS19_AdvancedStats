@@ -17,6 +17,14 @@ Some examples of collected statistics:
 - Harvested liters and hectares
 - Used fertilizers, herbicide and lime
 - Many more
+
+Changelog 2.0.0.0:
+- Completely rewritten codebase to prevent conflicts with other mods and future base game changes
+- Improved performances
+- Improved MP sync
+- Fixed some stats that showed wrong values
+- Fixed some stats that showed wrong descriptions
+- Removed some redundant stats
 ]]>
 		</en>
 		<de>
@@ -30,6 +38,14 @@ Einige Beispiele für gesammelte Statistiken:
 - Geerntete Liter und Hektar
 - Verwendete Düngemittel, Herbizide und Kalk
 - Viele mehr
+
+Changelog 2.0.0.0:
+- Vollständig umgeschriebene Codebase, um Konflikte mit anderen Mods und zukünftigen Änderungen des Basisspiels zu vermeiden
+- Verbesserte Leistungen
+- Verbesserte MP-Synchronisation
+- Einige Statistiken behoben, die falsche Werte zeigten
+- Einige Statistiken, die falsche Beschreibungen zeigten, behoben
+- Einige redundante Statistiken entfernt
 ]]>
 		</de>
 		<fr>
@@ -43,6 +59,14 @@ Quelques exemples de statistiques recueillies :
 - Litres et hectares récoltés
 - Engrais usés, herbicide et chaux
 - Beaucoup plus
+
+Changelog 2.0.0.0:
+- Base de code entièrement réécrite pour éviter les conflits avec d’autres mods et les changements futurs de jeu de base
+- Amélioration des performances
+- Amélioration de la synchronisation mp
+- Correction de certaines statistiques qui montraient de mauvaises valeurs
+- Correction de certaines statistiques qui montraient de mauvaises descriptions
+- Suppression de quelques statistiques redondantes
 ]]>
 		</fr>
 	</description>
