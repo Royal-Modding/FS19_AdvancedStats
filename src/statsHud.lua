@@ -105,6 +105,7 @@ function StatsHud:setVehicleData(vehicles, showPartial)
 end
 
 function StatsHud:createRow(parent)
+    ---@type RoyalHud
     local row = RoyalHud:new("row", 0, 0, StatsHud.style.width - StatsHud.style.leftRightPadding, StatsHud.style.rowHeight, parent)
     row:setAlignment(RoyalHud.ALIGNS_VERTICAL_BOTTOM, RoyalHud.ALIGNS_HORIZONTAL_LEFT)
     row.separator = RoyalHudOverlay:new("row_separator", 0, 0, StatsHud.style.width - StatsHud.style.leftRightPadding, 1, row)

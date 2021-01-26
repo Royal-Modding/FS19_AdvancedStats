@@ -7,6 +7,16 @@
 
 source(Utils.getFilename("specializations/events/ResetPartialStatsEvent.lua", g_currentModDirectory))
 
+---@class AdvancedStats
+---@field isServer boolean
+---@field getNextDirtyFlag function
+---@field getIsEntered function
+---@field clearActionEventsTable function
+---@field getIsActiveForInput function
+---@field addActionEvent function
+---@field raiseDirtyFlags function
+---@field getName function
+---@field spec_enterable table
 AdvancedStats = {}
 AdvancedStats.MOD_NAME = g_currentModName
 AdvancedStats.UNITS = {}
@@ -59,13 +69,14 @@ function AdvancedStats:onPreLoad(savegame)
     if g_advancedStats ~= nil then
         g_advancedStats:addExportListener(self)
     end
+    ---@type table
     self.spec_advancedStats = self[string.format("spec_%s.advancedStats", AdvancedStats.MOD_NAME)]
     local spec = self.spec_advancedStats
     spec.statistics = {}
     spec.statisticsKeyById = {}
     spec.statisticsCount = 0
     spec.nextStatId = 1
-  
+
     if self.isServer then
         spec.syncTimer = 0
         spec.syncTimeout = 2000 -- send every 2 seconds
@@ -295,7 +306,7 @@ function AdvancedStats:registerStat(prefix, name, unit, hide)
         spec.statisticsKeyById[stat.id] = stat.key
         spec.statisticsCount = spec.statisticsCount + 1
     else
-        g_logManager:devError("[%s] Statistic '%s' with key '%s' already registered", self.name, name, statKey)
+        g_logManager:devError("[%s] Statistic '%s' with key '%s' already registered", self.MOD_NAME, name, statKey)
         registered = false
     end
 
