@@ -52,6 +52,9 @@ function AdvancedStats.registerEventListeners(vehicleType)
 end
 
 function AdvancedStats:onPreLoad(savegame)
+    if g_advancedStats ~= nil then
+        g_advancedStats:addExportListener(self)
+    end
     self.spec_advancedStats = self[string.format("spec_%s.advancedStats", AdvancedStats.MOD_NAME)]
     local spec = self.spec_advancedStats
     spec.statistics = {}
