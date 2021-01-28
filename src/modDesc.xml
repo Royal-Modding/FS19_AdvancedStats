@@ -20,6 +20,7 @@ Some examples of collected statistics:
 
 Changelog 2.1.0.0:
 - Added partial statistics (they are resettable)
+- Optimized multiplayer synchronization
 - Added asExportAllStats and asExportOwnStats commands
 - Fixed hud overlap with AutoDrive
 - Fixed some minor bugs
@@ -39,6 +40,7 @@ Einige Beispiele für gesammelte Statistiken:
 
 Changelog 2.1.0.0:
 - Teilstatistiken hinzugefügt (sie sind rücksetzbar)
+- Optimierte Multiplayer-Synchronisation
 - Befehle asExportAllStats und asExportOwnStats hinzugefügt
 - Hud-Überlappung mit AutoDrive behoben
 - Einige kleinere Bugs behoben
@@ -58,6 +60,7 @@ Quelques exemples de statistiques recueillies :
 
 Changelog 2.1.0.0:
 - Ajout de statistiques partielles (elles sont réinitialisables)
+- Synchronisation multijoueur optimisée
 - Ajout des commandes asExportAllStats et asExportOwnStats
 - Chevauchement fixe du hud avec AutoDrive
 - Correction de quelques bogues mineurs

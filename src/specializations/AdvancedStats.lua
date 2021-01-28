@@ -79,15 +79,17 @@ function AdvancedStats:onPreLoad(savegame)
     spec.nextStatId = 1
 
     if self.isServer then
-        spec.syncTimer = 0
-        spec.syncTimeout = 2000 -- send every 2 seconds
+        spec.syncTimeout = 1000 -- send every 1 seconds
+        spec.syncTimer = math.random() * spec.syncTimeout -- randomize timer to prevent synchronizing all statistics at the same frame
         spec.dirtyFlag = self:getNextDirtyFlag()
+        spec.statsUpdateTime = g_time
+        spec.statsSyncUpdateTime = spec.statsUpdateTime
     end
 
     -- no need to show stats hud on dedicated servers
     spec.canShowStatsHud = self.spec_enterable ~= nil and self.getIsEntered ~= nil and g_dedicatedServerInfo == nil
     if spec.canShowStatsHud then
-        spec.refreshStatsHudTimeout = 1000
+        spec.refreshStatsHudTimeout = 500
         spec.refreshStatsHudTimer = spec.refreshStatsHudTimeout
         spec.showStatsHud = false
         spec.showPartialStats = false
@@ -164,9 +166,10 @@ function AdvancedStats:onUpdate(dt, isActiveForInput, isActiveForInputIgnoreSele
     local spec = self.spec_advancedStats
     if self.isServer then
         spec.syncTimer = spec.syncTimer + dt
-        if spec.syncTimer >= spec.syncTimeout then
+        if spec.syncTimer >= spec.syncTimeout and spec.statsUpdateTime ~= spec.statsSyncUpdateTime then
             spec.syncTimer = 0
             self:raiseDirtyFlags(spec.dirtyFlag)
+            spec.statsSyncUpdateTime = spec.statsUpdateTime
         end
     end
 
@@ -298,7 +301,7 @@ function AdvancedStats:registerStat(prefix, name, unit, hide)
         if g_i18n:hasText(stat.l10n) then
             stat.text = g_i18n:getText(stat.l10n)
         else
-            g_logManager:devWarning("Missing translation for '%s'", stat.l10n)
+            g_logManager:devWarning("[%s] Missing translation for '%s'", AdvancedStats.MOD_NAME, stat.l10n)
             stat.text = stat.name
         end
         stat.total = 0
@@ -307,7 +310,7 @@ function AdvancedStats:registerStat(prefix, name, unit, hide)
         spec.statisticsKeyById[stat.id] = stat.key
         spec.statisticsCount = spec.statisticsCount + 1
     else
-        g_logManager:devError("[%s] Statistic '%s' with key '%s' already registered", self.MOD_NAME, name, statKey)
+        g_logManager:devError("[%s] Statistic '%s' with key '%s' already registered", AdvancedStats.MOD_NAME, name, statKey)
         registered = false
     end
 
@@ -326,12 +329,17 @@ function AdvancedStats:registerStats(prefix, stats)
 end
 
 function AdvancedStats:updateStat(key, value)
-    local spec = self.spec_advancedStats
-    if spec.statistics ~= nil and spec.statistics[key] ~= nil then
-        spec.statistics[key].total = spec.statistics[key].total + value
-        spec.statistics[key].partial = spec.statistics[key].partial + value
+    if self.isServer then
+        local spec = self.spec_advancedStats
+        if spec.statistics ~= nil and spec.statistics[key] ~= nil then
+            spec.statistics[key].total = spec.statistics[key].total + value
+            spec.statistics[key].partial = spec.statistics[key].partial + value
+            spec.statsUpdateTime = g_time
+        else
+            g_logManager:devError("[%s] Can't find stat %s onto vehicle %s", AdvancedStats.MOD_NAME, key, self:getName())
+        end
     else
-        g_logManager:devError("Can't find stat %s onto vehicle %s", key, self:getName())
+        g_logManager:devWarning("[%s] Stats can be updated only server-side ('%s' = %s)", AdvancedStats.MOD_NAME, key, value)
     end
 end
 
