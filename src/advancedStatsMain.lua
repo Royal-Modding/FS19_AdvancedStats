@@ -1,9 +1,8 @@
---
--- ${title}
---
--- @author ${author}
--- @version ${version}
--- @date 16/12/2020
+---${title}
+
+---@author ${author}
+---@version r_version_r
+---@date 16/12/2020
 
 InitRoyalMod(Utils.getFilename("lib/rmod/", g_currentModDirectory))
 InitRoyalUtility(Utils.getFilename("lib/utility/", g_currentModDirectory))
@@ -24,7 +23,7 @@ function AdvancedStatsMain:initialize()
         onExportOwnVehiclesStats = function(this)
             local farmId = g_currentMission.player.farmId
             this:exportVehiclesStats(
-                Utility.f_filter(
+                TableUtility.f_filter(
                     this.exportListeners,
                     function(v)
                         return v:getOwnerFarmId() == farmId

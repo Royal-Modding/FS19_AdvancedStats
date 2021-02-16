@@ -1,9 +1,8 @@
---
--- ${title}
---
--- @author ${author}
--- @version ${version}
--- @date 04/11/2020
+---${title}
+
+---@author ${author}
+---@version r_version_r
+---@date 04/11/2020
 
 ExtendedBaler = {}
 ExtendedBaler.MOD_NAME = g_currentModName
@@ -38,7 +37,7 @@ function ExtendedBaler:onLoadStats()
     )
 end
 
-function ExtendedBaler:dropBale(superFunc,...)
+function ExtendedBaler:dropBale(superFunc, ...)
     superFunc(self, ...)
     if self.isServer then
         local spec = self[ExtendedBaler.SPEC_TABLE_NAME]

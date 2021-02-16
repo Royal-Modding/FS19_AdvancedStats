@@ -1,9 +1,8 @@
---
--- ${title}
---
--- @author ${author}
--- @version ${version}
--- @date 21/12/2020
+---${title}
+
+---@author ${author}
+---@version r_version_r
+---@date 21/12/2020
 
 ResetPartialStatsEvent = {}
 ResetPartialStatsEvent_mt = Class(ResetPartialStatsEvent, Event)

@@ -1,9 +1,8 @@
---
--- ${title}
---
--- @author ${author}
--- @version ${version}
--- @date 14/11/2020
+---${title}
+
+---@author ${author}
+---@version r_version_r
+---@date 14/11/2020
 
 ExtendedWindrower = {}
 ExtendedWindrower.MOD_NAME = g_currentModName

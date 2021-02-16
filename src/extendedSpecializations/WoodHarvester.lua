@@ -1,9 +1,8 @@
---
--- ${title}
---
--- @author ${author}
--- @version ${version}
--- @date 05/11/2020
+---${title}
+
+---@author ${author}
+---@version r_version_r
+---@date 05/11/2020
 
 ExtendedWoodHarvester = {}
 ExtendedWoodHarvester.MOD_NAME = g_currentModName

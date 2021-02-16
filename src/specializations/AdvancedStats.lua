@@ -1,9 +1,8 @@
---
--- ${title}
---
--- @author ${author}
--- @version ${version}
--- @date 16/12/2020
+---${title}
+
+---@author ${author}
+---@version r_version_r
+---@date 16/12/2020
 
 source(Utils.getFilename("specializations/events/ResetPartialStatsEvent.lua", g_currentModDirectory))
 
@@ -401,9 +400,15 @@ function AdvancedStats:readStatsFromStream(streamId)
     local count = streamReadUInt16(streamId)
     if count > 0 then
         for _ = 1, count do
-            local statKey = self:getStatKeyById(streamReadUInt8(streamId))
-            spec.statistics[statKey].total = streamReadFloat32(streamId)
-            spec.statistics[statKey].partial = streamReadFloat32(streamId)
+            local statId = streamReadUInt8(streamId)
+            local statKey = self:getStatKeyById(statId)
+            if spec.statistics[statKey] == nil then
+                print("Can't find key " .. tostring(statKey) .. "(" .. statId .. ")")
+            end
+            if spec.statistics[statKey] ~= nil then
+                spec.statistics[statKey].total = streamReadFloat32(streamId)
+                spec.statistics[statKey].partial = streamReadFloat32(streamId)
+            end
         end
     end
 end

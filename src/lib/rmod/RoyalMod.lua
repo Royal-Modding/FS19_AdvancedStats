@@ -1,9 +1,8 @@
---
--- Royal Mod
---
--- @author Royal Modding
--- @version 1.3.0.0
--- @date 03/12/2020
+--- Royal Mod
+
+---@author Royal Modding
+---@version 1.4.0.0
+---@date 03/12/2020
 
 ---@class RoyalMod
 ---@field directory string mod directory
@@ -42,7 +41,7 @@ function RoyalMod.new(debug, mpSync)
     mod.super.oldFunctions = {}
 
     mod.super.errorHandle = function(error)
-        g_logManager:devError("[%s] RoyalMod caught error from %s (%s)", mod.name, mod.name, mod.version)
+        g_logManager:devError("RoyalMod caught error from %s (%s)", mod.name, mod.version)
         g_logManager:error(error)
     end
 
@@ -423,6 +422,7 @@ function RoyalMod.new(debug, mpSync)
         mod.super.oldFunctions.Mission00loadOnCreateLoadedObjects(self, xmlFile, ...)
     end
 
+    -- not called on clients in MP games
     mod.super.onLoadFinished = function()
         if mod.onLoadFinished ~= nil then
             xpcall(mod.onLoadFinished, mod.super.errorHandle, mod)
@@ -461,6 +461,33 @@ function RoyalMod.new(debug, mpSync)
         if mod.onPostSaveSavegame ~= nil then
             -- after all vhicles, items and onCreateObjects are saved
             xpcall(mod.onPostSaveSavegame, mod.super.errorHandle, mod, mod.super.getSavegameDirectory(), g_currentMission.missionInfo.savegameIndex)
+        end
+    end
+
+    mod.super.oldFunctions.HelpLineManagerloadMapData = HelpLineManager.loadMapData
+    HelpLineManager.loadMapData = function(self, xmlFile, missionInfo)
+        if mod.super.oldFunctions.HelpLineManagerloadMapData(self, xmlFile, missionInfo) then
+            if mod.onLoadHelpLine ~= nil then
+                local success, hlFilename = xpcall(mod.onLoadHelpLine, mod.super.errorHandle, mod)
+                if success and hlFilename ~= nil and type(hlFilename) == "string" and hlFilename ~= "" then
+                    self:loadFromXML(hlFilename)
+                    for ci = 1, #self.categories do
+                        local category = self.categories[ci]
+                        for pi = 1, #category.pages do
+                            local page = category.pages[pi]
+                            for ii = 1, #page.items do
+                                local item = page.items[ii]
+                                if item.type == HelpLineManager.ITEM_TYPE.IMAGE then
+                                    if item.value:sub(1, 10) == "$rmModDir/" then
+                                        item.value = "$" .. mod.directory .. item.value:sub(11)
+                                    end
+                                end
+                            end
+                        end
+                    end
+                end
+            end
+            return true
         end
     end
 

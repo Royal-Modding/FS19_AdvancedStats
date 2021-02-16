@@ -1,9 +1,8 @@
---
--- ${title}
---
--- @author ${author}
--- @version ${version}
--- @date 29/10/2020
+---${title}
+
+---@author ${author}
+---@version r_version_r
+---@date 29/10/2020
 
 ExtendedPlow = {}
 ExtendedPlow.MOD_NAME = g_currentModName

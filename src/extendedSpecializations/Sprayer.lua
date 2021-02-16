@@ -1,9 +1,8 @@
---
--- ${title}
---
--- @author ${author}
--- @version ${version}
--- @date 23/11/2020
+---${title}
+
+---@author ${author}
+---@version r_version_r
+---@date 23/11/2020
 
 ExtendedSprayer = {}
 ExtendedSprayer.MOD_NAME = g_currentModName

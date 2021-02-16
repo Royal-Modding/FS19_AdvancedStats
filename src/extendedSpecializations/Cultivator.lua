@@ -1,9 +1,8 @@
---
--- ${title}
---
--- @author ${author}
--- @version ${version}
--- @date 28/10/2020
+---${title}
+
+---@author ${author}
+---@version r_version_r
+---@date 28/10/2020
 
 ExtendedCultivator = {}
 ExtendedCultivator.MOD_NAME = g_currentModName

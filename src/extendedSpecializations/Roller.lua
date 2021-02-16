@@ -1,9 +1,8 @@
---
--- ${title}
---
--- @author ${author}
--- @version ${version}
--- @date 04/11/2020
+---${title}
+
+---@author ${author}
+---@version r_version_r
+---@date 04/11/2020
 
 ExtendedRoller = {}
 ExtendedRoller.MOD_NAME = g_currentModName
