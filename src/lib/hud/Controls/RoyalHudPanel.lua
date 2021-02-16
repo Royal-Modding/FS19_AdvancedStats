@@ -1,9 +1,8 @@
---
--- Royal Hud
---
--- @author Royal Modding
--- @version 1.1.0.0
--- @date 10/11/2020
+--- Royal Hud
+
+---@author Royal Modding
+---@version 1.3.0.0
+---@date 10/11/2020
 
 --- RoyalHudPanel class
 ---@class RoyalHudPanel : RoyalHudControl
@@ -11,13 +10,13 @@ RoyalHudPanel = {}
 RoyalHudPanel_mt = Class(RoyalHudPanel, RoyalHudControl)
 
 --- Create new hud panel
----@param name string @name of the hud
----@param x number @normalized (relative to parent) size if the value is between 0 and 1 otherwise a pixel value
----@param y number @normalized (relative to parent) size if the value is between 0 and 1 otherwise a pixel value
----@param width number @size in pixels
----@param height number @size in pixels
----@param style table|nil @style for thus control
----@param parent table|nil @parent of the hud
+---@param name string name of the hud
+---@param x number normalized (relative to parent) size if the value is between 0 and 1 otherwise a pixel value
+---@param y number normalized (relative to parent) size if the value is between 0 and 1 otherwise a pixel value
+---@param width number size in pixels
+---@param height number size in pixels
+---@param style? table style for thus control
+---@param parent? table parent of the hud
 ---@return RoyalHudPanel
 function RoyalHudPanel:new(name, x, y, width, height, style, parent, mt)
     ---@type RoyalHudPanel

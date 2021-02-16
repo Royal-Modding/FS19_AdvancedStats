@@ -1,12 +1,12 @@
---
--- Royal Hud
---
--- @author Royal Modding
--- @version 1.1.0.0
--- @date 11/11/2020
+--- Royal Hud
+
+---@author Royal Modding
+---@version 1.3.0.0
+---@date 11/11/2020
 
 --- RoyalHudText class
 ---@class RoyalHudText : RoyalHud
+---@field superClass fun(self:table):RoyalHud
 RoyalHudText = {}
 RoyalHudText_mt = Class(RoyalHudText, RoyalHud)
 
@@ -14,13 +14,13 @@ RoyalHudText.DUBUG_COLOR = {0, 1, 0, 0.6}
 RoyalHudText.HIGH_CHARS_OFFSET = 0.2285714285714286
 
 --- Create new hud text
----@param name string @name of the hud
----@param text string @text to render
----@param size number @size of text
----@param bold boolean
----@param x number @normalized (relative to parent) size if the value is between 0 and 1 otherwise a pixel value
----@param y number @normalized (relative to parent) size if the value is between 0 and 1 otherwise a pixel value
----@param parent table|nil @parent of the hud
+---@param name string name of the hud
+---@param text string text to render
+---@param size number size of text
+---@param bold boolean bold?
+---@param x number normalized (relative to parent) size if the value is between 0 and 1 otherwise a pixel value
+---@param y number normalized (relative to parent) size if the value is between 0 and 1 otherwise a pixel value
+---@param parent? table parent of the hud
 ---@return RoyalHudText
 function RoyalHudText:new(name, text, size, bold, x, y, parent, mt)
     ---@type RoyalHudText
@@ -33,7 +33,7 @@ function RoyalHudText:new(name, text, size, bold, x, y, parent, mt)
 end
 
 --- Render the text
----@param doNotApplyToChilds boolean
+---@param doNotApplyToChilds boolean don't call on childerns
 function RoyalHudText:render(doNotApplyToChilds)
     if self.visible then
         local x, y = self:getRenderPosition()
@@ -53,7 +53,7 @@ function RoyalHudText:render(doNotApplyToChilds)
 end
 
 --- Set the text size
----@param size number
+---@param size number text size
 function RoyalHudText:setTextSize(size)
     size = size or 20
     self.size = self:getNormalizedSize(0, size * self.uiScale)[2]
@@ -61,7 +61,7 @@ function RoyalHudText:setTextSize(size)
 end
 
 --- Set the text
----@param text string
+---@param text string text string
 function RoyalHudText:setText(text)
     self.text = text
     setTextBold(self.bold)
@@ -71,5 +71,6 @@ function RoyalHudText:setText(text)
     self:setAlignment(self.verticalAlign, self.horizontalAlign)
 end
 
-function RoyalHudText:setSize(width, height)
+--- Avoid setSize inheritance
+function RoyalHudText:setSize()
 end

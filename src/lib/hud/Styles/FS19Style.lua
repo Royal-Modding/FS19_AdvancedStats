@@ -1,9 +1,8 @@
---
--- Royal Hud
---
--- @author Royal Modding
--- @version 1.1.0.0
--- @date 10/11/2020
+--- Royal Hud
+
+---@author Royal Modding
+---@version 1.3.0.0
+---@date 10/11/2020
 
 --- FS19Style class
 ---@type RoyalHudStyle

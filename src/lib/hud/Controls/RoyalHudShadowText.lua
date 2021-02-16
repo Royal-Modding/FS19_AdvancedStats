@@ -1,9 +1,8 @@
---
--- Royal Hud
---
--- @author Royal Modding
--- @version 1.1.0.0
--- @date 11/11/2020
+--- Royal Hud
+
+---@author Royal Modding
+---@version 1.3.0.0
+---@date 11/11/2020
 
 --- RoyalHudShadowText class
 ---@class RoyalHudShadowText : RoyalHudControl
@@ -11,14 +10,14 @@ RoyalHudShadowText = {}
 RoyalHudShadowText_mt = Class(RoyalHudShadowText, RoyalHudControl)
 
 --- Create new hud control
----@param name string @name of the hud
----@param text string @text to render
----@param size number @size of text
----@param bold boolean
----@param x number @normalized (relative to parent) size if the value is between 0 and 1 otherwise a pixel value
----@param y number @normalized (relative to parent) size if the value is between 0 and 1 otherwise a pixel value
----@param style table|nil @style for thus control
----@param parent table|nil @parent of the hud
+---@param name string name of the hud
+---@param text string text to render
+---@param size number size of text
+---@param bold boolean bold?
+---@param x number normalized (relative to parent) size if the value is between 0 and 1 otherwise a pixel value
+---@param y number normalized (relative to parent) size if the value is between 0 and 1 otherwise a pixel value
+---@param style? table style for thus control
+---@param parent? table parent of the hud
 ---@return RoyalHudShadowText
 function RoyalHudShadowText:new(name, text, size, bold, x, y, style, parent, mt)
     ---@type RoyalHudShadowText
@@ -31,10 +30,11 @@ function RoyalHudShadowText:new(name, text, size, bold, x, y, style, parent, mt)
 end
 
 --- Set text color
----@param r number|number[]
----@param g number|nil
----@param b number|nil
----@param a number|nil @alpha transparence
+---@param r number red value
+---@param g number green value
+---@param b number blue value
+---@param a number alpha transparence
+---@overload fun(rgba:number[]):number,number,number,number rgba color array
 function RoyalHudShadowText:setTextColor(r, g, b, a)
     if type(r) == "table" then
         r = r[1] or 1
@@ -51,10 +51,11 @@ function RoyalHudShadowText:setTextColor(r, g, b, a)
 end
 
 --- Set shadow color
----@param r number|number[]
----@param g number|nil
----@param b number|nil
----@param a number|nil @alpha transparence
+---@param r number red value
+---@param g number green value
+---@param b number blue value
+---@param a number alpha transparence
+---@overload fun(rgba:number[]):number,number,number,number rgba color array
 function RoyalHudShadowText:setShadowColor(r, g, b, a)
     if type(r) == "table" then
         r = r[1] or 0

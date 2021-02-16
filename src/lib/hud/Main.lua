@@ -1,9 +1,8 @@
---
--- Royal Hud
---
--- @author Royal Modding
--- @version 1.1.0.0
--- @date 09/11/2020
+--- Royal Hud
+
+---@author Royal Modding
+---@version 1.3.0.0
+---@date 09/11/2020
 
 --- Initialize RoyalHud
 ---@param hudDirectory string

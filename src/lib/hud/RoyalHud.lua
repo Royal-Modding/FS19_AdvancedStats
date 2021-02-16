@@ -1,9 +1,8 @@
---
--- Royal Hud
---
--- @author Royal Modding
--- @version 1.1.0.0
--- @date 09/11/2020
+--- Royal Hud
+
+---@author Royal Modding
+---@version 1.3.0.0
+---@date 09/11/2020
 
 --- RoyalHud class
 ---@class RoyalHud
@@ -21,18 +20,19 @@ RoyalHud.ALIGNS_HORIZONTAL_RIGHT = 6
 RoyalHud.DUBUG_COLOR = {1, 1, 0, 1}
 
 --- Create new hud
----@param name string @name of the hud
----@param x number @normalized (relative to parent) size if the value is between 0 and 1 otherwise a pixel value
----@param y number @normalized (relative to parent) size if the value is between 0 and 1 otherwise a pixel value
----@param width number @size in pixels
----@param height number @size in pixels
----@param parent table|nil @parent of the hud
+---@param name string name of the hud
+---@param x number normalized (relative to parent) size if the value is between 0 and 1 otherwise a pixel value
+---@param y number normalized (relative to parent) size if the value is between 0 and 1 otherwise a pixel value
+---@param width number size in pixels
+---@param height number size in pixels
+---@param parent? table parent of the hud
 ---@return RoyalHud
 function RoyalHud:new(name, x, y, width, height, parent, mt)
     ---@type RoyalHud
     local hud = setmetatable({}, mt or RoyalHud_mt)
+    hud.parent = nil
     hud.name = name or ""
-    hud.id = Utility.random(20)
+    hud.id = StringUtility.random(20)
     hud.key = string.format("[%s]%s", hud.id, hud.name)
     hud.childs = {}
     hud.orderedChilds = {}
@@ -57,8 +57,9 @@ function RoyalHud:new(name, x, y, width, height, parent, mt)
 end
 
 --- Set the hud offset
----@param offsetX table|number|nil @offset x as pixel value
----@param offsetY number|nil @offset y as pixel value
+---@param offsetX? number offset x as pixel value
+---@param offsetY? number offset y as pixel value
+---@overload fun(offsets:number[]) offsets array
 function RoyalHud:setOffset(offsetX, offsetY)
     if type(offsetX) == "table" then
         offsetY = offsetX[2]
@@ -73,8 +74,8 @@ function RoyalHud:setOffset(offsetX, offsetY)
 end
 
 --- Set the hud position
----@param x number @normalized (relative to parent) position if the value is between 0 and 1 otherwise a pixel value
----@param y number @normalized (relative to parent) position if the value is between 0 and 1 otherwise a pixel value
+---@param x number normalized (relative to parent) position if the value is between 0 and 1 otherwise a pixel value
+---@param y number normalized (relative to parent) position if the value is between 0 and 1 otherwise a pixel value
 function RoyalHud:setPosition(x, y)
     if x ~= nil then
         -- if pixel value
@@ -114,8 +115,8 @@ function RoyalHud:setPosition(x, y)
 end
 
 --- Set the hud size
----@param width number @size in pixels
----@param height number @size in pixels
+---@param width number size in pixels
+---@param height number size in pixels
 function RoyalHud:setSize(width, height)
     if width ~= nil then
         self.width = self:getNormalizedSize(width, 0)[1]
@@ -129,10 +130,15 @@ function RoyalHud:setSize(width, height)
 end
 
 --- Set the hud color
----@param r number|number[]
----@param g number|nil
----@param b number|nil
----@param a number|nil @alpha transparence
+---@param r number red value
+---@param g number green value
+---@param b number blue value
+---@param a number alpha transparence
+---@overload fun(rgba:number[]):number,number,number,number rgba color array
+---@return number r
+---@return number g
+---@return number b
+---@return number a
 function RoyalHud:setColor(r, g, b, a)
     if type(r) == "table" then
         self.r = r[1] or self.r
@@ -149,15 +155,15 @@ function RoyalHud:setColor(r, g, b, a)
 end
 
 --- Set the hud alignment
----@param vertical number | "RoyalHud.ALIGNS_VERTICAL_BOTTOM" | "RoyalHud.ALIGNS_VERTICAL_MIDDLE" | "RoyalHud.ALIGNS_VERTICAL_TOP"
----@param horizontal number | "RoyalHud.ALIGNS_HORIZONTAL_LEFT" | "RoyalHud.ALIGNS_HORIZONTAL_CENTER" | "RoyalHud.ALIGNS_HORIZONTAL_RIGHT"
+---@param vertical number | "RoyalHud.ALIGNS_VERTICAL_BOTTOM" | "RoyalHud.ALIGNS_VERTICAL_MIDDLE" | "RoyalHud.ALIGNS_VERTICAL_TOP" vertical alignment
+---@param horizontal number | "RoyalHud.ALIGNS_HORIZONTAL_LEFT" | "RoyalHud.ALIGNS_HORIZONTAL_CENTER" | "RoyalHud.ALIGNS_HORIZONTAL_RIGHT" horizontal alignment
 function RoyalHud:setAlignment(vertical, horizontal)
     self.verticalAlign = vertical or self.verticalAlign
     self.horizontalAlign = horizontal or self.horizontalAlign
 end
 
 --- Delete the hud
----@param doNotApplyToChilds boolean
+---@param doNotApplyToChilds boolean don't call on childerns
 function RoyalHud:delete(doNotApplyToChilds)
     for _, c in ipairs(self.orderedChilds) do
         if not doNotApplyToChilds then
@@ -169,7 +175,7 @@ function RoyalHud:delete(doNotApplyToChilds)
 end
 
 --- Reset the hud size
----@param doNotApplyToChilds boolean
+---@param doNotApplyToChilds boolean don't call on childerns
 function RoyalHud:resetSize(doNotApplyToChilds)
     self:setSize(self.defaultWidth, self.defaultHeight)
     if not doNotApplyToChilds then
@@ -180,8 +186,8 @@ function RoyalHud:resetSize(doNotApplyToChilds)
 end
 
 --- Set the hud visibility
----@param visible boolean
----@param doNotApplyToChilds boolean
+---@param visible boolean visible?
+---@param doNotApplyToChilds boolean don't call on childerns
 function RoyalHud:setIsVisible(visible, doNotApplyToChilds)
     self.visible = visible
     if not doNotApplyToChilds then
@@ -192,8 +198,8 @@ function RoyalHud:setIsVisible(visible, doNotApplyToChilds)
 end
 
 --- Set the hud debug state
----@param debug boolean
----@param doNotApplyToChilds boolean
+---@param debug boolean debug enabled?
+---@param doNotApplyToChilds boolean don't call on childerns
 function RoyalHud:setDebug(debug, doNotApplyToChilds)
     self.debug = debug or false
     if not doNotApplyToChilds then
@@ -204,7 +210,7 @@ function RoyalHud:setDebug(debug, doNotApplyToChilds)
 end
 
 --- Render the hud
----@param doNotApplyToChilds boolean
+---@param doNotApplyToChilds boolean don't call on childerns
 function RoyalHud:render(doNotApplyToChilds)
     if self.debug or g_uiDebugEnabled then
         self:renderDebug()
@@ -217,8 +223,8 @@ function RoyalHud:render(doNotApplyToChilds)
 end
 
 --- Update the hud
----@param dt number
----@param doNotApplyToChilds boolean
+---@param dt number delta time
+---@param doNotApplyToChilds boolean don't call on childerns
 function RoyalHud:update(dt, doNotApplyToChilds)
     if not doNotApplyToChilds then
         for _, c in ipairs(self.orderedChilds) do
@@ -244,7 +250,7 @@ function RoyalHud:renderDebug()
 end
 
 --- Add a child to the hud
----@param child RoyalHud
+---@param child RoyalHud child hud
 function RoyalHud:addChild(child)
     if child.parent == nil then
         child.parent = self
@@ -254,13 +260,13 @@ function RoyalHud:addChild(child)
 end
 
 --- Remove a child from the hud
----@param child RoyalHud
+---@param child RoyalHud child hud
 function RoyalHud:removeChild(child)
     if child.parent ~= nil then
         child.parent = nil
     end
     self.childs[child.key] = nil
-    Utility.f_remove(
+    TableUtility.f_remove(
         self.orderedChilds,
         function(c)
             return c.key == child.key
@@ -269,7 +275,8 @@ function RoyalHud:removeChild(child)
 end
 
 --- Get the hud alignment offset
----@return number, number
+---@return number x offset
+---@return number y offset
 function RoyalHud:getAlignmentOffset()
     local offsetX = 0
     local offsetY = 0
@@ -290,13 +297,15 @@ function RoyalHud:getAlignmentOffset()
 end
 
 --- Get the hud rendering size
----@return number, number
+---@return number width size
+---@return number height size
 function RoyalHud:getRenderSize()
     return self.width, self.height
 end
 
 --- Get the hud rendering position
----@return number, number
+---@return number x horizontal position
+---@return number y vertical position
 function RoyalHud:getRenderPosition()
     local alignOffsetX, alignOffsetY = self:getAlignmentOffset()
     local x = self.x + self.offsetX + alignOffsetX
@@ -310,18 +319,18 @@ function RoyalHud:getRenderPosition()
 end
 
 --- Get normalized from pixels position
----@param x number
----@param y number
----@return table<number, number>
+---@param x number x position in pixels at reference resolution (1920)
+---@param y number y position in pixels at reference resolution (1080)
+---@return number[] {x, y} position in pixels at actual resolution
 function RoyalHud:getNormalizedPosition(x, y)
     local values = getNormalizedValues({x, y}, {g_referenceScreenWidth, g_referenceScreenHeight})
     return {values[1] * g_aspectScaleX, values[2] * g_aspectScaleY}
 end
 
 --- Get normalized from pixels size
----@param width number
----@param height number
----@return table<number, number>
+---@param width number width in pixels at reference resolution (1920)
+---@param height number height in pixels at reference resolution (1080)
+---@return number[] {width, height} size in pixels at actual resolution
 function RoyalHud:getNormalizedSize(width, height)
     local values = getNormalizedValues({width, height}, {g_referenceScreenWidth, g_referenceScreenHeight})
     return {values[1] * g_aspectScaleX, values[2] * g_aspectScaleY}

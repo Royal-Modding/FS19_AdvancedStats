@@ -1,9 +1,8 @@
---
--- Royal Hud
---
--- @author Royal Modding
--- @version 1.1.0.0
--- @date 17/11/2020
+--- Royal Hud
+
+---@author Royal Modding
+---@version 1.3.0.0
+---@date 17/11/2020
 
 --- RoyalHudTitledPanel class
 ---@class RoyalHudTitledPanel : RoyalHudPanel
@@ -11,13 +10,13 @@ RoyalHudTitledPanel = {}
 RoyalHudTitledPanel_mt = Class(RoyalHudTitledPanel, RoyalHudPanel)
 
 --- Create new hud panel with title
----@param name string @name of the hud
----@param x number @normalized (relative to parent) size if the value is between 0 and 1 otherwise a pixel value
----@param y number @normalized (relative to parent) size if the value is between 0 and 1 otherwise a pixel value
----@param width number @size in pixels
----@param height number @size in pixels
----@param style table|nil @style for thus control
----@param parent table|nil @parent of the hud
+---@param name string name of the hud
+---@param x number normalized (relative to parent) size if the value is between 0 and 1 otherwise a pixel value
+---@param y number normalized (relative to parent) size if the value is between 0 and 1 otherwise a pixel value
+---@param width number size in pixels
+---@param height number size in pixels
+---@param style? table style for thus control
+---@param parent? table parent of the hud
 ---@return RoyalHudTitledPanel
 function RoyalHudTitledPanel:new(name, x, y, width, height, style, parent, mt)
     ---@type RoyalHudTitledPanel
@@ -33,7 +32,7 @@ function RoyalHudTitledPanel:new(name, x, y, width, height, style, parent, mt)
 end
 
 --- Set panel title
----@param title string @title of panel
+---@param title string title of panel
 function RoyalHudTitledPanel:setTitle(title)
     if title ~= nil and title ~= "" then
         self.title = title
@@ -46,7 +45,7 @@ function RoyalHudTitledPanel:setTitle(title)
 end
 
 --- Set force upper case for panel title
----@param force boolean
+---@param force boolean force?
 function RoyalHudTitledPanel:setForceUpperCase(force)
     self.forceUpper = force
     self:setTitle(self.title)
