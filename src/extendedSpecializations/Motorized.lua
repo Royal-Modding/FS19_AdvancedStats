@@ -35,7 +35,7 @@ function ExtendedMotorized:onLoadStats()
 end
 
 function ExtendedMotorized:onUpdate(dt)
-    if self.isServer then
+    if self.isServer and self:getIsMotorStarted() then
         local spec = self[ExtendedMotorized.SPEC_TABLE_NAME]
         local usedFuel = (self.spec_motorized.lastFuelUsage * dt) / (1000 * 60 * 60)
         local usedDef = (self.spec_motorized.lastDefUsage * dt) / (1000 * 60 * 60)
