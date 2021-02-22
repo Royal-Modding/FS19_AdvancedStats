@@ -70,12 +70,12 @@ function AdvancedStats:onPreLoad(savegame)
     if g_advancedStats ~= nil then
         g_advancedStats:addExportListener(self)
     end
-    ---@type table
-    self.spec_advancedStats = self[string.format("spec_%s.advancedStats", AdvancedStats.MOD_NAME)]
+    ---@type any
+    self.spec_advancedStats = self[string.format("spec_%s.advancedStats", AdvancedStats.MOD_NAME)] or {}
     local spec = self.spec_advancedStats
     spec.statistics = {}
     spec.statisticsKeyById = {}
-    spec.statisticsCount = 0
+
     spec.nextStatId = 1
 
     if self.isServer then
@@ -102,26 +102,24 @@ function AdvancedStats:onPostLoad(savegame)
     if savegame ~= nil and not savegame.resetVehicles then
         -- Loading advanced statistics from savegame
         local spec = self.spec_advancedStats
-        if spec.statisticsCount > 0 then
-            -- Load old stats backward compatibility (1.0.0.0 to 2.0.0.0)
-            local oldStats = {}
-            local i = 0
-            while true do
-                local key = string.format("%s.advancedStats.statistic(%d)", savegame.key, i)
-                if not hasXMLProperty(savegame.xmlFile, key) then
-                    break
-                end
-                oldStats[getXMLString(savegame.xmlFile, key .. "#key")] = Utils.getNoNil(getXMLFloat(savegame.xmlFile, key .. "#value"), 0)
-                i = i + 1
-            end
+        -- Load old stats backward compatibility (1.0.0.0 to 2.0.0.0)
+        --local oldStats = {}
+        --local i = 0
+        --while true do
+        --    local key = string.format("%s.advancedStats.statistic(%d)", savegame.key, i)
+        --    if not hasXMLProperty(savegame.xmlFile, key) then
+        --        break
+        --    end
+        --    oldStats[getXMLString(savegame.xmlFile, key .. "#key")] = Utils.getNoNil(getXMLFloat(savegame.xmlFile, key .. "#value"), 0)
+        --    i = i + 1
+        --end
 
-            -- Load new stats
-            local key = string.format("%s.%s.%s", savegame.key, AdvancedStats.MOD_NAME, "advancedStats")
-            for _, stat in pairs(spec.statistics) do
-                local statXmlKey = string.format("%s.%s", key, stat.key)
-                stat.total = getXMLFloat(savegame.xmlFile, statXmlKey .. "#total") or oldStats[stat.key] or 0
-                stat.partial = getXMLFloat(savegame.xmlFile, statXmlKey .. "#partial") or 0
-            end
+        -- Load new stats
+        local key = string.format("%s.%s.%s", savegame.key, AdvancedStats.MOD_NAME, "advancedStats")
+        for _, stat in pairs(spec.statistics) do
+            local statXmlKey = string.format("%s.%s", key, stat.key)
+            stat.total = getXMLFloat(savegame.xmlFile, statXmlKey .. "#total") or 0 --oldStats[stat.key] or 0
+            stat.partial = getXMLFloat(savegame.xmlFile, statXmlKey .. "#partial") or 0
         end
     end
 end
@@ -152,14 +150,51 @@ function AdvancedStats:onRegisterActionEvents(isActiveForInput, isActiveForInput
     end
 end
 
+---@param streamId number
+---@param connection any
 function AdvancedStats:onWriteStream(streamId, connection)
     -- initial mp sync
-    AdvancedStats.writeStatsToStream(self, streamId)
+    local spec = self.spec_advancedStats
+    local statsCount = TableUtility.count(spec.statistics)
+    streamWriteUInt16(streamId, statsCount)
+    ---@type AdvancedStatistic
+    for _, stat in pairs(spec.statistics) do
+        streamWriteString(streamId, stat.key)
+        streamWriteUInt16(streamId, stat.id)
+        streamWriteString(streamId, stat.l10n)
+        streamWriteUInt8(streamId, stat.unit)
+        streamWriteBool(streamId, stat.hide)
+        streamWriteFloat32(streamId, stat.total)
+        streamWriteFloat32(streamId, stat.partial)
+    end
 end
 
+---@param streamId number
+---@param connection any
 function AdvancedStats:onReadStream(streamId, connection)
     -- initial mp sync
-    AdvancedStats.readStatsFromStream(self, streamId)
+    local spec = self.spec_advancedStats
+    spec.statistics = {}
+    local statsCount = streamReadUInt16(streamId)
+    if statsCount > 0 then
+        for _ = 1, statsCount do
+            local stat = {}
+            stat.key = streamReadString(streamId)
+            stat.id = streamReadUInt16(streamId)
+            stat.l10n = streamReadString(streamId)
+            if g_i18n:hasText(stat.l10n) then
+                stat.text = g_i18n:getText(stat.l10n)
+            else
+                stat.text = stat.key
+            end
+            stat.unit = streamReadUInt8(streamId)
+            stat.hide = streamReadBool(streamId)
+            stat.total = streamReadFloat32(streamId)
+            stat.partial = streamReadFloat32(streamId)
+            spec.statistics[stat.key] = stat
+            spec.statisticsKeyById[stat.id] = stat.key
+        end
+    end
 end
 
 function AdvancedStats:onUpdate(dt, isActiveForInput, isActiveForInputIgnoreSelection, isSelected)
@@ -188,7 +223,12 @@ function AdvancedStats:onWriteUpdateStream(streamId, connection, dirtyMask)
         local spec = self.spec_advancedStats
         if streamWriteBool(streamId, bitAND(dirtyMask, spec.dirtyFlag) ~= 0) then
             -- write stats
-            AdvancedStats.writeStatsToStream(self, streamId)
+            streamWriteUInt16(streamId, TableUtility.count(spec.statistics))
+            for _, stat in pairs(spec.statistics) do
+                streamWriteUInt8(streamId, stat.id)
+                streamWriteFloat32(streamId, stat.total)
+                streamWriteFloat32(streamId, stat.partial)
+            end
         end
     end
 end
@@ -198,7 +238,20 @@ function AdvancedStats:onReadUpdateStream(streamId, timestamp, connection)
     if connection:getIsServer() then
         if streamReadBool(streamId) then
             -- read stats
-            AdvancedStats.readStatsFromStream(self, streamId)
+            local spec = self.spec_advancedStats
+            local count = streamReadUInt16(streamId)
+            if count > 0 then
+                for _ = 1, count do
+                    local statId = streamReadUInt8(streamId)
+                    local statTotal = streamReadFloat32(streamId)
+                    local statPartial = streamReadFloat32(streamId)
+                    local statKey = self:getStatKeyById(statId)
+                    if spec.statistics[statKey] ~= nil then
+                        spec.statistics[statKey].total = statTotal
+                        spec.statistics[statKey].partial = statPartial
+                    end
+                end
+            end
         end
     end
 end
@@ -212,16 +265,14 @@ end
 
 function AdvancedStats:saveToXMLFile(xmlFile, key, usedModNames)
     local spec = self.spec_advancedStats
-    if spec.statisticsCount > 0 then
-        for _, stat in pairs(spec.statistics) do
-            setXMLFloat(xmlFile, string.format("%s.%s#total", key, stat.key), stat.total)
-            setXMLFloat(xmlFile, string.format("%s.%s#partial", key, stat.key), stat.partial)
-        end
+    for _, stat in pairs(spec.statistics) do
+        setXMLFloat(xmlFile, string.format("%s.%s#total", key, stat.key), stat.total)
+        setXMLFloat(xmlFile, string.format("%s.%s#partial", key, stat.key), stat.partial)
     end
 end
 
 function AdvancedStats:onEnterVehicle()
-    local spec = self.spec_advancedStats
+    --local spec = self.spec_advancedStats
     self:forceStatsRefresh()
 end
 
@@ -276,11 +327,9 @@ end
 
 function AdvancedStats:getHasStatsToShow(checkPartial)
     local spec = self.spec_advancedStats
-    if spec.statisticsCount > 0 then
-        for _, stat in pairs(spec.statistics) do
-            if not stat.hide and ((not checkPartial and stat.total > 0) or (checkPartial and stat.partial > 0)) then
-                return true
-            end
+    for _, stat in pairs(spec.statistics) do
+        if not stat.hide and ((not checkPartial and stat.total > 0) or (checkPartial and stat.partial > 0)) then
+            return true
         end
     end
     return false
@@ -292,49 +341,71 @@ function AdvancedStats:getNextStatId()
     return spec.nextStatId - 1
 end
 
+---@param prefix string
+---@param name string
+---@param unit number
+---@param hide boolean
+---@return boolean success
+---@return string key
 function AdvancedStats:registerStat(prefix, name, unit, hide)
-    local spec = self.spec_advancedStats
-    local statKey = prefix .. "_" .. name
-    local registered = true
+    if self.isServer then
+        local spec = self.spec_advancedStats
+        local statKey = prefix .. "_" .. name
+        local registered = true
 
-    if not spec.statistics[statKey] then
-        local stat = {}
-        stat.id = self:getNextStatId()
-        stat.name = name
-        stat.key = statKey
-        stat.unit = unit or AdvancedStats.UNITS.ND
-        stat.l10n = "ass_" .. prefix .. name
-        stat.hide = hide or false
-        if g_i18n:hasText(stat.l10n) then
-            stat.text = g_i18n:getText(stat.l10n)
+        if not spec.statistics[statKey] then
+            ---@class AdvancedStatistic
+            local stat = {}
+            stat.id = self:getNextStatId()
+            stat.name = name
+            stat.key = statKey
+            stat.unit = unit or AdvancedStats.UNITS.ND
+            stat.l10n = "ass_" .. prefix .. name
+            stat.hide = hide or false
+            if g_i18n:hasText(stat.l10n) then
+                stat.text = g_i18n:getText(stat.l10n)
+            else
+                g_logManager:devWarning("[%s] Missing translation for '%s'", AdvancedStats.MOD_NAME, stat.l10n)
+                stat.text = stat.name
+            end
+            stat.total = 0
+            stat.partial = 0
+            spec.statistics[stat.key] = stat
+            spec.statisticsKeyById[stat.id] = stat.key
         else
-            g_logManager:devWarning("[%s] Missing translation for '%s'", AdvancedStats.MOD_NAME, stat.l10n)
-            stat.text = stat.name
+            g_logManager:devError("[%s] Statistic '%s' with key '%s' already registered", AdvancedStats.MOD_NAME, name, statKey)
+            registered = false
         end
-        stat.total = 0
-        stat.partial = 0
-        spec.statistics[stat.key] = stat
-        spec.statisticsKeyById[stat.id] = stat.key
-        spec.statisticsCount = spec.statisticsCount + 1
-    else
-        g_logManager:devError("[%s] Statistic '%s' with key '%s' already registered", AdvancedStats.MOD_NAME, name, statKey)
-        registered = false
-    end
 
-    return registered, statKey
+        return registered, statKey
+    else
+        g_logManager:devError("[%s] Statistics can be registered only server-side (%s > %s).", AdvancedStats.MOD_NAME, prefix, name)
+        return false
+    end
 end
 
+---@param prefix string
+---@param stats any
+---@return any
 function AdvancedStats:registerStats(prefix, stats)
     local registeredStats = {}
     for _, stat in pairs(stats) do
-        local registered, key = self:registerStat(prefix, stat[1], stat[2], stat[3])
+        ---@type string
+        local name = stat[1]
+        ---@type number
+        local unit = stat[2]
+        ---@type boolean
+        local hide = stat[3]
+        local registered, key = self:registerStat(prefix, name, unit, hide)
         if registered then
-            registeredStats[stat[1]] = key
+            registeredStats[name] = key
         end
     end
     return registeredStats
 end
 
+---@param key string
+---@param value number
 function AdvancedStats:updateStat(key, value)
     if self.isServer then
         local spec = self.spec_advancedStats
@@ -350,32 +421,38 @@ function AdvancedStats:updateStat(key, value)
     end
 end
 
+---@param key string
+---@return any stat
 function AdvancedStats:getStat(key)
-    local spec = self.spec_advancedStats
-    return spec.statistics[key]
+    return self:getStats()[key]
 end
 
+---@return any stats
 function AdvancedStats:getStats()
     local spec = self.spec_advancedStats
     return spec.statistics
 end
 
+---@param id number stat id
+---@return string statKey stat key
 function AdvancedStats:getStatKeyById(id)
     local spec = self.spec_advancedStats
     return spec.statisticsKeyById[id]
 end
 
+---@param id number stat id
+---@return any stat
 function AdvancedStats:getStatById(id)
     local spec = self.spec_advancedStats
     return spec.statistics[self:getStatKeyById(id)]
 end
 
-function AdvancedStats:resetPartialStats(doNotforceStatsRefresh)
+function AdvancedStats:resetPartialStats(doNotForceStatsRefresh)
     local spec = self.spec_advancedStats
     for _, stat in pairs(spec.statistics) do
         stat.partial = 0
     end
-    if not doNotforceStatsRefresh then
+    if not doNotForceStatsRefresh then
         self:forceStatsRefresh()
     end
 end
@@ -388,35 +465,5 @@ function AdvancedStats:forceStatsRefresh()
     end
     if spec.canShowStatsHud then
         spec.refreshStatsHudTimer = spec.refreshStatsHudTimeout
-    end
-end
-
-function AdvancedStats:writeStatsToStream(streamId)
-    local spec = self.spec_advancedStats
-    streamWriteUInt16(streamId, spec.statisticsCount)
-    if spec.statisticsCount > 0 then
-        for _, stat in pairs(spec.statistics) do
-            streamWriteUInt8(streamId, stat.id)
-            streamWriteFloat32(streamId, stat.total)
-            streamWriteFloat32(streamId, stat.partial)
-        end
-    end
-end
-
-function AdvancedStats:readStatsFromStream(streamId)
-    local spec = self.spec_advancedStats
-    local count = streamReadUInt16(streamId)
-    if count > 0 then
-        for _ = 1, count do
-            local statId = streamReadUInt8(streamId)
-            local statKey = self:getStatKeyById(statId)
-            if spec.statistics[statKey] == nil then
-                print("Can't find key " .. tostring(statKey) .. "(" .. tostring(statId) .. ")")
-            end
-            if spec.statistics[statKey] ~= nil then
-                spec.statistics[statKey].total = streamReadFloat32(streamId)
-                spec.statistics[statKey].partial = streamReadFloat32(streamId)
-            end
-        end
     end
 end

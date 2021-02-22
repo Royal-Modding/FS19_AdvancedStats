@@ -5,21 +5,23 @@
 ---@date 23/11/2020
 
 ---@class StatsHud : RoyalHudControl
----@field superClass function
+---@field superClass fun(): any
 StatsHud = {}
-StatsHud.style = {}
-StatsHud.style.separatorColor = {1, 1, 1, 0.3}
-StatsHud.style.textHighlightColor = {0.991, 0.3865, 0.01, 1}
-StatsHud.style.textDefaultColor = {1, 1, 1, 1}
-StatsHud.style.width = 350
-StatsHud.style.rowHeight = 26
-StatsHud.style.topBottomPadding = 24
-StatsHud.style.leftRightPadding = 48
-StatsHud.style.titleSize = 20
-StatsHud.style.textSize = 16
+StatsHud.style = {
+    separatorColor = {1, 1, 1, 0.3},
+    textHighlightColor = {0.991, 0.3865, 0.01, 1},
+    textDefaultColor = {1, 1, 1, 1},
+    width = 350,
+    rowHeight = 26,
+    topBottomPadding = 24,
+    leftRightPadding = 48,
+    titleSize = 20,
+    textSize = 16
+}
 StatsHud.DUBUG_COLOR = {1, 0, 1, 1}
 StatsHud_mt = Class(StatsHud, RoyalHudControl)
 
+---@return StatsHud statsHud stats hud instace
 function StatsHud:new()
     local width, height = StatsHud.style.width, 200
     local style = RoyalHudStyles.getStyle(StatsStyle, FS19Style)
@@ -63,17 +65,14 @@ function StatsHud:setVehicleData(vehicles, showPartial)
     for _, vehicle in pairs(vehicles) do
         if AdvancedStatsUtil.getVehicleHasAdvancedStats(vehicle) and vehicle:getHasStatsToShow(showPartial) then
             table.insert(displayData, {title = AdvancedStatsUtil.getFullVehicleName(vehicle):upper()})
+            ---@type AdvancedStatistic
             for _, stat in pairs(vehicle:getStats()) do
                 local value = stat.total
                 if showPartial then
                     value = stat.partial
                 end
                 if value > 0 and not stat.hide then
-                    local name = stat.key
-                    if g_i18n:hasText(stat.l10n) then
-                        name = g_i18n:getText(stat.l10n)
-                    end
-                    table.insert(displayData, {title = name, text = AdvancedStatsUtil.formatStatValueText(value, stat.unit)})
+                    table.insert(displayData, {title = stat.text, text = AdvancedStatsUtil.formatStatValueText(value, stat.unit)})
                 end
             end
         end
