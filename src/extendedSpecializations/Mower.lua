@@ -4,6 +4,8 @@
 ---@version r_version_r
 ---@date 14/11/2020
 
+---@class ExtendedMower : AdvancedStatsExtendedSpecialization
+---@field spec_mower any
 ExtendedMower = {}
 ExtendedMower.MOD_NAME = g_currentModName
 ExtendedMower.SPEC_TABLE_NAME = string.format("spec_%s.extendedMower", ExtendedMower.MOD_NAME)
@@ -18,19 +20,21 @@ function ExtendedMower.registerEventListeners(vehicleType)
 end
 
 function ExtendedMower:onLoadStats()
-    local spec = self[ExtendedMower.SPEC_TABLE_NAME]
+    local spec = self:getAdvancedStatsSpecTable(ExtendedMower.SPEC_TABLE_NAME)
 
     spec.hasAdvancedStats = true
     spec.advancedStatisticsPrefix = "Mower"
 
-    spec.advancedStatistics =
-        self:registerStats(
-        spec.advancedStatisticsPrefix,
-        {
-            {"WorkedLitres", AdvancedStats.UNITS.LITRE, true},
-            {"WorkedHectares", AdvancedStats.UNITS.HECTARE}
-        }
-    )
+    if self.isServer then
+        spec.advancedStatistics =
+            self:registerStats(
+            spec.advancedStatisticsPrefix,
+            {
+                {"WorkedLitres", AdvancedStats.UNITS.LITRE, true},
+                {"WorkedHectares", AdvancedStats.UNITS.HECTARE}
+            }
+        )
+    end
 end
 
 function ExtendedMower:onEndWorkAreaProcessing(dt)
@@ -45,7 +49,7 @@ function ExtendedMower:onEndWorkAreaProcessing(dt)
             newTotalToDrop = newTotalToDrop + dropArea.litersToDrop
         end
 
-        local spec = self[ExtendedMower.SPEC_TABLE_NAME]
+        local spec = self:getAdvancedStatsSpecTable(ExtendedMower.SPEC_TABLE_NAME)
         self:updateStat(spec.advancedStatistics["WorkedLitres"], totalToDrop - newTotalToDrop)
 
         local lastStatsArea = self.spec_mower.workAreaParameters.lastStatsArea

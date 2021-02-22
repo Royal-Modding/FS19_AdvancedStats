@@ -4,6 +4,9 @@
 ---@version r_version_r
 ---@date 04/11/2020
 
+---@class ExtendedSowingMachine : AdvancedStatsExtendedSpecialization
+---@field spec_sowingMachine any
+---@field getVehicleDamage fun(): number
 ExtendedSowingMachine = {}
 ExtendedSowingMachine.MOD_NAME = g_currentModName
 ExtendedSowingMachine.SPEC_TABLE_NAME = string.format("spec_%s.extendedSowingMachine", ExtendedSowingMachine.MOD_NAME)
@@ -18,26 +21,28 @@ function ExtendedSowingMachine.registerEventListeners(vehicleType)
 end
 
 function ExtendedSowingMachine:onLoadStats()
-    local spec = self[ExtendedSowingMachine.SPEC_TABLE_NAME]
+    local spec = self:getAdvancedStatsSpecTable(ExtendedSowingMachine.SPEC_TABLE_NAME)
 
     spec.hasAdvancedStats = true
     spec.advancedStatisticsPrefix = "SowingMachine"
 
-    spec.advancedStatistics =
-        self:registerStats(
-        spec.advancedStatisticsPrefix,
-        {
-            {"WorkedHectares", AdvancedStats.UNITS.HECTARE},
-            {"UsedSeeds", AdvancedStats.UNITS.LITRE}
-        }
-    )
+    if self.isServer then
+        spec.advancedStatistics =
+            self:registerStats(
+            spec.advancedStatisticsPrefix,
+            {
+                {"WorkedHectares", AdvancedStats.UNITS.HECTARE},
+                {"UsedSeeds", AdvancedStats.UNITS.LITRE}
+            }
+        )
+    end
 end
 
 function ExtendedSowingMachine:onEndWorkAreaProcessing(dt)
     if self.isServer then
         local lastStatsArea = self.spec_sowingMachine.workAreaParameters.lastStatsArea
         if lastStatsArea > 0 then
-            local spec = self[ExtendedSowingMachine.SPEC_TABLE_NAME]
+            local spec = self:getAdvancedStatsSpecTable(ExtendedSowingMachine.SPEC_TABLE_NAME)
             local ha = MathUtil.areaToHa(lastStatsArea, g_currentMission:getFruitPixelsToSqm()) -- 4096px are mapped to 2048m
             self:updateStat(spec.advancedStatistics["WorkedHectares"], ha)
 

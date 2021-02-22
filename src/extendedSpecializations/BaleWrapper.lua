@@ -4,6 +4,7 @@
 ---@version r_version_r
 ---@date 04/11/2020
 
+---@class ExtendedBaleWrapper : AdvancedStatsExtendedSpecialization
 ExtendedBaleWrapper = {}
 ExtendedBaleWrapper.MOD_NAME = g_currentModName
 ExtendedBaleWrapper.SPEC_TABLE_NAME = string.format("spec_%s.extendedBaleWrapper", ExtendedBaleWrapper.MOD_NAME)
@@ -21,24 +22,26 @@ function ExtendedBaleWrapper.registerOverwrittenFunctions(vehicleType)
 end
 
 function ExtendedBaleWrapper:onLoadStats()
-    local spec = self[ExtendedBaleWrapper.SPEC_TABLE_NAME]
+    local spec = self:getAdvancedStatsSpecTable(ExtendedBaleWrapper.SPEC_TABLE_NAME)
 
     spec.hasAdvancedStats = true
     spec.advancedStatisticsPrefix = "BaleWrapper"
 
-    spec.advancedStatistics =
-        self:registerStats(
-        spec.advancedStatisticsPrefix,
-        {
-            {"WrappedBales", AdvancedStats.UNITS.ND}
-        }
-    )
+    if self.isServer then
+        spec.advancedStatistics =
+            self:registerStats(
+            spec.advancedStatisticsPrefix,
+            {
+                {"WrappedBales", AdvancedStats.UNITS.ND}
+            }
+        )
+    end
 end
 
 function ExtendedBaleWrapper:pickupWrapperBale(superFunc, ...)
     superFunc(self, ...)
     if self.isServer then
-        local spec = self[ExtendedBaleWrapper.SPEC_TABLE_NAME]
+        local spec = self:getAdvancedStatsSpecTable(ExtendedBaleWrapper.SPEC_TABLE_NAME)
         self:updateStat(spec.advancedStatistics["WrappedBales"], 1)
     end
 end

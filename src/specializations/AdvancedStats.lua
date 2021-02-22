@@ -50,6 +50,7 @@ function AdvancedStats.registerFunctions(vehicleType)
     SpecializationUtil.registerFunction(vehicleType, "getStatById", AdvancedStats.getStatById)
     SpecializationUtil.registerFunction(vehicleType, "forceStatsRefresh", AdvancedStats.forceStatsRefresh)
     SpecializationUtil.registerFunction(vehicleType, "resetPartialStats", AdvancedStats.resetPartialStats)
+    SpecializationUtil.registerFunction(vehicleType, "getAdvancedStatsSpecTable", AdvancedStats.getAdvancedStatsSpecTable)
 end
 
 function AdvancedStats.registerEventListeners(vehicleType)
@@ -262,6 +263,13 @@ function AdvancedStats.onResetStats(self, actionName, inputValue, callbackState,
     end
 end
 
+function AdvancedStats:getAdvancedStatsSpecTable(specName)
+    if not self[specName] then
+        self[specName] = {}
+    end
+    return self[specName]
+end
+
 function AdvancedStats:getHasAdvancedStats()
     return true
 end
@@ -359,7 +367,7 @@ end
 
 function AdvancedStats:getStatById(id)
     local spec = self.spec_advancedStats
-    return spec.statistics[spec.statisticsKeyById[id]]
+    return spec.statistics[self:getStatKeyById(id)]
 end
 
 function AdvancedStats:resetPartialStats(doNotforceStatsRefresh)
@@ -403,7 +411,7 @@ function AdvancedStats:readStatsFromStream(streamId)
             local statId = streamReadUInt8(streamId)
             local statKey = self:getStatKeyById(statId)
             if spec.statistics[statKey] == nil then
-                print("Can't find key " .. tostring(statKey) .. "(" .. statId .. ")")
+                print("Can't find key " .. tostring(statKey) .. "(" .. tostring(statId) .. ")")
             end
             if spec.statistics[statKey] ~= nil then
                 spec.statistics[statKey].total = streamReadFloat32(streamId)

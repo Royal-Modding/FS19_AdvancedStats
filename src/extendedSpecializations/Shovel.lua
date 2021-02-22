@@ -4,6 +4,7 @@
 ---@version r_version_r
 ---@date 23/11/2020
 
+---@class ExtendedShovel : AdvancedStatsExtendedSpecialization
 ExtendedShovel = {}
 ExtendedShovel.MOD_NAME = g_currentModName
 ExtendedShovel.SPEC_TABLE_NAME = string.format("spec_%s.extendedShovel", ExtendedShovel.MOD_NAME)
@@ -18,23 +19,25 @@ function ExtendedShovel.registerEventListeners(vehicleType)
 end
 
 function ExtendedShovel:onLoadStats()
-    local spec = self[ExtendedShovel.SPEC_TABLE_NAME]
+    local spec = self:getAdvancedStatsSpecTable(ExtendedShovel.SPEC_TABLE_NAME)
 
     spec.hasAdvancedStats = true
     spec.advancedStatisticsPrefix = "Shovel"
 
-    spec.advancedStatistics =
-        self:registerStats(
-        spec.advancedStatisticsPrefix,
-        {
-            {"LoadedLiters", AdvancedStats.UNITS.LITRE}
-        }
-    )
+    if self.isServer then
+        spec.advancedStatistics =
+            self:registerStats(
+            spec.advancedStatisticsPrefix,
+            {
+                {"LoadedLiters", AdvancedStats.UNITS.LITRE}
+            }
+        )
+    end
 end
 
 function ExtendedShovel:onFillUnitFillLevelChanged(fillUnitIndex, fillLevelDelta, fillTypeIndex, toolType, fillPositionData, appliedDelta)
     if self.isServer and appliedDelta > 0 then
-        local spec = self[ExtendedShovel.SPEC_TABLE_NAME]
+        local spec = self:getAdvancedStatsSpecTable(ExtendedShovel.SPEC_TABLE_NAME)
         self:updateStat(spec.advancedStatistics["LoadedLiters"], appliedDelta)
     end
 end

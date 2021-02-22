@@ -4,6 +4,8 @@
 ---@version r_version_r
 ---@date 14/11/2020
 
+---@class ExtendedTedder : AdvancedStatsExtendedSpecialization
+---@field spec_tedder any
 ExtendedTedder = {}
 ExtendedTedder.MOD_NAME = g_currentModName
 ExtendedTedder.SPEC_TABLE_NAME = string.format("spec_%s.extendedTedder", ExtendedTedder.MOD_NAME)
@@ -21,25 +23,27 @@ function ExtendedTedder.registerOverwrittenFunctions(vehicleType)
 end
 
 function ExtendedTedder:onLoadStats()
-    local spec = self[ExtendedTedder.SPEC_TABLE_NAME]
+    local spec = self:getAdvancedStatsSpecTable(ExtendedTedder.SPEC_TABLE_NAME)
 
     spec.hasAdvancedStats = true
     spec.advancedStatisticsPrefix = "Tedder"
 
-    spec.advancedStatistics =
-        self:registerStats(
-        spec.advancedStatisticsPrefix,
-        {
-            {"WorkedLitres", AdvancedStats.UNITS.LITRE, true},
-            {"WorkedHectares", AdvancedStats.UNITS.HECTARE}
-        }
-    )
+    if self.isServer then
+        spec.advancedStatistics =
+            self:registerStats(
+            spec.advancedStatisticsPrefix,
+            {
+                {"WorkedLitres", AdvancedStats.UNITS.LITRE, true},
+                {"WorkedHectares", AdvancedStats.UNITS.HECTARE}
+            }
+        )
+    end
 end
 
 function ExtendedTedder:processTedderArea(superFunc, ...)
     local realArea = superFunc(self, ...)
     if self.isServer and realArea > 0 then
-        local spec = self[ExtendedTedder.SPEC_TABLE_NAME]
+        local spec = self:getAdvancedStatsSpecTable(ExtendedTedder.SPEC_TABLE_NAME)
         local ha = MathUtil.areaToHa(realArea, g_currentMission:getFruitPixelsToSqm()) -- 4096px are mapped to 2048m
         self:updateStat(spec.advancedStatistics["WorkedHectares"], ha)
         self:updateStat(spec.advancedStatistics["WorkedLitres"], self.spec_tedder.lastDroppedLiters)

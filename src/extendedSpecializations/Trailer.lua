@@ -4,6 +4,7 @@
 ---@version r_version_r
 ---@date 04/11/2020
 
+---@class ExtendedTrailer : AdvancedStatsExtendedSpecialization
 ExtendedTrailer = {}
 ExtendedTrailer.MOD_NAME = g_currentModName
 ExtendedTrailer.SPEC_TABLE_NAME = string.format("spec_%s.extendedTrailer", ExtendedTrailer.MOD_NAME)
@@ -18,23 +19,25 @@ function ExtendedTrailer.registerEventListeners(vehicleType)
 end
 
 function ExtendedTrailer:onLoadStats()
-    local spec = self[ExtendedTrailer.SPEC_TABLE_NAME]
+    local spec = self:getAdvancedStatsSpecTable(ExtendedTrailer.SPEC_TABLE_NAME)
 
     spec.hasAdvancedStats = true
     spec.advancedStatisticsPrefix = "Trailer"
 
-    spec.advancedStatistics =
-        self:registerStats(
-        spec.advancedStatisticsPrefix,
-        {
-            {"LoadedLiters", AdvancedStats.UNITS.LITRE}
-        }
-    )
+    if self.isServer then
+        spec.advancedStatistics =
+            self:registerStats(
+            spec.advancedStatisticsPrefix,
+            {
+                {"LoadedLiters", AdvancedStats.UNITS.LITRE}
+            }
+        )
+    end
 end
 
 function ExtendedTrailer:onFillUnitFillLevelChanged(fillUnitIndex, fillLevelDelta, fillTypeIndex, toolType, fillPositionData, appliedDelta)
     if self.isServer and appliedDelta > 0 then
-        local spec = self[ExtendedTrailer.SPEC_TABLE_NAME]
+        local spec = self:getAdvancedStatsSpecTable(ExtendedTrailer.SPEC_TABLE_NAME)
         self:updateStat(spec.advancedStatistics["LoadedLiters"], appliedDelta)
     end
 end

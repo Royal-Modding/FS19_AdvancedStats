@@ -4,6 +4,7 @@
 ---@version r_version_r
 ---@date 04/11/2020
 
+---@class ExtendedRoller : AdvancedStatsExtendedSpecialization
 ExtendedRoller = {}
 ExtendedRoller.MOD_NAME = g_currentModName
 ExtendedRoller.SPEC_TABLE_NAME = string.format("spec_%s.extendedRoller", ExtendedRoller.MOD_NAME)
@@ -21,24 +22,26 @@ function ExtendedRoller.registerOverwrittenFunctions(vehicleType)
 end
 
 function ExtendedRoller:onLoadStats()
-    local spec = self[ExtendedRoller.SPEC_TABLE_NAME]
+    local spec = self:getAdvancedStatsSpecTable(ExtendedRoller.SPEC_TABLE_NAME)
 
     spec.hasAdvancedStats = true
     spec.advancedStatisticsPrefix = "Roller"
 
-    spec.advancedStatistics =
-        self:registerStats(
-        spec.advancedStatisticsPrefix,
-        {
-            {"RolledHectares", AdvancedStats.UNITS.HECTARE}
-        }
-    )
+    if self.isServer then
+        spec.advancedStatistics =
+            self:registerStats(
+            spec.advancedStatisticsPrefix,
+            {
+                {"RolledHectares", AdvancedStats.UNITS.HECTARE}
+            }
+        )
+    end
 end
 
 function ExtendedRoller:processRollerArea(superFunc, ...)
     local realArea = superFunc(self, ...)
     if self.isServer and realArea > 0 then
-        local spec = self[ExtendedRoller.SPEC_TABLE_NAME]
+        local spec = self:getAdvancedStatsSpecTable(ExtendedRoller.SPEC_TABLE_NAME)
         local ha = MathUtil.areaToHa(realArea, g_currentMission:getFruitPixelsToSqm()) -- 4096px are mapped to 2048m
         self:updateStat(spec.advancedStatistics["RolledHectares"], ha)
     end

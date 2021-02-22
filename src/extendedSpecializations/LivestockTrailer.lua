@@ -4,6 +4,8 @@
 ---@version r_version_r
 ---@date 04/11/2020
 
+---@class ExtendedLivestockTrailer : AdvancedStatsExtendedSpecialization
+---@field spec_livestockTrailer any
 ExtendedLivestockTrailer = {}
 ExtendedLivestockTrailer.MOD_NAME = g_currentModName
 ExtendedLivestockTrailer.SPEC_TABLE_NAME = string.format("spec_%s.extendedLivestockTrailer", ExtendedLivestockTrailer.MOD_NAME)
@@ -21,18 +23,20 @@ function ExtendedLivestockTrailer.registerOverwrittenFunctions(vehicleType)
 end
 
 function ExtendedLivestockTrailer:onLoadStats()
-    local spec = self[ExtendedLivestockTrailer.SPEC_TABLE_NAME]
+    local spec = self:getAdvancedStatsSpecTable(ExtendedLivestockTrailer.SPEC_TABLE_NAME)
 
     spec.hasAdvancedStats = true
     spec.advancedStatisticsPrefix = "LivestockTrailer"
 
-    spec.advancedStatistics =
-        self:registerStats(
-        spec.advancedStatisticsPrefix,
-        {
-            {"LoadedAnimals", AdvancedStats.UNITS.ND}
-        }
-    )
+    if self.isServer then
+        spec.advancedStatistics =
+            self:registerStats(
+            spec.advancedStatisticsPrefix,
+            {
+                {"LoadedAnimals", AdvancedStats.UNITS.ND}
+            }
+        )
+    end
 end
 
 function ExtendedLivestockTrailer:addAnimal(superFunc, animal, ...)
@@ -41,7 +45,7 @@ function ExtendedLivestockTrailer:addAnimal(superFunc, animal, ...)
         local used = place.numUsed
         superFunc(self, animal, ...)
         if place.numUsed > used then
-            local spec = self[ExtendedLivestockTrailer.SPEC_TABLE_NAME]
+            local spec = self:getAdvancedStatsSpecTable(ExtendedLivestockTrailer.SPEC_TABLE_NAME)
             self:updateStat(spec.advancedStatistics["LoadedAnimals"], 1)
         end
     else

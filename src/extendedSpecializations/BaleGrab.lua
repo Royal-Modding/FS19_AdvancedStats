@@ -4,6 +4,8 @@
 ---@version r_version_r
 ---@date 04/11/2020
 
+---@class ExtendedBaleGrab : AdvancedStatsExtendedSpecialization
+---@field spec_baleGrab any
 ExtendedBaleGrab = {}
 ExtendedBaleGrab.MOD_NAME = g_currentModName
 ExtendedBaleGrab.SPEC_TABLE_NAME = string.format("spec_%s.extendedBaleGrab", ExtendedBaleGrab.MOD_NAME)
@@ -21,24 +23,26 @@ function ExtendedBaleGrab.registerOverwrittenFunctions(vehicleType)
 end
 
 function ExtendedBaleGrab:onLoadStats()
-    local spec = self[ExtendedBaleGrab.SPEC_TABLE_NAME]
+    local spec = self:getAdvancedStatsSpecTable(ExtendedBaleGrab.SPEC_TABLE_NAME)
 
     spec.hasAdvancedStats = true
     spec.advancedStatisticsPrefix = "BaleGrab"
 
-    spec.advancedStatistics =
-        self:registerStats(
-        spec.advancedStatisticsPrefix,
-        {
-            {"GrabbedBales", AdvancedStats.UNITS.ND}
-        }
-    )
+    if self.isServer then
+        spec.advancedStatistics =
+            self:registerStats(
+            spec.advancedStatisticsPrefix,
+            {
+                {"GrabbedBales", AdvancedStats.UNITS.ND}
+            }
+        )
+    end
 end
 
 function ExtendedBaleGrab:addDynamicMountedObject(superFunc, object, ...)
     if self.isServer then
         if self.spec_baleGrab.dynamicMountedObjects[object] == nil then
-            local spec = self[ExtendedBaleGrab.SPEC_TABLE_NAME]
+            local spec = self:getAdvancedStatsSpecTable(ExtendedBaleGrab.SPEC_TABLE_NAME)
             -- TODO: Improve it, if the bale is not grabbed correctly will be counted many times
             self:updateStat(spec.advancedStatistics["GrabbedBales"], 1)
         end
