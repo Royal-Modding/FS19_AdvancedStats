@@ -128,30 +128,37 @@ Changelog 2.1.0.0:
 			<en>Toggle advanced stats display</en>
 			<de>Umschalten der Anzeige Erweiterte Statistik</de>
 			<fr>Affichage de basculement des Advanced Stats</fr>
+			<pl>Przełączanie HUDa zaawansowanych statystyk</pl>
 		</text>
 		<text name="input_ADVANCEDSTATS_RESET">
 			<en>Reset partial stats</en>
 			<de>Teilweise Statistiken zurücksetzen</de>
+			<pl>Zresetuj częściowe statystyki</pl>
 		</text>
 		<text name="ass_ADVANCEDSTATS_SHOW">
 			<en>Show advanced stats display</en>
 			<de>Erweiterte Statistikanzeige anzeigen</de>
+			<pl>Pokaż HUD zaawansowanych statystyk</pl>
 		</text>
 		<text name="ass_ADVANCEDSTATS_SHOW_PARTIAL">
 			<en>Show partial stats</en>
 			<de>Teilstatistiken anzeigen</de>
+			<pl>Pokaż częściowe statystyki</pl>
 		</text>
 		<text name="ass_ADVANCEDSTATS_HIDE">
 			<en>Hide advanced stats display</en>
 			<de>Erweiterte Statistikanzeige ausblenden</de>
+			<pl>Ukryj HUD zaawansowanych statystyk</pl>
 		</text>
 		<text name="ass_PANEL_TITLE_1">
 			<en>Statistics</en>
 			<de>Statistik</de>
+			<pl>Statystyki</pl>
 		</text>
 		<text name="ass_PANEL_TITLE_2">
 			<en>Partial statistics</en>
 			<de>Teilweise Statistik</de>
+			<pl>Częściowe statystyki</pl>
 		</text>
 		<text name="ass_Units_1">
 			<en>ha</en>
@@ -168,218 +175,272 @@ Changelog 2.1.0.0:
 		<text name="ass_CultivatorWorkedHectares">
 			<en>Cultivated</en>
 			<de>Gegrubbert</de>
+			<pl>Zakultywatorowano</pl>
 		</text>
 		<text name="ass_WeederWorkedHectares">
 			<en>Weeded</en>
 			<de>Gespritzt</de>
+			<pl>Wypielono</pl>
 		</text>
 		<text name="ass_TreePlanterPlantedTrees">
 			<en>Planted</en>
 			<de>Gepflanzt</de>
+			<pl>Zasadzono</pl>
 		</text>
 		<text name="ass_PlowWorkedHectares">
 			<en>Plowed</en>
 			<de>Gepflügt</de>
+			<pl>Zaorano</pl>
 		</text>
 		<text name="ass_PlowCreatedHectares">
 			<en>Created</en>
 			<de>Erstellt</de>
+			<pl>Stworzono</pl>
 		</text>
 		<text name="ass_LevelerMovedLiters">
 			<en>Moved</en>
 			<de>Verschoben</de>
+			<pl>Rozgarnięto</pl>
 		</text>
 		<text name="ass_WoodHarvesterCutTrees">
 			<en>Cutted trees</en>
 			<de>Gepflanzte Bäume</de>
+			<pl>Ścięto drzew</pl>
 		</text>
 		<text name="ass_WoodHarvesterCutTrunks">
 			<en>Cutted trunks</en>
 			<de>Gefällte Bäume</de>
+			<pl>Pocięto kłód</pl>
 		</text>
 		<text name="ass_MotorizedUsedFuel">
 			<en>Fuel used</en>
 			<de>Verwendeter Kraftstoff</de>
+			<pl>Zużyto paliwa</pl>
 		</text>
 		<text name="ass_MotorizedUsedDef">
 			<en>DEF used</en>
 			<de>DEF verwendet</de>
+			<pl>Zużyto AdBlue</pl>
 		</text>
 		<text name="ass_MotorizedTraveledDistance">
 			<en>Traveled</en>
 			<de>Zurückgelegt</de>
+			<pl>Przejechano</pl>
 		</text>
 		<text name="ass_ConveyorBeltMovedLiters">
 			<en>Moved</en>
 			<de>Verschoben</de>
+			<pl>Przeładowano</pl>
 		</text>
 		<text name="ass_BaleWrapperWrappedBales">
 			<en>Wrapped</en>
 			<de>Gewickelt</de>
+			<pl>Owinięto</pl>
 		</text>
 		<text name="ass_TrailerLoadedLiters">
 			<en>Loaded</en>
 			<de>Geladen</de>
+			<pl>Załadowano</pl>
 		</text>
 		<text name="ass_CombineThreshedLiters">
 			<en>Threshed</en>
 			<de>Gedroschen</de>
+			<pl>Wymłócono</pl>
 		</text>
 		<text name="ass_CombineSwathLiters">
 			<en>Swath</en>
 			<de>Geschwadet</de>
+			<pl>Zsiekano</pl>
 		</text>
 		<text name="ass_CombineWorkedHectares">
 			<en>Harvested</en>
 			<de>Geerntet</de>
+			<pl>Skoszono</pl>
 		</text>
 		<text name="ass_BalerBaleCount">
 			<en>Bales</en>
 			<de>Ballen</de>
+			<pl>Zrobiono bel</pl>
 		</text>
 		<text name="ass_BalerLoadedLiters">
 			<en>Baled</en>
 			<de>Gepresst</de>
+			<pl>Zbelowano</pl>
 		</text>
 		<text name="ass_MowerWorkedLitres">
 			<en>Mown</en>
 			<de>Gemäht</de>
+			<pl>Ścięto</pl>
 		</text>
 		<text name="ass_MowerWorkedHectares">
 			<en>Mown</en>
 			<de>Gemäht</de>
+			<pl>Ścięto</pl>
 		</text>
 		<text name="ass_StumpCutterStumpCutted">
 			<en>Stump cut</en>
 			<de>Stumpfschnitt</de>
+			<pl>Usunięto pni</pl>
 		</text>
 		<text name="ass_SowingMachineWorkedHectares">
 			<en>Sown</en>
 			<de>Gesät</de>
+			<pl>Zasiano</pl>
 		</text>
 		<text name="ass_SowingMachineUsedSeeds">
 			<en>Seeds used</en>
 			<de>Verwendete Samen</de>
+			<pl>Zużyto nasion</pl>
 		</text>
 		<text name="ass_ShovelLoadedLiters">
 			<en>Loaded</en>
 			<de>Geladen</de>
+			<pl>Załadowano</pl>
 		</text>
 		<text name="ass_CutterWorkedHectares">
 			<en>Harvested</en>
 			<de>Geerntet</de>
+			<pl>Skoszono</pl>
 		</text>
 		<text name="ass_WoodCrusherCrushedLitres">
 			<en>Crushed</en>
 			<de>Gehäckselt</de>
+			<pl>Zrąbano</pl>
 		</text>
 		<text name="ass_WoodCrusherCrushedTrunks">
 			<en>Crushed trunks</en>
 			<de>Gehäckselte Stämme</de>
+			<pl>Zrąbano kłód</pl>
 		</text>
 		<text name="ass_AdvancedWoodCrusherCrushedLitres">
 			<en>Crushed</en>
 			<de>Gehäckselt</de>
+			<pl>Zrąbano</pl>
 		</text>
 		<text name="ass_AdvancedWoodCrusherCrushedTrunks">
 			<en>Crushed trunks</en>
 			<de>Gehäckselte Stämme</de>
+			<pl>Zrąbano kłód</pl>
 		</text>
 		<text name="ass_WindrowerWorkedLitres">
 			<en>Windrowed</en>
 			<de>Geschwadet</de>
+			<pl>Zgrabiono</pl>
 		</text>
 		<text name="ass_WindrowerWorkedHectares">
 			<en>Windrowed</en>
 			<de>Geschwadet</de>
+			<pl>Zgrabiono</pl>
 		</text>
 		<text name="ass_TedderWorkedLitres">
 			<en>Tedded</en>
 			<de>Gewendet</de>
+			<pl>Przetrząśnięto</pl>
 		</text>
 		<text name="ass_TedderWorkedHectares">
 			<en>Tedded</en>
 			<de>Gewendet</de>
+			<pl>Przetrząśnięto</pl>
 		</text>
 		<text name="ass_RollerRolledHectares">
 			<en>Rolled</en>
 			<de>Gewalzt</de>
+			<pl>Zwalcowano</pl>
 		</text>
 		<text name="ass_BaleGrabGrabbedBales">
 			<en>Grabbed</en>
 			<de>Geladene Ballen</de>
+			<pl>Zebrano</pl>
 		</text>
 		<text name="ass_BaleLoaderLoadedBales">
 			<en>Loaded</en>
 			<de>Geladen</de>
+			<pl>Załadowano</pl>
 		</text>
 		<text name="ass_LivestockTrailerLoadedAnimals">
 			<en>Loaded</en>
 			<de>Geladen</de>
+			<pl>Załadowano</pl>
 		</text>
 		<text name="ass_SprayerWorkedHectares">
 			<en>Spreaded</en>
 			<de>Gesprüht</de>
+			<pl>Opryskano</pl>
 		</text>
 		<text name="ass_SprayerUsedLitres">
 			<en>Spreaded</en>
 			<de>Verbraucht</de>
+			<pl>Opryskano</pl>
 		</text>
 		<text name="ass_SprayerUsedFertilizer">
 			<en>Used fertilizer</en>
 			<de>Gebrauchter Dünger</de>
+			<pl>Zużyto nawozu stałego</pl>
 		</text>
 		<text name="ass_SprayerFertilizerHectares">
 			<en>Fertilized</en>
 			<de>Gesprüht</de>
+			<pl>Nawieziono</pl>
 		</text>
 		<text name="ass_SprayerUsedLiquidFertilizer">
 			<en>Used fertilizer</en>
 			<de>Gebrauchter Dünger</de>
+			<pl>Zużyto nawozu płynnego</pl>
 		</text>
 		<text name="ass_SprayerLiquidFertilizerHectares">
 			<en>Fertilized</en>
 			<de>Gesprüht</de>
+			<pl>Nawieziono</pl>
 		</text>
 		<text name="ass_SprayerUsedLime">
 			<en>Used lime</en>
 			<de>Verwendeter Kalk</de>
+			<pl>Zużyto wapna</pl>
 		</text>
 		<text name="ass_SprayerLimeHectares">
 			<en>Limed</en>
 			<de>Gekalkt</de>
+			<pl>Zwapnowano</pl>
 		</text>
 		<text name="ass_SprayerUsedManure">
 			<en>Used manure</en>
 			<de>Gebrauchte Gülle</de>
+			<pl>Zużyto obornika</pl>
 		</text>
 		<text name="ass_SprayerManureHectares">
 			<en>Manured</en>
 			<de>Gedüngt</de>
+			<pl>Nawieziono obornikiem</pl>
 		</text>
 		<text name="ass_SprayerUsedLiquidManure">
 			<en>Used manure</en>
 			<de>Gebrauchte Gülle</de>
+			<pl>Zużyto gnojowicy</pl>
 		</text>
 		<text name="ass_SprayerLiquidManureHectares">
 			<en>Manured</en>
 			<de>Gedüngt</de>
+			<pl>Nawieziono gnojowicą</pl>
 		</text>
 		<text name="ass_SprayerUsedDigestate">
 			<en>Used digestate</en>
 			<de>Verwendete Gärreste</de>
+			<pl>Zużyto kompostu</pl>
 		</text>
 		<text name="ass_SprayerDigestateHectares">
 			<en>Digestated</en>
 			<de>Gedüngt</de>
+			<pl>Nawieziono kompostem</pl>
 		</text>
 		<text name="ass_SprayerUsedHerbicide">
 			<en>Used herbicide</en>
 			<de>Verbrauchter Pflanzenschutz</de>
+			<pl>Zużyto herbicydów</pl>
 		</text>
 		<text name="ass_SprayerHerbicideHectares">
 			<en>Weeded</en>
 			<de>Gespritzt</de>
+			<pl>Opryskano herbicydami</pl>
 		</text>
 	</l10n>
 </modDesc>
