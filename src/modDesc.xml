@@ -48,21 +48,21 @@ Changelog 2.1.0.0:
 		</de>
 		<fr>
 			<![CDATA[
-Ce mod recueillera un tas de statistiques individuelles pour vos véhicules et outils, vous pouvez les montrer en appuyant sur LALT + T lorsque vous êtes sur votre siège, appuyez à nouveau pour afficher le compteur partiel (il peut être remis à zéro en appuyant sur LCTRL + T).
+Ce mod recueillera un tas de statistiques individuelles pour vos véhicules et outils, vous pouvez les afficher en appuyant sur LALT + T lorsque vous êtes sur votre siège, appuyez à nouveau pour afficher le compteur partiel (il peut être remis à zéro en appuyant sur LCTRL + T).
 
 Quelques exemples de statistiques recueillies :
 - Distance parcourue
 - Carburant et DEF utilisés
 - Hectares travaillés
 - Litres et hectares récoltés
-- Engrais usés, herbicide et chaux
+- Engrais, herbicide et chaux utilisés
 - Beaucoup plus
 
 Changelog 2.1.0.0:
 - Ajout de statistiques partielles (elles sont réinitialisables)
 - Synchronisation multijoueur optimisée
 - Ajout des commandes asExportAllStats et asExportOwnStats
-- Chevauchement fixe du hud avec AutoDrive
+- Correction du chevauchement du hud avec AutoDrive
 - Correction de quelques bogues mineurs
 ]]>
 		</fr>
@@ -127,318 +127,381 @@ Changelog 2.1.0.0:
 		<text name="input_ADVANCEDSTATS_TOGGLE">
 			<en>Toggle advanced stats display</en>
 			<de>Umschalten der Anzeige Erweiterte Statistik</de>
-			<fr>Affichage de basculement des Advanced Stats</fr>
+			<fr>Affichage des statistiques avancées</fr>
 			<pl>Przełączanie HUDa zaawansowanych statystyk</pl>
 		</text>
 		<text name="input_ADVANCEDSTATS_RESET">
 			<en>Reset partial stats</en>
+			<fr>Remise à zéro des statistiques partielles</fr>
 			<de>Teilweise Statistiken zurücksetzen</de>
 			<pl>Zresetuj częściowe statystyki</pl>
 		</text>
 		<text name="ass_ADVANCEDSTATS_SHOW">
 			<en>Show advanced stats display</en>
+			<fr>Affichage des statistiques avancées</fr>
 			<de>Erweiterte Statistikanzeige anzeigen</de>
 			<pl>Pokaż HUD zaawansowanych statystyk</pl>
 		</text>
 		<text name="ass_ADVANCEDSTATS_SHOW_PARTIAL">
 			<en>Show partial stats</en>
+			<fr>Affichage des statistiques partielles</fr>
 			<de>Teilstatistiken anzeigen</de>
 			<pl>Pokaż częściowe statystyki</pl>
 		</text>
 		<text name="ass_ADVANCEDSTATS_HIDE">
 			<en>Hide advanced stats display</en>
+			<fr>Masquer les statistiques avancées</fr>
 			<de>Erweiterte Statistikanzeige ausblenden</de>
 			<pl>Ukryj HUD zaawansowanych statystyk</pl>
 		</text>
 		<text name="ass_PANEL_TITLE_1">
 			<en>Statistics</en>
+			<fr>Statistiques</fr>
 			<de>Statistik</de>
 			<pl>Statystyki</pl>
 		</text>
 		<text name="ass_PANEL_TITLE_2">
 			<en>Partial statistics</en>
+			<fr>Statistiques partielles</fr>
 			<de>Teilweise Statistik</de>
 			<pl>Częściowe statystyki</pl>
 		</text>
 		<text name="ass_Units_1">
 			<en>ha</en>
+			<fr>ha</fr>
 			<de>Hektar</de>
 		</text>
 		<text name="ass_Units_2">
 			<en>l</en>
+			<fr>l</fr>
 			<de>Liter</de>
 		</text>
 		<text name="ass_Units_3">
 			<en>km</en>
+			<fr>km</fr>
 			<de>km</de>
 		</text>
 		<text name="ass_CultivatorWorkedHectares">
 			<en>Cultivated</en>
+			<fr>Cultivés</fr>
 			<de>Gegrubbert</de>
 			<pl>Zakultywatorowano</pl>
 		</text>
 		<text name="ass_WeederWorkedHectares">
 			<en>Weeded</en>
+			<fr>Désherbés</fr>
 			<de>Gespritzt</de>
 			<pl>Wypielono</pl>
 		</text>
 		<text name="ass_TreePlanterPlantedTrees">
 			<en>Planted</en>
+			<fr>plantés</fr>
 			<de>Gepflanzt</de>
 			<pl>Zasadzono</pl>
 		</text>
 		<text name="ass_PlowWorkedHectares">
 			<en>Plowed</en>
+			<fr>labourés</fr>
 			<de>Gepflügt</de>
 			<pl>Zaorano</pl>
 		</text>
 		<text name="ass_PlowCreatedHectares">
 			<en>Created</en>
+			<fr>créés</fr>
 			<de>Erstellt</de>
 			<pl>Stworzono</pl>
 		</text>
 		<text name="ass_LevelerMovedLiters">
 			<en>Moved</en>
+			<fr>transportés</fr>
 			<de>Verschoben</de>
 			<pl>Rozgarnięto</pl>
 		</text>
 		<text name="ass_WoodHarvesterCutTrees">
 			<en>Cutted trees</en>
+			<fr>arbres coupés/fr>
 			<de>Gepflanzte Bäume</de>
 			<pl>Ścięto drzew</pl>
 		</text>
 		<text name="ass_WoodHarvesterCutTrunks">
 			<en>Cutted trunks</en>
+			<fr>souches enlevées</fr>
 			<de>Gefällte Bäume</de>
 			<pl>Pocięto kłód</pl>
 		</text>
 		<text name="ass_MotorizedUsedFuel">
 			<en>Fuel used</en>
+			<fr>Carburant utilisé</fr>
 			<de>Verwendeter Kraftstoff</de>
 			<pl>Zużyto paliwa</pl>
 		</text>
 		<text name="ass_MotorizedUsedDef">
 			<en>DEF used</en>
+			<fr>adBlue utilisé</fr>
 			<de>DEF verwendet</de>
 			<pl>Zużyto AdBlue</pl>
 		</text>
 		<text name="ass_MotorizedTraveledDistance">
 			<en>Traveled</en>
+			<fr>parcourus</fr>
 			<de>Zurückgelegt</de>
 			<pl>Przejechano</pl>
 		</text>
 		<text name="ass_ConveyorBeltMovedLiters">
 			<en>Moved</en>
+			<fr>transportés</fr>
 			<de>Verschoben</de>
 			<pl>Przeładowano</pl>
 		</text>
 		<text name="ass_BaleWrapperWrappedBales">
 			<en>Wrapped</en>
+			<fr>enrubannées</fr>
 			<de>Gewickelt</de>
 			<pl>Owinięto</pl>
 		</text>
 		<text name="ass_TrailerLoadedLiters">
 			<en>Loaded</en>
+			<fr>chargés</fr>
 			<de>Geladen</de>
 			<pl>Załadowano</pl>
 		</text>
 		<text name="ass_CombineThreshedLiters">
 			<en>Threshed</en>
+			<fr>broyés</fr>
 			<de>Gedroschen</de>
 			<pl>Wymłócono</pl>
 		</text>
 		<text name="ass_CombineSwathLiters">
 			<en>Swath</en>
+			<fr>paille rejetée</fr>
 			<de>Geschwadet</de>
 			<pl>Zsiekano</pl>
 		</text>
 		<text name="ass_CombineWorkedHectares">
 			<en>Harvested</en>
+			<fr>récoltés</fr>
 			<de>Geerntet</de>
 			<pl>Skoszono</pl>
 		</text>
 		<text name="ass_BalerBaleCount">
 			<en>Bales</en>
+			<fr>Balles</fr>
 			<de>Ballen</de>
 			<pl>Zrobiono bel</pl>
 		</text>
 		<text name="ass_BalerLoadedLiters">
 			<en>Baled</en>
+			<fr>mis en balle</fr>
 			<de>Gepresst</de>
 			<pl>Zbelowano</pl>
 		</text>
 		<text name="ass_MowerWorkedLitres">
 			<en>Mown</en>
+			<fr>fauchés</fr>
 			<de>Gemäht</de>
 			<pl>Ścięto</pl>
 		</text>
 		<text name="ass_MowerWorkedHectares">
 			<en>Mown</en>
+			<fr>fauchés</fr>
 			<de>Gemäht</de>
 			<pl>Ścięto</pl>
 		</text>
 		<text name="ass_StumpCutterStumpCutted">
 			<en>Stump cut</en>
+			<fr>souches coupées</fr>
 			<de>Stumpfschnitt</de>
 			<pl>Usunięto pni</pl>
 		</text>
 		<text name="ass_SowingMachineWorkedHectares">
 			<en>Sown</en>
+			<fr>plantés</fr>
 			<de>Gesät</de>
 			<pl>Zasiano</pl>
 		</text>
 		<text name="ass_SowingMachineUsedSeeds">
 			<en>Seeds used</en>
+			<fr>semences utilisées</fr>
 			<de>Verwendete Samen</de>
 			<pl>Zużyto nasion</pl>
 		</text>
 		<text name="ass_ShovelLoadedLiters">
 			<en>Loaded</en>
+			<fr>chargés</fr>
 			<de>Geladen</de>
 			<pl>Załadowano</pl>
 		</text>
 		<text name="ass_CutterWorkedHectares">
 			<en>Harvested</en>
+			<fr>Récoltés</fr>
 			<de>Geerntet</de>
 			<pl>Skoszono</pl>
 		</text>
 		<text name="ass_WoodCrusherCrushedLitres">
 			<en>Crushed</en>
+			<fr>broyés en copeaux</fr>
 			<de>Gehäckselt</de>
 			<pl>Zrąbano</pl>
 		</text>
 		<text name="ass_WoodCrusherCrushedTrunks">
 			<en>Crushed trunks</en>
+			<fr>souches broyées en copeaux</fr>
 			<de>Gehäckselte Stämme</de>
 			<pl>Zrąbano kłód</pl>
 		</text>
 		<text name="ass_AdvancedWoodCrusherCrushedLitres">
 			<en>Crushed</en>
+			<fr>broyés en copeaux</fr>
 			<de>Gehäckselt</de>
 			<pl>Zrąbano</pl>
 		</text>
 		<text name="ass_AdvancedWoodCrusherCrushedTrunks">
 			<en>Crushed trunks</en>
+			<fr>souches broyées en copeaux/fr>
 			<de>Gehäckselte Stämme</de>
 			<pl>Zrąbano kłód</pl>
 		</text>
 		<text name="ass_WindrowerWorkedLitres">
 			<en>Windrowed</en>
+			<fr>andainés</fr>
 			<de>Geschwadet</de>
 			<pl>Zgrabiono</pl>
 		</text>
 		<text name="ass_WindrowerWorkedHectares">
 			<en>Windrowed</en>
+			<fr>andainés</fr>
 			<de>Geschwadet</de>
 			<pl>Zgrabiono</pl>
 		</text>
 		<text name="ass_TedderWorkedLitres">
 			<en>Tedded</en>
+			<fr>fannés</fr>
 			<de>Gewendet</de>
 			<pl>Przetrząśnięto</pl>
 		</text>
 		<text name="ass_TedderWorkedHectares">
 			<en>Tedded</en>
+			<fr>fannés</fr>
 			<de>Gewendet</de>
 			<pl>Przetrząśnięto</pl>
 		</text>
 		<text name="ass_RollerRolledHectares">
 			<en>Rolled</en>
+			<fr>passés au rouleau</fr>
 			<de>Gewalzt</de>
 			<pl>Zwalcowano</pl>
 		</text>
 		<text name="ass_BaleGrabGrabbedBales">
 			<en>Grabbed</en>
+			<fr>balles traitées</fr>
 			<de>Geladene Ballen</de>
 			<pl>Zebrano</pl>
 		</text>
 		<text name="ass_BaleLoaderLoadedBales">
 			<en>Loaded</en>
+			<fr>balles chargées</fr>
 			<de>Geladen</de>
 			<pl>Załadowano</pl>
 		</text>
 		<text name="ass_LivestockTrailerLoadedAnimals">
 			<en>Loaded</en>
+			<fr>chargés</fr>
 			<de>Geladen</de>
 			<pl>Załadowano</pl>
 		</text>
 		<text name="ass_SprayerWorkedHectares">
 			<en>Spreaded</en>
+			<fr>épandus</fr>
 			<de>Gesprüht</de>
 			<pl>Opryskano</pl>
 		</text>
 		<text name="ass_SprayerUsedLitres">
 			<en>Spreaded</en>
+			<fr>épandus</fr>
 			<de>Verbraucht</de>
 			<pl>Opryskano</pl>
 		</text>
 		<text name="ass_SprayerUsedFertilizer">
 			<en>Used fertilizer</en>
+			<fr>engrais utilisés</fr>
 			<de>Gebrauchter Dünger</de>
 			<pl>Zużyto nawozu stałego</pl>
 		</text>
 		<text name="ass_SprayerFertilizerHectares">
 			<en>Fertilized</en>
+			<fr>fertilisés</fr>
 			<de>Gesprüht</de>
 			<pl>Nawieziono</pl>
 		</text>
 		<text name="ass_SprayerUsedLiquidFertilizer">
 			<en>Used fertilizer</en>
+			<fr>engrais utilisés</fr>
 			<de>Gebrauchter Dünger</de>
 			<pl>Zużyto nawozu płynnego</pl>
 		</text>
 		<text name="ass_SprayerLiquidFertilizerHectares">
 			<en>Fertilized</en>
+			<fr>fertilisés</fr>
 			<de>Gesprüht</de>
 			<pl>Nawieziono</pl>
 		</text>
 		<text name="ass_SprayerUsedLime">
 			<en>Used lime</en>
+			<fr>chaux utilisée</fr>
 			<de>Verwendeter Kalk</de>
 			<pl>Zużyto wapna</pl>
 		</text>
 		<text name="ass_SprayerLimeHectares">
 			<en>Limed</en>
+			<fr>chaulés</fr>
 			<de>Gekalkt</de>
 			<pl>Zwapnowano</pl>
 		</text>
 		<text name="ass_SprayerUsedManure">
 			<en>Used manure</en>
+			<fr>fumier utilisé</fr>
 			<de>Gebrauchte Gülle</de>
 			<pl>Zużyto obornika</pl>
 		</text>
 		<text name="ass_SprayerManureHectares">
 			<en>Manured</en>
+			<fr>fumier épandus</fr>
 			<de>Gedüngt</de>
 			<pl>Nawieziono obornikiem</pl>
 		</text>
 		<text name="ass_SprayerUsedLiquidManure">
 			<en>Used manure</en>
+			<fr>lisier épandus</fr>
 			<de>Gebrauchte Gülle</de>
 			<pl>Zużyto gnojowicy</pl>
 		</text>
 		<text name="ass_SprayerLiquidManureHectares">
 			<en>Manured</en>
+			<fr>lisier épandus</fr>
 			<de>Gedüngt</de>
 			<pl>Nawieziono gnojowicą</pl>
 		</text>
 		<text name="ass_SprayerUsedDigestate">
 			<en>Used digestate</en>
+			<fr>digestat épandus</fr>
 			<de>Verwendete Gärreste</de>
 			<pl>Zużyto kompostu</pl>
 		</text>
 		<text name="ass_SprayerDigestateHectares">
 			<en>Digestated</en>
+			<fr>digestat épandus</fr>
 			<de>Gedüngt</de>
 			<pl>Nawieziono kompostem</pl>
 		</text>
 		<text name="ass_SprayerUsedHerbicide">
 			<en>Used herbicide</en>
+			<fr>herbicide épandus</fr>
 			<de>Verbrauchter Pflanzenschutz</de>
 			<pl>Zużyto herbicydów</pl>
 		</text>
 		<text name="ass_SprayerHerbicideHectares">
 			<en>Weeded</en>
+			<fr>désherbés</fr>
 			<de>Gespritzt</de>
 			<pl>Opryskano herbicydami</pl>
 		</text>
