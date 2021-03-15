@@ -33,7 +33,7 @@ function ExtendedWindrower:onLoadStats()
             spec.advancedStatisticsPrefix,
             {
                 {"WorkedLitres", AdvancedStats.UNITS.LITRE, true},
-                {"WorkedHectares", AdvancedStats.UNITS.HECTARE}
+                {"WorkedHectares", AdvancedStats.UNITS.HECTARE, true}
             }
         )
     end

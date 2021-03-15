@@ -49,7 +49,7 @@ function ExtendedBaler:dropBale(superFunc, ...)
 end
 
 function ExtendedBaler:onFillUnitFillLevelChanged(fillUnitIndex, fillLevelDelta, fillTypeIndex, toolType, fillPositionData, appliedDelta)
-    if self.isServer and appliedDelta > 0 then
+    if self.isServer and appliedDelta > 0 and fillUnitIndex == 1 then
         local spec = self:getAdvancedStatsSpecTable(ExtendedBaler.SPEC_TABLE_NAME)
         self:updateStat(spec.advancedStatistics["LoadedLiters"], appliedDelta)
     end

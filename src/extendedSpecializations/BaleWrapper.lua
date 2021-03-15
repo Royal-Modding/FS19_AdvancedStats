@@ -38,9 +38,9 @@ function ExtendedBaleWrapper:onLoadStats()
     end
 end
 
-function ExtendedBaleWrapper:pickupWrapperBale(superFunc, ...)
-    superFunc(self, ...)
-    if self.isServer then
+function ExtendedBaleWrapper:pickupWrapperBale(superFunc, bale, baleType, ...)
+    superFunc(self, bale, baleType, ...)
+    if self.isServer and baleType ~= nil and bale.i3dFilename ~= baleType.wrapperBaleFilename then
         local spec = self:getAdvancedStatsSpecTable(ExtendedBaleWrapper.SPEC_TABLE_NAME)
         self:updateStat(spec.advancedStatistics["WrappedBales"], 1)
     end
