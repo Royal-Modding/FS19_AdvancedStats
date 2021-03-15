@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8" standalone="no" ?>
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
 <modDesc descVersion="${descVersion}">
 	<author>${author}</author>
 	<version>${version}</version>
@@ -219,7 +219,7 @@ Changelog 2.1.0.0:
 		</text>
 		<text name="ass_WoodHarvesterCutTrees">
 			<en>Cutted trees</en>
-			<fr>arbres coupés/fr>
+			<fr>arbres coupés</fr>
 			<de>Gepflanzte Bäume</de>
 			<pl>Ścięto drzew</pl>
 		</text>
@@ -357,7 +357,7 @@ Changelog 2.1.0.0:
 		</text>
 		<text name="ass_AdvancedWoodCrusherCrushedTrunks">
 			<en>Crushed trunks</en>
-			<fr>souches broyées en copeaux/fr>
+			<fr>souches broyées en copeaux</fr>
 			<de>Gehäckselte Stämme</de>
 			<pl>Zrąbano kłód</pl>
 		</text>
@@ -504,6 +504,30 @@ Changelog 2.1.0.0:
 			<fr>désherbés</fr>
 			<de>Gespritzt</de>
 			<pl>Opryskano herbicydami</pl>
+		</text>
+		<text name="ass_units_hectares">
+			<en>ha</en>
+			<fr>ha</fr>
+			<de>Hektar</de>
+		</text>
+		<text name="ass_units_acres">
+			<en>ac</en>
+		</text>
+		<text name="ass_units_kilometres">
+			<en>km</en>
+			<fr>km</fr>
+			<de>km</de>
+		</text>
+		<text name="ass_units_miles">
+			<en>mi</en>
+		</text>
+		<text name="ass_units_litres">
+			<en>l</en>
+			<fr>l</fr>
+			<de>Liter</de>
+		</text>
+		<text name="ass_units_gallons">
+			<en>gal</en>
 		</text>
 	</l10n>
 </modDesc>

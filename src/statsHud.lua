@@ -47,6 +47,27 @@ function StatsHud:new()
     hud:createRow(hud.rowContainer)
 
     hud.yOffsetVH = self:getNormalizedPosition(0, SpeedMeterDisplay.POSITION.DAMAGE_LEVEL_ICON[2])[2] + (self:getNormalizedPosition(0, SpeedMeterDisplay.SIZE.DAMAGE_LEVEL_ICON[2])[2] * 1.75)
+
+    hud.UNITS_CONVERSIONS = {}
+    hud.UNITS_CONVERSIONS[AdvancedStats.UNITS["HECTARE"]] = {}
+    hud.UNITS_CONVERSIONS[AdvancedStats.UNITS["HECTARE"]].useHectares = {factor = 1, valueFormat = "%.3f", unitText = g_i18n:getText("ass_units_hectares")} -- hectares
+    hud.UNITS_CONVERSIONS[AdvancedStats.UNITS["HECTARE"]].useAcre = {factor = 2.47105381, valueFormat = "%.3f", unitText = g_i18n:getText("ass_units_acres")} -- acres
+    hud.UNITS_CONVERSIONS[AdvancedStats.UNITS["HECTARE"]].current = nil
+    hud.UNITS_CONVERSIONS[AdvancedStats.UNITS["KILOMETRE"]] = {}
+    hud.UNITS_CONVERSIONS[AdvancedStats.UNITS["KILOMETRE"]].useKilometres = {factor = 1, valueFormat = "%.2f", unitText = g_i18n:getText("ass_units_kilometres")} -- kilometres
+    hud.UNITS_CONVERSIONS[AdvancedStats.UNITS["KILOMETRE"]].useMiles = {factor = 0.62137119, valueFormat = "%.2f", unitText = g_i18n:getText("ass_units_miles")} -- miles
+    hud.UNITS_CONVERSIONS[AdvancedStats.UNITS["KILOMETRE"]].current = nil
+    hud.UNITS_CONVERSIONS[AdvancedStats.UNITS["LITRE"]] = {}
+    hud.UNITS_CONVERSIONS[AdvancedStats.UNITS["LITRE"]].useLitres = {factor = 1, valueFormat = "%.1f", unitText = g_i18n:getText("ass_units_litres")} -- litres
+    hud.UNITS_CONVERSIONS[AdvancedStats.UNITS["LITRE"]].useGallons = {factor = 0.26417205, valueFormat = "%.1f", unitText = g_i18n:getText("ass_units_gallons")} -- gallons
+    hud.UNITS_CONVERSIONS[AdvancedStats.UNITS["LITRE"]].current = nil
+
+    g_messageCenter:subscribe(MessageType.SETTING_CHANGED.useAcre, self.SETTING_CHANGED_useAcre, hud)
+    g_messageCenter:subscribe(MessageType.SETTING_CHANGED.useMiles, self.SETTING_CHANGED_useMiles, hud)
+
+    hud:SETTING_CHANGED_useAcre(g_gameSettings:getValue(GameSettings.SETTING.USE_ACRE))
+    hud:SETTING_CHANGED_useMiles(g_gameSettings:getValue(GameSettings.SETTING.USE_MILES))
+
     return hud
 end
 
@@ -72,7 +93,7 @@ function StatsHud:setVehicleData(vehicles, showPartial)
                     value = stat.partial
                 end
                 if value > 0 and not stat.hide then
-                    table.insert(displayData, {title = stat.text, text = AdvancedStatsUtil.formatStatValueText(value, stat.unit)})
+                    table.insert(displayData, {title = stat.text, text = self:formatStatValueText(value, stat.unit)})
                 end
             end
         end
@@ -114,12 +135,15 @@ function StatsHud:createRow(parent)
     ---@type RoyalHud
     local row = RoyalHud:new("row", 0, 0, StatsHud.style.width - StatsHud.style.leftRightPadding, StatsHud.style.rowHeight, parent)
     row:setAlignment(RoyalHud.ALIGNS_VERTICAL_BOTTOM, RoyalHud.ALIGNS_HORIZONTAL_LEFT)
+    ---@type RoyalHudOverlay
     row.separator = RoyalHudOverlay:new("row_separator", 0, 0, StatsHud.style.width - StatsHud.style.leftRightPadding, 1, row)
     row.separator:setColor(StatsHud.style.separatorColor)
     row.separator:setAlignment(RoyalHud.ALIGNS_VERTICAL_MIDDLE, RoyalHud.ALIGNS_HORIZONTAL_LEFT)
+    ---@type RoyalHudText
     row.title = RoyalHudText:new("row_title", "Title", StatsHud.style.textSize, true, 0, 0, row)
     row.title:setAlignment(RoyalHud.ALIGNS_VERTICAL_BOTTOM, RoyalHud.ALIGNS_HORIZONTAL_LEFT)
     row.title:setColor(StatsHud.style.textDefaultColor)
+    ---@type RoyalHudText
     row.text = RoyalHudText:new("row_text", "Text", StatsHud.style.textSize, false, 1, 0, row)
     row.text:setAlignment(RoyalHud.ALIGNS_VERTICAL_BOTTOM, RoyalHud.ALIGNS_HORIZONTAL_RIGHT)
     row.text:setColor(StatsHud.style.textDefaultColor)
@@ -151,4 +175,36 @@ function StatsHud:resizeY(rowsNumber)
     self.panel:setPosition(0.5, 0.5)
     self.rowContainer:setSize(nil, neededY - StatsHud.style.topBottomPadding)
     self.rowContainer:setPosition(0.5, 0.5)
+end
+
+function StatsHud:formatStatValueText(value, unit)
+    local uc = self.UNITS_CONVERSIONS[unit]
+    if uc ~= nil and uc.current ~= nil then
+        return string.format(uc.current.valueFormat, value * uc.current.factor) .. string.format(" %s", uc.current.unitText)
+    else
+        return AdvancedStatsUtil.formatStatValueText(value, unit)
+    end
+end
+
+function StatsHud:SETTING_CHANGED_useAcre(value)
+    if value then
+        self.UNITS_CONVERSIONS[AdvancedStats.UNITS["HECTARE"]].current = self.UNITS_CONVERSIONS[AdvancedStats.UNITS["HECTARE"]].useAcre
+    else
+        self.UNITS_CONVERSIONS[AdvancedStats.UNITS["HECTARE"]].current = self.UNITS_CONVERSIONS[AdvancedStats.UNITS["HECTARE"]].useHectares
+    end
+end
+
+function StatsHud:SETTING_CHANGED_useMiles(value)
+    if value then
+        self.UNITS_CONVERSIONS[AdvancedStats.UNITS["KILOMETRE"]].current = self.UNITS_CONVERSIONS[AdvancedStats.UNITS["KILOMETRE"]].useMiles
+        self.UNITS_CONVERSIONS[AdvancedStats.UNITS["LITRE"]].current = self.UNITS_CONVERSIONS[AdvancedStats.UNITS["LITRE"]].useGallons
+    else
+        self.UNITS_CONVERSIONS[AdvancedStats.UNITS["KILOMETRE"]].current = self.UNITS_CONVERSIONS[AdvancedStats.UNITS["KILOMETRE"]].useKilometres
+        self.UNITS_CONVERSIONS[AdvancedStats.UNITS["LITRE"]].current = self.UNITS_CONVERSIONS[AdvancedStats.UNITS["LITRE"]].useLitres
+    end
+end
+
+function StatsHud:delete(doNotApplyToChilds)
+    StatsHud:superClass().delete(self, doNotApplyToChilds)
+    g_messageCenter:unsubscribeAll(self)
 end
