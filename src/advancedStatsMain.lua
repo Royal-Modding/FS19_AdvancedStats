@@ -98,4 +98,7 @@ function AdvancedStatsMain:onValidateVehicleTypes(vehicleTypeManager, addSpecial
     addSpecializationBySpecialization("extendedWoodHarvester", "woodHarvester")
 
     addSpecializationByVehicleType("extendedShovel", "shovel")
+
+    addSpecializationByVehicleType("extendedFillTriggerVehicle", "fuelTrailer")
+    addSpecializationByVehicleType("extendedFillTriggerVehicle", "manureTrailer")
 end

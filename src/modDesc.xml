@@ -97,6 +97,7 @@ Changelog 2.1.0.0:
 		<specialization name="extendedWindrower" className="ExtendedWindrower" filename="extendedSpecializations/Windrower.lua" />
 		<specialization name="extendedWoodCrusher" className="ExtendedWoodCrusher" filename="extendedSpecializations/WoodCrusher.lua" />
 		<specialization name="extendedWoodHarvester" className="ExtendedWoodHarvester" filename="extendedSpecializations/WoodHarvester.lua" />
+		<specialization name="extendedFillTriggerVehicle" className="ExtendedFillTriggerVehicle" filename="extendedSpecializations/FillTriggerVehicle.lua" />
 	</specializations>
 
 	<extraSourceFiles>
@@ -568,6 +569,13 @@ Changelog 2.1.0.0:
 			<de>Gespritzt</de>
 			<pl>Opryskano herbicydami</pl>
 			<ru>Обработано гербицидами</ru>
+		</text>
+		<text name="ass_FillTriggerVehicleLoadedLiters">
+			<en>Loaded</en>
+			<fr>chargés</fr>
+			<de>Geladen</de>
+			<pl>Załadowano</pl>
+			<ru>Загружено</ru>
 		</text>
 		<text name="ass_units_hectares">
 			<en>ha</en>
