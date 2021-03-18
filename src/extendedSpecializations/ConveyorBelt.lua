@@ -29,7 +29,7 @@ function ExtendedConveyorBelt:onLoadStats()
             self:registerStats(
             spec.advancedStatisticsPrefix,
             {
-                {"MovedLiters", AdvancedStats.UNITS.LITRE}
+                {"MovedLiters", AdvancedStats.UNITS.VOLUME}
             }
         )
     end

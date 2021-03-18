@@ -33,8 +33,8 @@ function ExtendedTedder:onLoadStats()
             self:registerStats(
             spec.advancedStatisticsPrefix,
             {
-                {"WorkedLitres", AdvancedStats.UNITS.LITRE, true},
-                {"WorkedHectares", AdvancedStats.UNITS.HECTARE, true}
+                {"WorkedLitres", AdvancedStats.UNITS.VOLUME, true},
+                {"WorkedHectares", AdvancedStats.UNITS.AREA, true}
             }
         )
     end

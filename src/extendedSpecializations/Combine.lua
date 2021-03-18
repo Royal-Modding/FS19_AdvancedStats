@@ -38,9 +38,9 @@ function ExtendedCombine:onLoadStats()
             self:registerStats(
             spec.advancedStatisticsPrefix,
             {
-                {"ThreshedLiters", AdvancedStats.UNITS.LITRE},
-                {"SwathLiters", AdvancedStats.UNITS.LITRE},
-                {"WorkedHectares", AdvancedStats.UNITS.HECTARE}
+                {"ThreshedLiters", AdvancedStats.UNITS.VOLUME_GRAINS},
+                {"SwathLiters", AdvancedStats.UNITS.VOLUME},
+                {"WorkedHectares", AdvancedStats.UNITS.AREA}
             }
         )
     end

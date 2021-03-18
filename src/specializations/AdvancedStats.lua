@@ -21,9 +21,11 @@ AdvancedStats = {}
 AdvancedStats.MOD_NAME = g_currentModName
 AdvancedStats.UNITS = {}
 AdvancedStats.UNITS["ND"] = 0
-AdvancedStats.UNITS["HECTARE"] = 1
-AdvancedStats.UNITS["LITRE"] = 2
-AdvancedStats.UNITS["KILOMETRE"] = 3
+AdvancedStats.UNITS["AREA"] = 1
+AdvancedStats.UNITS["VOLUME"] = 2
+AdvancedStats.UNITS["LENGTH"] = 3
+AdvancedStats.UNITS["VOLUME_LIQUIDS"] = 4
+AdvancedStats.UNITS["VOLUME_GRAINS"] = 5
 
 function AdvancedStats.initSpecialization()
     AdvancedStats.hud = StatsHud:new()

@@ -601,5 +601,11 @@ Changelog 2.1.0.0:
 		<text name="ass_units_gallons">
 			<en>gal</en>
 		</text>
+		<text name="ass_units_bushels">
+			<en>bsh</en>
+		</text>
+		<text name="ass_units_tons">
+			<en>t</en>
+		</text>
 	</l10n>
 </modDesc>

@@ -29,7 +29,7 @@ function ExtendedFillTriggerVehicle:onLoadStats()
             self:registerStats(
             spec.advancedStatisticsPrefix,
             {
-                {"LoadedLiters", AdvancedStats.UNITS.LITRE}
+                {"LoadedLiters", AdvancedStats.UNITS.VOLUME_LIQUIDS}
             }
         )
     end

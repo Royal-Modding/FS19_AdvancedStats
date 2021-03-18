@@ -30,8 +30,8 @@ function ExtendedPlow:onLoadStats()
             self:registerStats(
             spec.advancedStatisticsPrefix,
             {
-                {"WorkedHectares", AdvancedStats.UNITS.HECTARE},
-                {"CreatedHectares", AdvancedStats.UNITS.HECTARE}
+                {"WorkedHectares", AdvancedStats.UNITS.AREA},
+                {"CreatedHectares", AdvancedStats.UNITS.AREA}
             }
         )
     end

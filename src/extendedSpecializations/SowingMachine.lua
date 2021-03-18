@@ -31,8 +31,8 @@ function ExtendedSowingMachine:onLoadStats()
             self:registerStats(
             spec.advancedStatisticsPrefix,
             {
-                {"WorkedHectares", AdvancedStats.UNITS.HECTARE},
-                {"UsedSeeds", AdvancedStats.UNITS.LITRE}
+                {"WorkedHectares", AdvancedStats.UNITS.AREA},
+                {"UsedSeeds", AdvancedStats.UNITS.VOLUME_GRAINS}
             }
         )
     end

@@ -34,7 +34,7 @@ function ExtendedBaler:onLoadStats()
             spec.advancedStatisticsPrefix,
             {
                 {"BaleCount", AdvancedStats.UNITS.ND},
-                {"LoadedLiters", AdvancedStats.UNITS.LITRE}
+                {"LoadedLiters", AdvancedStats.UNITS.VOLUME}
             }
         )
     end

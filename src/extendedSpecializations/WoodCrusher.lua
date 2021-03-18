@@ -32,7 +32,7 @@ function ExtendedWoodCrusher:onLoadStats()
             self:registerStats(
             spec.advancedStatisticsPrefix,
             {
-                {"CrushedLitres", AdvancedStats.UNITS.LITRE},
+                {"CrushedLitres", AdvancedStats.UNITS.VOLUME},
                 {"CrushedTrunks", AdvancedStats.UNITS.ND}
             }
         )

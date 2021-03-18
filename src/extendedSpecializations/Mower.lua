@@ -30,8 +30,8 @@ function ExtendedMower:onLoadStats()
             self:registerStats(
             spec.advancedStatisticsPrefix,
             {
-                {"WorkedLitres", AdvancedStats.UNITS.LITRE, true},
-                {"WorkedHectares", AdvancedStats.UNITS.HECTARE}
+                {"WorkedLitres", AdvancedStats.UNITS.VOLUME, true},
+                {"WorkedHectares", AdvancedStats.UNITS.AREA}
             }
         )
     end

@@ -54,22 +54,22 @@ function ExtendedSprayer:onLoadStats()
             self:registerStats(
             spec.advancedStatisticsPrefix,
             {
-                {"WorkedHectares", AdvancedStats.UNITS.HECTARE, true},
-                {"UsedLitres", AdvancedStats.UNITS.LITRE, true},
-                {"UsedHerbicide", AdvancedStats.UNITS.LITRE},
-                {"HerbicideHectares", AdvancedStats.UNITS.HECTARE},
-                {"UsedFertilizer", AdvancedStats.UNITS.LITRE},
-                {"FertilizerHectares", AdvancedStats.UNITS.HECTARE},
-                {"UsedLiquidFertilizer", AdvancedStats.UNITS.LITRE},
-                {"LiquidFertilizerHectares", AdvancedStats.UNITS.HECTARE},
-                {"UsedLime", AdvancedStats.UNITS.LITRE},
-                {"LimeHectares", AdvancedStats.UNITS.HECTARE},
-                {"UsedManure", AdvancedStats.UNITS.LITRE},
-                {"ManureHectares", AdvancedStats.UNITS.HECTARE},
-                {"UsedLiquidManure", AdvancedStats.UNITS.LITRE},
-                {"LiquidManureHectares", AdvancedStats.UNITS.HECTARE},
-                {"UsedDigestate", AdvancedStats.UNITS.LITRE},
-                {"DigestateHectares", AdvancedStats.UNITS.HECTARE}
+                {"WorkedHectares", AdvancedStats.UNITS.AREA, true},
+                {"UsedLitres", AdvancedStats.UNITS.VOLUME, true},
+                {"UsedHerbicide", AdvancedStats.UNITS.VOLUME_LIQUIDS},
+                {"HerbicideHectares", AdvancedStats.UNITS.AREA},
+                {"UsedFertilizer", AdvancedStats.UNITS.VOLUME},
+                {"FertilizerHectares", AdvancedStats.UNITS.AREA},
+                {"UsedLiquidFertilizer", AdvancedStats.UNITS.VOLUME_LIQUIDS},
+                {"LiquidFertilizerHectares", AdvancedStats.UNITS.AREA},
+                {"UsedLime", AdvancedStats.UNITS.VOLUME},
+                {"LimeHectares", AdvancedStats.UNITS.AREA},
+                {"UsedManure", AdvancedStats.UNITS.VOLUME},
+                {"ManureHectares", AdvancedStats.UNITS.AREA},
+                {"UsedLiquidManure", AdvancedStats.UNITS.VOLUME_LIQUIDS},
+                {"LiquidManureHectares", AdvancedStats.UNITS.AREA},
+                {"UsedDigestate", AdvancedStats.UNITS.VOLUME_LIQUIDS},
+                {"DigestateHectares", AdvancedStats.UNITS.AREA}
             }
         )
     end

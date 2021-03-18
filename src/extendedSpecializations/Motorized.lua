@@ -32,9 +32,9 @@ function ExtendedMotorized:onLoadStats()
             self:registerStats(
             spec.advancedStatisticsPrefix,
             {
-                {"UsedFuel", AdvancedStats.UNITS.LITRE},
-                {"UsedDef", AdvancedStats.UNITS.LITRE},
-                {"TraveledDistance", AdvancedStats.UNITS.KILOMETRE}
+                {"UsedFuel", AdvancedStats.UNITS.VOLUME_LIQUIDS},
+                {"UsedDef", AdvancedStats.UNITS.VOLUME_LIQUIDS},
+                {"TraveledDistance", AdvancedStats.UNITS.LENGTH}
             }
         )
     end

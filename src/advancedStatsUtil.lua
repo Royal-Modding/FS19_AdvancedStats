@@ -40,13 +40,13 @@ function AdvancedStatsUtil.getFullVehicleName(vehicle)
 end
 
 function AdvancedStatsUtil.formatStatValueText(value, unit)
-    if unit == AdvancedStats.UNITS.HECTARE then
+    if unit == AdvancedStats.UNITS.AREA then
         return string.format("%.3f%s", value, AdvancedStatsUtil.getUnitText(unit))
     end
-    if unit == AdvancedStats.UNITS.KILOMETRE then
+    if unit == AdvancedStats.UNITS.LENGTH then
         return string.format("%.2f%s", value, AdvancedStatsUtil.getUnitText(unit))
     end
-    if unit == AdvancedStats.UNITS.LITRE then
+    if unit == AdvancedStats.UNITS.VOLUME then
         return string.format("%.1f%s", value, AdvancedStatsUtil.getUnitText(unit))
     end
     return string.format("%s%s", value, AdvancedStatsUtil.getUnitText(unit))

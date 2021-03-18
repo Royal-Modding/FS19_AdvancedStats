@@ -30,7 +30,7 @@ function ExtendedCutter:onLoadStats()
             self:registerStats(
             spec.advancedStatisticsPrefix,
             {
-                {"WorkedHectares", AdvancedStats.UNITS.HECTARE}
+                {"WorkedHectares", AdvancedStats.UNITS.AREA}
             }
         )
     end

@@ -49,18 +49,30 @@ function StatsHud:new()
     hud.yOffsetVH = self:getNormalizedPosition(0, SpeedMeterDisplay.POSITION.DAMAGE_LEVEL_ICON[2])[2] + (self:getNormalizedPosition(0, SpeedMeterDisplay.SIZE.DAMAGE_LEVEL_ICON[2])[2] * 1.75)
 
     hud.UNITS_CONVERSIONS = {}
-    hud.UNITS_CONVERSIONS[AdvancedStats.UNITS["HECTARE"]] = {}
-    hud.UNITS_CONVERSIONS[AdvancedStats.UNITS["HECTARE"]].useHectares = {factor = 1, valueFormat = "%.3f", unitText = g_i18n:getText("ass_units_hectares")} -- hectares
-    hud.UNITS_CONVERSIONS[AdvancedStats.UNITS["HECTARE"]].useAcre = {factor = 2.47105381, valueFormat = "%.3f", unitText = g_i18n:getText("ass_units_acres")} -- acres
-    hud.UNITS_CONVERSIONS[AdvancedStats.UNITS["HECTARE"]].current = nil
-    hud.UNITS_CONVERSIONS[AdvancedStats.UNITS["KILOMETRE"]] = {}
-    hud.UNITS_CONVERSIONS[AdvancedStats.UNITS["KILOMETRE"]].useKilometres = {factor = 1, valueFormat = "%.2f", unitText = g_i18n:getText("ass_units_kilometres")} -- kilometres
-    hud.UNITS_CONVERSIONS[AdvancedStats.UNITS["KILOMETRE"]].useMiles = {factor = 0.62137119, valueFormat = "%.2f", unitText = g_i18n:getText("ass_units_miles")} -- miles
-    hud.UNITS_CONVERSIONS[AdvancedStats.UNITS["KILOMETRE"]].current = nil
-    hud.UNITS_CONVERSIONS[AdvancedStats.UNITS["LITRE"]] = {}
-    hud.UNITS_CONVERSIONS[AdvancedStats.UNITS["LITRE"]].useLitres = {factor = 1, valueFormat = "%.1f", unitText = g_i18n:getText("ass_units_litres")} -- litres
-    hud.UNITS_CONVERSIONS[AdvancedStats.UNITS["LITRE"]].useGallons = {factor = 0.26417205, valueFormat = "%.1f", unitText = g_i18n:getText("ass_units_gallons")} -- gallons
-    hud.UNITS_CONVERSIONS[AdvancedStats.UNITS["LITRE"]].current = nil
+    hud.UNITS_CONVERSIONS[AdvancedStats.UNITS["AREA"]] = {}
+    hud.UNITS_CONVERSIONS[AdvancedStats.UNITS["AREA"]].useHectares = {factor = 1, valueFormat = "%.3f", unitText = g_i18n:getText("ass_units_hectares")} -- hectares
+    hud.UNITS_CONVERSIONS[AdvancedStats.UNITS["AREA"]].useAcre = {factor = 2.47105381, valueFormat = "%.3f", unitText = g_i18n:getText("ass_units_acres")} -- acres
+    hud.UNITS_CONVERSIONS[AdvancedStats.UNITS["AREA"]].current = nil
+
+    hud.UNITS_CONVERSIONS[AdvancedStats.UNITS["LENGTH"]] = {}
+    hud.UNITS_CONVERSIONS[AdvancedStats.UNITS["LENGTH"]].useKilometres = {factor = 1, valueFormat = "%.2f", unitText = g_i18n:getText("ass_units_kilometres")} -- kilometres
+    hud.UNITS_CONVERSIONS[AdvancedStats.UNITS["LENGTH"]].useMiles = {factor = 0.62137119, valueFormat = "%.2f", unitText = g_i18n:getText("ass_units_miles")} -- miles
+    hud.UNITS_CONVERSIONS[AdvancedStats.UNITS["LENGTH"]].current = nil
+
+    hud.UNITS_CONVERSIONS[AdvancedStats.UNITS["VOLUME"]] = {}
+    hud.UNITS_CONVERSIONS[AdvancedStats.UNITS["VOLUME"]].useLitres = {factor = 1, valueFormat = "%.1f", unitText = g_i18n:getText("ass_units_litres")} -- litres
+    hud.UNITS_CONVERSIONS[AdvancedStats.UNITS["VOLUME"]].useTons = {factor = 0.00110231, valueFormat = "%.3f", unitText = g_i18n:getText("ass_units_tons")} -- tons
+    hud.UNITS_CONVERSIONS[AdvancedStats.UNITS["VOLUME"]].current = nil
+
+    hud.UNITS_CONVERSIONS[AdvancedStats.UNITS["VOLUME_LIQUIDS"]] = {}
+    hud.UNITS_CONVERSIONS[AdvancedStats.UNITS["VOLUME_LIQUIDS"]].useLitres = {factor = 1, valueFormat = "%.1f", unitText = g_i18n:getText("ass_units_litres")} -- litres
+    hud.UNITS_CONVERSIONS[AdvancedStats.UNITS["VOLUME_LIQUIDS"]].useGallons = {factor = 0.26417205, valueFormat = "%.1f", unitText = g_i18n:getText("ass_units_gallons")} -- gallons
+    hud.UNITS_CONVERSIONS[AdvancedStats.UNITS["VOLUME_LIQUIDS"]].current = nil
+
+    hud.UNITS_CONVERSIONS[AdvancedStats.UNITS["VOLUME_GRAINS"]] = {}
+    hud.UNITS_CONVERSIONS[AdvancedStats.UNITS["VOLUME_GRAINS"]].useLitres = {factor = 1, valueFormat = "%.1f", unitText = g_i18n:getText("ass_units_litres")} -- litres
+    hud.UNITS_CONVERSIONS[AdvancedStats.UNITS["VOLUME_GRAINS"]].useBushels = {factor = 0.21996915, valueFormat = "%.1f", unitText = g_i18n:getText("ass_units_bushels")} -- bushels
+    hud.UNITS_CONVERSIONS[AdvancedStats.UNITS["VOLUME_GRAINS"]].current = nil
 
     g_messageCenter:subscribe(MessageType.SETTING_CHANGED.useAcre, self.SETTING_CHANGED_useAcre, hud)
     g_messageCenter:subscribe(MessageType.SETTING_CHANGED.useMiles, self.SETTING_CHANGED_useMiles, hud)
@@ -188,19 +200,23 @@ end
 
 function StatsHud:SETTING_CHANGED_useAcre(value)
     if value then
-        self.UNITS_CONVERSIONS[AdvancedStats.UNITS["HECTARE"]].current = self.UNITS_CONVERSIONS[AdvancedStats.UNITS["HECTARE"]].useAcre
+        self.UNITS_CONVERSIONS[AdvancedStats.UNITS["AREA"]].current = self.UNITS_CONVERSIONS[AdvancedStats.UNITS["AREA"]].useAcre
     else
-        self.UNITS_CONVERSIONS[AdvancedStats.UNITS["HECTARE"]].current = self.UNITS_CONVERSIONS[AdvancedStats.UNITS["HECTARE"]].useHectares
+        self.UNITS_CONVERSIONS[AdvancedStats.UNITS["AREA"]].current = self.UNITS_CONVERSIONS[AdvancedStats.UNITS["AREA"]].useHectares
     end
 end
 
 function StatsHud:SETTING_CHANGED_useMiles(value)
     if value then
-        self.UNITS_CONVERSIONS[AdvancedStats.UNITS["KILOMETRE"]].current = self.UNITS_CONVERSIONS[AdvancedStats.UNITS["KILOMETRE"]].useMiles
-        self.UNITS_CONVERSIONS[AdvancedStats.UNITS["LITRE"]].current = self.UNITS_CONVERSIONS[AdvancedStats.UNITS["LITRE"]].useGallons
+        self.UNITS_CONVERSIONS[AdvancedStats.UNITS["LENGTH"]].current = self.UNITS_CONVERSIONS[AdvancedStats.UNITS["LENGTH"]].useMiles
+        self.UNITS_CONVERSIONS[AdvancedStats.UNITS["VOLUME"]].current = self.UNITS_CONVERSIONS[AdvancedStats.UNITS["VOLUME"]].useTons
+        self.UNITS_CONVERSIONS[AdvancedStats.UNITS["VOLUME_LIQUIDS"]].current = self.UNITS_CONVERSIONS[AdvancedStats.UNITS["VOLUME_LIQUIDS"]].useGallons
+        self.UNITS_CONVERSIONS[AdvancedStats.UNITS["VOLUME_GRAINS"]].current = self.UNITS_CONVERSIONS[AdvancedStats.UNITS["VOLUME_GRAINS"]].useBushels
     else
-        self.UNITS_CONVERSIONS[AdvancedStats.UNITS["KILOMETRE"]].current = self.UNITS_CONVERSIONS[AdvancedStats.UNITS["KILOMETRE"]].useKilometres
-        self.UNITS_CONVERSIONS[AdvancedStats.UNITS["LITRE"]].current = self.UNITS_CONVERSIONS[AdvancedStats.UNITS["LITRE"]].useLitres
+        self.UNITS_CONVERSIONS[AdvancedStats.UNITS["LENGTH"]].current = self.UNITS_CONVERSIONS[AdvancedStats.UNITS["LENGTH"]].useKilometres
+        self.UNITS_CONVERSIONS[AdvancedStats.UNITS["VOLUME"]].current = self.UNITS_CONVERSIONS[AdvancedStats.UNITS["VOLUME"]].useLitres
+        self.UNITS_CONVERSIONS[AdvancedStats.UNITS["VOLUME_LIQUIDS"]].current = self.UNITS_CONVERSIONS[AdvancedStats.UNITS["VOLUME_LIQUIDS"]].useLitres
+        self.UNITS_CONVERSIONS[AdvancedStats.UNITS["VOLUME_GRAINS"]].current = self.UNITS_CONVERSIONS[AdvancedStats.UNITS["VOLUME_GRAINS"]].useLitres
     end
 end
 

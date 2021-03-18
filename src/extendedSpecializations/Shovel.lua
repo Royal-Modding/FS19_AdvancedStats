@@ -29,7 +29,7 @@ function ExtendedShovel:onLoadStats()
             self:registerStats(
             spec.advancedStatisticsPrefix,
             {
-                {"LoadedLiters", AdvancedStats.UNITS.LITRE}
+                {"LoadedLiters", AdvancedStats.UNITS.VOLUME}
             }
         )
     end

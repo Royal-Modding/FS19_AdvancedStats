@@ -32,7 +32,7 @@ function ExtendedRoller:onLoadStats()
             self:registerStats(
             spec.advancedStatisticsPrefix,
             {
-                {"RolledHectares", AdvancedStats.UNITS.HECTARE}
+                {"RolledHectares", AdvancedStats.UNITS.AREA}
             }
         )
     end
