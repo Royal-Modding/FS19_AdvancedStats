@@ -178,18 +178,21 @@ Changelog 2.1.0.0:
 			<en>ha</en>
 			<fr>ha</fr>
 			<de>Hektar</de>
+			<pl>ha</pl>
 			<ru>га</ru>
 		</text>
 		<text name="ass_Units_2">
 			<en>l</en>
 			<fr>l</fr>
 			<de>Liter</de>
+			<pl>l</pl>
 			<ru>л</ru>
 		</text>
 		<text name="ass_Units_3">
 			<en>km</en>
 			<fr>km</fr>
 			<de>km</de>
+			<pl>km</pl>
 			<ru>км</ru>
 		</text>
 		<text name="ass_CultivatorWorkedHectares">
@@ -581,31 +584,39 @@ Changelog 2.1.0.0:
 			<en>ha</en>
 			<fr>ha</fr>
 			<de>Hektar</de>
+			<pl>ha</pl>
 		</text>
 		<text name="ass_units_acres">
 			<en>ac</en>
+			<pl>akr</pl>
 		</text>
 		<text name="ass_units_kilometres">
 			<en>km</en>
 			<fr>km</fr>
 			<de>km</de>
+			<pl>km</pl>
 		</text>
 		<text name="ass_units_miles">
 			<en>mi</en>
+			<pl>mil</pl>
 		</text>
 		<text name="ass_units_litres">
 			<en>l</en>
 			<fr>l</fr>
 			<de>Liter</de>
+			<pl>l</pl>
 		</text>
 		<text name="ass_units_gallons">
 			<en>gal</en>
+			<pl>gal</pl>
 		</text>
 		<text name="ass_units_bushels">
 			<en>bsh</en>
+			<pl>bu</pl>
 		</text>
 		<text name="ass_units_tons">
 			<en>t</en>
+			<pl>t</pl>
 		</text>
 	</l10n>
 </modDesc>
