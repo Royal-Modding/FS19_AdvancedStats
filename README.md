@@ -1,6 +1,7 @@
 # FS19_AdvancedStats
 
-This mod will collect a bunch of individual statistics for your vehicles and tools, you can show them by pressing `LALT + T` when you are on your seat, press it again to show the partial counter (it can be reset by pressing `LCTRL + T`).
+This mod will collect a bunch of individual statistics for your vehicles and tools,  
+you can show them by pressing `LALT + T` when you are on your seat, press it again to show the partial counter (it can be reset by pressing `LCTRL + T`).
 
 Some examples of collected statistics:
 - Travelled distance
