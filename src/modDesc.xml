@@ -18,11 +18,12 @@ Some examples of collected statistics:
 - Used fertilizers, herbicide and lime
 - Many more
 
-Changelog 2.1.0.0:
-- Added partial statistics (they are resettable)
-- Optimized multiplayer synchronization
-- Added asExportAllStats and asExportOwnStats commands
-- Fixed hud overlap with AutoDrive
+Changelog ${version}:
+- Added support for American measure units
+- Added stats for manure trailers
+- Added stats for fuel trailers
+- Added new translations
+- Fixed balers statistics (wrapped bales count and baled volume for balers with pre-chamber)
 - Fixed some minor bugs
 ]]>
 		</en>
@@ -38,12 +39,13 @@ Einige Beispiele für gesammelte Statistiken:
 - Verwendete Düngemittel, Herbizide und Kalk
 - Viele mehr
 
-Changelog 2.1.0.0:
-- Teilstatistiken hinzugefügt (sie sind rücksetzbar)
-- Optimierte Multiplayer-Synchronisation
-- Befehle asExportAllStats und asExportOwnStats hinzugefügt
-- Hud-Überlappung mit AutoDrive behoben
-- Einige kleinere Bugs behoben
+Changelog ${version}:
+- Added support for American measure units
+- Added stats for manure trailers
+- Added stats for fuel trailers
+- Added new translations
+- Fixed balers statistics (wrapped bales count and baled volume for balers with pre-chamber)
+- Fixed some minor bugs
 ]]>
 		</de>
 		<fr>
@@ -58,12 +60,13 @@ Quelques exemples de statistiques recueillies :
 - Engrais, herbicide et chaux utilisés
 - Beaucoup plus
 
-Changelog 2.1.0.0:
-- Ajout de statistiques partielles (elles sont réinitialisables)
-- Synchronisation multijoueur optimisée
-- Ajout des commandes asExportAllStats et asExportOwnStats
-- Correction du chevauchement du hud avec AutoDrive
-- Correction de quelques bogues mineurs
+Changelog ${version}:
+- Added support for American measure units
+- Added stats for manure trailers
+- Added stats for fuel trailers
+- Added new translations
+- Fixed balers statistics (wrapped bales count and baled volume for balers with pre-chamber)
+- Fixed some minor bugs
 ]]>
 		</fr>
 	</description>
